@@ -24,7 +24,6 @@ struct LoginResponse : Decodable {
         message = try values.decodeIfPresent(String.self, forKey: .message)
         data = try values.decodeIfPresent(LoginData.self, forKey: .data)
     }
-
 }
 
 struct LoginData : Codable {

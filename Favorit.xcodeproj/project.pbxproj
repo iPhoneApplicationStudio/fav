@@ -7,9 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EE3D97452B158DB500ADD849 /* ApplicationAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3D97442B158DB500ADD849 /* ApplicationAppearance.swift */; };
+		EE3D97472B15902800ADD849 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EE3D97462B15902800ADD849 /* Colors.xcassets */; };
+		EE3D97492B15A8B900ADD849 /* FollowingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3D97482B15A8B900ADD849 /* FollowingViewController.swift */; };
+		EE3D974B2B15A9E100ADD849 /* FollowingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3D974A2B15A9E100ADD849 /* FollowingViewModel.swift */; };
+		EE3D974E2B15B4C200ADD849 /* Follower.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3D974D2B15B4C200ADD849 /* Follower.swift */; };
+		EE3D97502B15B57100ADD849 /* UserProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3D974F2B15B57100ADD849 /* UserProtocol.swift */; };
+		EE3D97532B15B74800ADD849 /* FollowerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3D97522B15B74800ADD849 /* FollowerCell.swift */; };
+		EE3D97562B15B93400ADD849 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = EE3D97552B15B93400ADD849 /* Kingfisher */; };
+		EE3D97582B15DAF900ADD849 /* FloatingAddButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3D97572B15DAF900ADD849 /* FloatingAddButton.swift */; };
+		EE3D975B2B15DB9900ADD849 /* FindUsersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3D975A2B15DB9900ADD849 /* FindUsersViewController.swift */; };
+		EE3D97612B15DBF300ADD849 /* FindUsersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3D97602B15DBF300ADD849 /* FindUsersViewModel.swift */; };
+		EE3D97632B15DC5600ADD849 /* Following.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3D97622B15DC5600ADD849 /* Following.swift */; };
+		EE3D97652B15DF4700ADD849 /* InviteFriendsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3D97642B15DF4700ADD849 /* InviteFriendsCell.swift */; };
 		EE44157F2B09225F001515D6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE44157E2B09225F001515D6 /* AppDelegate.swift */; };
 		EE4415812B09225F001515D6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE4415802B09225F001515D6 /* SceneDelegate.swift */; };
-		EE4415832B09225F001515D6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE4415822B09225F001515D6 /* ViewController.swift */; };
 		EE4415862B09225F001515D6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE4415842B09225F001515D6 /* Main.storyboard */; };
 		EE4415882B092260001515D6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EE4415872B092260001515D6 /* Assets.xcassets */; };
 		EE44158B2B092260001515D6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE4415892B092260001515D6 /* LaunchScreen.storyboard */; };
@@ -23,7 +35,6 @@
 		EEF8B0FA2B11F23400EE75CB /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF8B0F92B11F23400EE75CB /* LoginViewModel.swift */; };
 		EEF8B0FC2B11F24600EE75CB /* SignupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF8B0FB2B11F24600EE75CB /* SignupViewModel.swift */; };
 		EEF8B0FE2B11F25300EE75CB /* ResetPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF8B0FD2B11F25300EE75CB /* ResetPasswordViewModel.swift */; };
-		EEF8B1012B121CF800EE75CB /* LoginRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF8B1002B121CF800EE75CB /* LoginRequest.swift */; };
 		EEF8B1032B121D2E00EE75CB /* LoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF8B1022B121D2E00EE75CB /* LoginResponse.swift */; };
 		EEF8B1082B1222D800EE75CB /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF8B1072B1222D800EE75CB /* String+Extension.swift */; };
 		EEF8B10A2B1224CB00EE75CB /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF8B1092B1224CB00EE75CB /* UIViewController+Extension.swift */; };
@@ -37,10 +48,21 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		EE3D97442B158DB500ADD849 /* ApplicationAppearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationAppearance.swift; sourceTree = "<group>"; };
+		EE3D97462B15902800ADD849 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
+		EE3D97482B15A8B900ADD849 /* FollowingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FollowingViewController.swift; sourceTree = "<group>"; };
+		EE3D974A2B15A9E100ADD849 /* FollowingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowingViewModel.swift; sourceTree = "<group>"; };
+		EE3D974D2B15B4C200ADD849 /* Follower.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Follower.swift; sourceTree = "<group>"; };
+		EE3D974F2B15B57100ADD849 /* UserProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProtocol.swift; sourceTree = "<group>"; };
+		EE3D97522B15B74800ADD849 /* FollowerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FollowerCell.swift; sourceTree = "<group>"; };
+		EE3D97572B15DAF900ADD849 /* FloatingAddButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatingAddButton.swift; sourceTree = "<group>"; };
+		EE3D975A2B15DB9900ADD849 /* FindUsersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FindUsersViewController.swift; sourceTree = "<group>"; };
+		EE3D97602B15DBF300ADD849 /* FindUsersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindUsersViewModel.swift; sourceTree = "<group>"; };
+		EE3D97622B15DC5600ADD849 /* Following.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Following.swift; sourceTree = "<group>"; };
+		EE3D97642B15DF4700ADD849 /* InviteFriendsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InviteFriendsCell.swift; sourceTree = "<group>"; };
 		EE44157B2B09225F001515D6 /* Favorit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Favorit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE44157E2B09225F001515D6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EE4415802B09225F001515D6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		EE4415822B09225F001515D6 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		EE4415852B09225F001515D6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		EE4415872B092260001515D6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EE44158A2B092260001515D6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -52,7 +74,6 @@
 		EEF8B0F92B11F23400EE75CB /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		EEF8B0FB2B11F24600EE75CB /* SignupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewModel.swift; sourceTree = "<group>"; };
 		EEF8B0FD2B11F25300EE75CB /* ResetPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewModel.swift; sourceTree = "<group>"; };
-		EEF8B1002B121CF800EE75CB /* LoginRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRequest.swift; sourceTree = "<group>"; };
 		EEF8B1022B121D2E00EE75CB /* LoginResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponse.swift; sourceTree = "<group>"; };
 		EEF8B1072B1222D800EE75CB /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		EEF8B1092B1224CB00EE75CB /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
@@ -73,17 +94,93 @@
 				EEF8B10F2B12301200EE75CB /* IQKeyboardManagerSwift in Frameworks */,
 				EE44159A2B0924E7001515D6 /* NVActivityIndicatorView in Frameworks */,
 				EE4415942B0922D5001515D6 /* Alamofire in Frameworks */,
+				EE3D97562B15B93400ADD849 /* Kingfisher in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3B8F931CF57C892EC6AA8BA6 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		EE3D974C2B15B46F00ADD849 /* Follower */ = {
+			isa = PBXGroup;
+			children = (
+				EE3D974F2B15B57100ADD849 /* UserProtocol.swift */,
+				EE3D974D2B15B4C200ADD849 /* Follower.swift */,
+				EE3D97622B15DC5600ADD849 /* Following.swift */,
+			);
+			path = Follower;
+			sourceTree = "<group>";
+		};
+		EE3D97512B15B73D00ADD849 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				EE3D97522B15B74800ADD849 /* FollowerCell.swift */,
+				EE3D97642B15DF4700ADD849 /* InviteFriendsCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		EE3D97592B15DB0000ADD849 /* Storyboard */ = {
+			isa = PBXGroup;
+			children = (
+				EE44159F2B092557001515D6 /* Login.storyboard */,
+				EE4415842B09225F001515D6 /* Main.storyboard */,
+				EE4415892B092260001515D6 /* LaunchScreen.storyboard */,
+			);
+			path = Storyboard;
+			sourceTree = "<group>";
+		};
+		EE3D975C2B15DBB900ADD849 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				EEF8B0F92B11F23400EE75CB /* LoginViewModel.swift */,
+				EEF8B0FB2B11F24600EE75CB /* SignupViewModel.swift */,
+				EEF8B0FD2B11F25300EE75CB /* ResetPasswordViewModel.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		EE3D975D2B15DBC800ADD849 /* Following */ = {
+			isa = PBXGroup;
+			children = (
+				EE3D974A2B15A9E100ADD849 /* FollowingViewModel.swift */,
+				EE3D97602B15DBF300ADD849 /* FindUsersViewModel.swift */,
+			);
+			path = Following;
+			sourceTree = "<group>";
+		};
+		EE3D975E2B15DBD500ADD849 /* Following */ = {
+			isa = PBXGroup;
+			children = (
+				EE3D97482B15A8B900ADD849 /* FollowingViewController.swift */,
+				EE3D975A2B15DB9900ADD849 /* FindUsersViewController.swift */,
+			);
+			path = Following;
+			sourceTree = "<group>";
+		};
+		EE3D975F2B15DBE100ADD849 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				EE44159D2B092526001515D6 /* LoginViewController.swift */,
+				EE4415A12B09259B001515D6 /* SignupViewController.swift */,
+				EE4415A32B0925A8001515D6 /* ResetPasswordViewController.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
 		EE4415722B09225F001515D6 = {
 			isa = PBXGroup;
 			children = (
 				EE44157D2B09225F001515D6 /* Favorit */,
 				EE44157C2B09225F001515D6 /* Products */,
+				3B8F931CF57C892EC6AA8BA6 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -100,14 +197,16 @@
 			children = (
 				EE44157E2B09225F001515D6 /* AppDelegate.swift */,
 				EE4415802B09225F001515D6 /* SceneDelegate.swift */,
+				EE3D97592B15DB0000ADD849 /* Storyboard */,
 				EEF8B1132B12326100EE75CB /* Other */,
 				EEF8B1062B1222CB00EE75CB /* Extension */,
 				EE4415972B09230D001515D6 /* View */,
 				EEF8B0FF2B11F25B00EE75CB /* Model */,
 				EE4415962B092307001515D6 /* ViewModel */,
 				EE4415952B0922FD001515D6 /* ViewControllers */,
-				EE4415822B09225F001515D6 /* ViewController.swift */,
+				EE3D97512B15B73D00ADD849 /* Cell */,
 				EE4415872B092260001515D6 /* Assets.xcassets */,
+				EE3D97462B15902800ADD849 /* Colors.xcassets */,
 				EE44158C2B092260001515D6 /* Info.plist */,
 				EEF8B10B2B12255600EE75CB /* Localizable.xcstrings */,
 			);
@@ -117,9 +216,8 @@
 		EE4415952B0922FD001515D6 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				EE44159D2B092526001515D6 /* LoginViewController.swift */,
-				EE4415A12B09259B001515D6 /* SignupViewController.swift */,
-				EE4415A32B0925A8001515D6 /* ResetPasswordViewController.swift */,
+				EE3D975F2B15DBE100ADD849 /* Login */,
+				EE3D975E2B15DBD500ADD849 /* Following */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -127,9 +225,8 @@
 		EE4415962B092307001515D6 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				EEF8B0F92B11F23400EE75CB /* LoginViewModel.swift */,
-				EEF8B0FB2B11F24600EE75CB /* SignupViewModel.swift */,
-				EEF8B0FD2B11F25300EE75CB /* ResetPasswordViewModel.swift */,
+				EE3D975C2B15DBB900ADD849 /* Login */,
+				EE3D975D2B15DBC800ADD849 /* Following */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -137,9 +234,7 @@
 		EE4415972B09230D001515D6 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				EE44159F2B092557001515D6 /* Login.storyboard */,
-				EE4415842B09225F001515D6 /* Main.storyboard */,
-				EE4415892B092260001515D6 /* LaunchScreen.storyboard */,
+				EE3D97572B15DAF900ADD849 /* FloatingAddButton.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -147,6 +242,7 @@
 		EEF8B0FF2B11F25B00EE75CB /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				EE3D974C2B15B46F00ADD849 /* Follower */,
 				EEF8B1102B1231AB00EE75CB /* ErrorType */,
 				EEF8B1162B1233B500EE75CB /* Utility */,
 				EEF8B1052B121EC300EE75CB /* Signup */,
@@ -158,7 +254,6 @@
 		EEF8B1042B121D3700EE75CB /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				EEF8B1002B121CF800EE75CB /* LoginRequest.swift */,
 				EEF8B1022B121D2E00EE75CB /* LoginResponse.swift */,
 			);
 			path = Login;
@@ -192,6 +287,7 @@
 			isa = PBXGroup;
 			children = (
 				EEF8B1142B12326F00EE75CB /* Typealias.swift */,
+				EE3D97442B158DB500ADD849 /* ApplicationAppearance.swift */,
 			);
 			path = Other;
 			sourceTree = "<group>";
@@ -227,6 +323,7 @@
 				EE4415992B0924E7001515D6 /* NVActivityIndicatorView */,
 				EE44159B2B0924E7001515D6 /* NVActivityIndicatorViewExtended */,
 				EEF8B10E2B12301200EE75CB /* IQKeyboardManagerSwift */,
+				EE3D97552B15B93400ADD849 /* Kingfisher */,
 			);
 			productName = Favorit;
 			productReference = EE44157B2B09225F001515D6 /* Favorit.app */;
@@ -260,6 +357,7 @@
 				EE4415922B0922D5001515D6 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				EE4415982B0924E7001515D6 /* XCRemoteSwiftPackageReference "NVActivityIndicatorView" */,
 				EEF8B10D2B12301200EE75CB /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
+				EE3D97542B15B93400ADD849 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = EE44157C2B09225F001515D6 /* Products */;
 			projectDirPath = "";
@@ -278,6 +376,7 @@
 				EE4415A02B092557001515D6 /* Login.storyboard in Resources */,
 				EEF8B10C2B12255600EE75CB /* Localizable.xcstrings in Resources */,
 				EE44158B2B092260001515D6 /* LaunchScreen.storyboard in Resources */,
+				EE3D97472B15902800ADD849 /* Colors.xcassets in Resources */,
 				EE4415882B092260001515D6 /* Assets.xcassets in Resources */,
 				EE4415862B09225F001515D6 /* Main.storyboard in Resources */,
 			);
@@ -291,23 +390,32 @@
 			buildActionMask = 2147483647;
 			files = (
 				EEF8B1122B1231C300EE75CB /* RequestError.swift in Sources */,
+				EE3D974E2B15B4C200ADD849 /* Follower.swift in Sources */,
 				EE44159E2B092526001515D6 /* LoginViewController.swift in Sources */,
 				EEF8B10A2B1224CB00EE75CB /* UIViewController+Extension.swift in Sources */,
 				EEF8B1182B1233DE00EE75CB /* FavoritApi.swift in Sources */,
-				EE4415832B09225F001515D6 /* ViewController.swift in Sources */,
 				EEF8B0FE2B11F25300EE75CB /* ResetPasswordViewModel.swift in Sources */,
 				EEF8B0FC2B11F24600EE75CB /* SignupViewModel.swift in Sources */,
 				EEF8B1082B1222D800EE75CB /* String+Extension.swift in Sources */,
+				EE3D97582B15DAF900ADD849 /* FloatingAddButton.swift in Sources */,
+				EE3D97452B158DB500ADD849 /* ApplicationAppearance.swift in Sources */,
+				EE3D97502B15B57100ADD849 /* UserProtocol.swift in Sources */,
+				EE3D97492B15A8B900ADD849 /* FollowingViewController.swift in Sources */,
 				EE4415A22B09259B001515D6 /* SignupViewController.swift in Sources */,
 				EE4415A42B0925A8001515D6 /* ResetPasswordViewController.swift in Sources */,
+				EE3D97532B15B74800ADD849 /* FollowerCell.swift in Sources */,
 				EE44157F2B09225F001515D6 /* AppDelegate.swift in Sources */,
 				EE4415812B09225F001515D6 /* SceneDelegate.swift in Sources */,
-				EEF8B1012B121CF800EE75CB /* LoginRequest.swift in Sources */,
+				EE3D97632B15DC5600ADD849 /* Following.swift in Sources */,
 				EEF8B11A2B1234B800EE75CB /* FavoritConstant.swift in Sources */,
+				EE3D97612B15DBF300ADD849 /* FindUsersViewModel.swift in Sources */,
+				EE3D975B2B15DB9900ADD849 /* FindUsersViewController.swift in Sources */,
 				EEF8B11C2B123C2200EE75CB /* UserHelper.swift in Sources */,
+				EE3D974B2B15A9E100ADD849 /* FollowingViewModel.swift in Sources */,
 				EEF8B1032B121D2E00EE75CB /* LoginResponse.swift in Sources */,
 				EEF8B0FA2B11F23400EE75CB /* LoginViewModel.swift in Sources */,
 				EEF8B1152B12326F00EE75CB /* Typealias.swift in Sources */,
+				EE3D97652B15DF4700ADD849 /* InviteFriendsCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -467,6 +575,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Login;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -495,6 +604,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Login;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -532,6 +642,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		EE3D97542B15B93400ADD849 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.10.0;
+			};
+		};
 		EE4415922B0922D5001515D6 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
@@ -559,6 +677,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		EE3D97552B15B93400ADD849 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EE3D97542B15B93400ADD849 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
 		EE4415932B0922D5001515D6 /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = EE4415922B0922D5001515D6 /* XCRemoteSwiftPackageReference "Alamofire" */;
