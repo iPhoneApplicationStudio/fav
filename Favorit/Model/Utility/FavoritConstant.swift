@@ -9,8 +9,8 @@ import Foundation
 
 class FavoritConstant {
     private let isProdEnable = false
-    private let prodUrl = ""
-    private let devUrl = ""
+    private let prodUrl = "http://103.107.184.159:8000/api/v1"
+    private let devUrl = "http://103.107.184.159:8000/api/v1"
     
     static let shared = FavoritConstant()
     private init() { }

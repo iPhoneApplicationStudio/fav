@@ -26,6 +26,24 @@
         "revision" : "bcb52371f2259254bac6690f92bb474a61768c47",
         "version" : "5.1.1"
       }
+    },
+    {
+      "identity" : "resolver",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/hmlongco/Resolver.git",
+      "state" : {
+        "revision" : "97de0b0320036607564af4a60025b48f8d041221",
+        "version" : "1.5.0"
+      }
+    },
+    {
+      "identity" : "swiftkeychainwrapper",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/jrendel/SwiftKeychainWrapper",
+      "state" : {
+        "revision" : "185a3165346a03767101c4f62e9a545a0fe0530f",
+        "version" : "4.0.1"
+      }
     }
   ],
   "version" : 2
