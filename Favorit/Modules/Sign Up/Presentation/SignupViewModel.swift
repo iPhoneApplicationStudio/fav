@@ -7,6 +7,8 @@
 
 import Foundation
 
+typealias SignUpHandler = (Result<SignUpResponse, SignupError>) -> Void
+
 enum SignupError: Error {
     case invalidEmail
     case invalidFirstName
@@ -30,11 +32,9 @@ enum SignupError: Error {
     }
 }
 
-protocol SignupViewModel {
-    
+protocol SignupViewModel: AnyObject {
     var signUpUserInput: SignUpUserInput { get set }
-    
     var handleLoadingState: ((Bool) -> Void)? { get set }
     
-    func signUp(completion: @escaping (Result<SignUpResponse, SignupError>) -> Void)
+    func signUp(completion: @escaping SignUpHandler)
 }

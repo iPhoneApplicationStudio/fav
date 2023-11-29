@@ -251,6 +251,9 @@
                                 <state key="normal" title="Sign up">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="didTapSignUp:" destination="dA6-Da-455" eventType="touchUpInside" id="Tde-D9-jdz"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bn9-F2-JJq">
                                 <rect key="frame" x="8" y="25" width="30" height="36"/>
@@ -304,6 +307,14 @@
                             <constraint firstItem="2Zj-P1-OwB" firstAttribute="top" secondItem="WRA-oJ-IqG" secondAttribute="bottom" constant="35" id="zkH-l5-dcp"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="activityIndicatorView" destination="2tt-l2-KD7" id="9Zj-O2-gsO"/>
+                        <outlet property="emailTextField" destination="97q-SV-Jsp" id="gk5-jB-tRg"/>
+                        <outlet property="firstNameTextField" destination="871-i1-5qC" id="r36-7W-u1g"/>
+                        <outlet property="lastNameTextField" destination="Lyc-8a-P4L" id="OJ9-ZY-2q5"/>
+                        <outlet property="passwordTextField" destination="CxG-XP-g70" id="J6V-ME-BAQ"/>
+                        <outlet property="signupButton" destination="2Zj-P1-OwB" id="5UT-31-v3O"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cdH-ch-pHZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

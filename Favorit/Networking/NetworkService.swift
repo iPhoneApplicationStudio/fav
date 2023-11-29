@@ -19,7 +19,9 @@ final class NetworkService {
     }()
     
     
-    func fetch <T: Decodable>(apiEndPoint: APIEndpoint, model: T.Type, completion: @escaping (Result<T, APIError>) -> Void) {
+    func fetch <T: Decodable>(apiEndPoint: APIEndpoint, 
+                              model: T.Type,
+                              completion: @escaping (Result<T, APIError>) -> Void) {
         
         self.request(
             apiEndPoint: apiEndPoint,

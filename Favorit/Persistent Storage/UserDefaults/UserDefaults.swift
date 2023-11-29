@@ -32,8 +32,6 @@ public struct UserDefault<Value> {
 }
 
 extension UserDefaults {
-    
     @UserDefault(key: Constants.tokenKey, defaultValue: nil)
     public static var accessTokenKey: String?
-    
 }

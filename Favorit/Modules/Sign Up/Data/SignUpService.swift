@@ -12,7 +12,10 @@ protocol SignUpService {
 }
 
 extension NetworkService: SignUpService {
-    func signUp(request: SignUpRequest, completion: @escaping (Result<SignUpResponse, APIError>) -> Void) {
-        fetch(apiEndPoint: request, model: SignUpResponse.self, completion: completion)
+    func signUp(request: SignUpRequest, 
+                completion: @escaping (Result<SignUpResponse, APIError>) -> Void) {
+        fetch(apiEndPoint: request, 
+              model: SignUpResponse.self,
+              completion: completion)
     }
 }
