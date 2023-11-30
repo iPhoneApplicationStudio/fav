@@ -17,7 +17,7 @@ class UserHelper {
     }
     
     var isLogin: Bool {
-        return prefs.bool(forKey: Keys.login.rawValue)
+        return !prefs.bool(forKey: Keys.login.rawValue)
     }
     
     func setUserLogin(flag: Bool) {
