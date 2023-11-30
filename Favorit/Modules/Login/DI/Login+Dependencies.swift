@@ -8,7 +8,6 @@
 import Foundation
 
 extension ServiceLocator {
-    
     public static func registerLoginDependencies() {
         register { ConcreteLoginViewModel() }.conforms(LoginViewModel.self)
         register { NetworkService() }.conforms(LoginService.self)

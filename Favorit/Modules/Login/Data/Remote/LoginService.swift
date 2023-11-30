@@ -8,13 +8,14 @@
 import Foundation
 
 protocol LoginService {
-    
-    func login(request: LoginRequest, completion: @escaping (Result<LoginResponse, APIError>) -> Void)
+    func login(request: LoginRequest, 
+               completion: @escaping (Result<LoginResponse, APIError>) -> Void)
 }
 
 extension NetworkService: LoginService {
-    
-    func login(request: LoginRequest, completion: @escaping (Result<LoginResponse, APIError>) -> Void) {
-        fetch(apiEndPoint: request, model: LoginResponse.self, completion: completion)
+    func login(request: LoginRequest, 
+               completion: @escaping (Result<LoginResponse, APIError>) -> Void) {
+        fetch(apiEndPoint: request, 
+              model: LoginResponse.self, completion: completion)
     }
 }

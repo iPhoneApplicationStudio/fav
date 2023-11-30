@@ -17,7 +17,8 @@ public struct Dependency<Service> {
         self.service = Resolver.resolve(Service.self)
     }
     
-    public init(name: Resolver.Name? = nil, container: Resolver? = nil) {
+    public init(name: Resolver.Name? = nil, 
+                container: Resolver? = nil) {
         self.service = container?.resolve(Service.self, name: name) ?? Resolver.resolve(Service.self, name: name)
     }
     

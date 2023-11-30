@@ -8,17 +8,25 @@
 import UIKit
 
 extension UIViewController {
-    func showError(title: String = "Error",
-                   message: String) {
-        let alertController = UIAlertController(title: title, 
+    private func showAlert(title: String,
+                           message: String,
+                           handler: ((Bool) -> Void)?) {
+        let alertController = UIAlertController(title: title,
                                                 message: message,
                                                 preferredStyle: .alert)
-        alertController.addAction(UIAlertAction(title: "Ok", 
+        alertController.addAction(UIAlertAction(title: "Ok",
                                                 style: .default) { alertAction in
+            handler?(true)
         })
         
-        self.present(alertController, 
+        self.present(alertController,
                      animated: true,
                      completion: nil)
+    }
+    
+    func showError(message: String) {
+        showAlert(title: "Error",
+                  message: message,
+                  handler: nil)
     }
 }

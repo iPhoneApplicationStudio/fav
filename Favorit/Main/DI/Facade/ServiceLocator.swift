@@ -19,9 +19,6 @@ extension ServiceLocatorOptions {
 }
 
 public final class ServiceLocator {
-    
-    
-    
     private init() {}
     
     @discardableResult

@@ -12,8 +12,7 @@ struct SignUpRequest: APIEndpoint {
     
     struct Body: Encodable {
         let email: String
-        let firstName: String
-        let lastName: String
+        let name: String
         let password: String
     }
     
@@ -30,5 +29,4 @@ struct SignUpRequest: APIEndpoint {
     var parameters: Encodable {
         body
     }
-    
 }
