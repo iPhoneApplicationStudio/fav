@@ -37,12 +37,12 @@ class FindUsersViewController: UIViewController, UISearchBarDelegate {
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = "Add New Follower"
         self.initialSetting()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
     private func initialSetting() {
