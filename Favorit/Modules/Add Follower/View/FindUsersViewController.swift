@@ -19,8 +19,13 @@ class FindUsersViewController: UIViewController, UISearchBarDelegate {
     let services = AllUsersService()
     
     private var users: [User] = []
+    var currentPage: Int = 1
+    let itemsPerPage: Int = 5
+    var isLoading: Bool = false
     
     private let searchController = UISearchController(searchResultsController: nil)
+    let loadingIndicator = UIActivityIndicatorView(style: .medium)
+    
     lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
         refreshControl.backgroundColor = .clear
@@ -28,7 +33,7 @@ class FindUsersViewController: UIViewController, UISearchBarDelegate {
         refreshControl.addTarget(self, action: #selector(refreshUsers), for: .valueChanged)
         return refreshControl
     }()
-
+    
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,60 +64,55 @@ class FindUsersViewController: UIViewController, UISearchBarDelegate {
         
         self.noSearchResultsLabel.isHidden = false
         self.tableView.isHidden = true
+        
+        loadingIndicator.hidesWhenStopped = true
+        tableView.tableFooterView = loadingIndicator
     }
     
     @objc func refreshUsers() {
+        self.users = []
+        self.currentPage = 1
+        self.isLoading = false
         searchController.isActive = false
         searchUsers(searchTerm: searchController.searchBar.text ?? "")
     }
     
     func searchUsers(searchTerm: String) {
+        guard !isLoading else {
+            return
+        }
+        isLoading = true
+        
         activityIndicatorView.isHidden = false
         activityIndicatorView.startAnimating()
-        let request = AllUsersRequest(queryParams: AllUsersRequest.RequestParams(search: searchTerm))
+        if currentPage > 1 {
+            loadingIndicator.startAnimating()
+        }
+        let request = AllUsersRequest(queryParams: AllUsersRequest.RequestParams(
+            search: searchTerm,
+            page: currentPage,
+            limit: itemsPerPage,
+            sortOrder: "asc"))
         services.getAllUsers(request: request) { [weak self] result in
+            self?.loadingIndicator.stopAnimating()
             self?.activityIndicatorView.isHidden = true
             self?.activityIndicatorView.stopAnimating()
             switch result {
             case .success(let success):
-                self?.users = success
+                self?.users += success.data ?? []
+                self?.currentPage += 1
+                self?.isLoading = false
                 self?.handleResultsUI()
                 self?.tableView.reloadData()
-                self?.tableView.setContentOffset(.zero, animated: true)
             case .failure(let error):
                 self?.showError(message: (error.localizedDescription))
+                self?.isLoading = false
             }
             self?.refreshControl.endRefreshing()
         }
-//        services.searchUsers(searchTerm: searchTerm) { (users, error) in
-//            if error == nil {
-//                self.users.removeAll()
-//                guard let searchResultUsers = users else {return}
-//                self.users = searchResultUsers
-//            } else {
-//                self.showError(message: "Error \(error?.localizedDescription)")
-//            }
-//            
-//            self.handleActivityIndicatorAnimations()
-//            self.handleResultsUI()
-//        }
-        
-        //api call
-//        {[weak self] result in
-//            self?.handleActivityIndicatorAnimations()
-//            switch result {
-//            case .success:
-//                DispatchQueue.main.async {
-//                    self?.handleResultsUI()
-//                }
-//            case .failure(let error):
-//
-//            }
-//        }
     }
     
     func handleResultsUI() {
-        
         if users.isEmpty {
             self.noSearchResultsLabel.isHidden = false
             self.tableView.isHidden = true
@@ -153,6 +153,9 @@ class FindUsersViewController: UIViewController, UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
+        self.users = []
+        self.currentPage = 1
+        self.isLoading = false
         if let searchTerm = searchBar.text {
             activityIndicatorView.isHidden = false
             activityIndicatorView.startAnimating()
@@ -163,23 +166,23 @@ class FindUsersViewController: UIViewController, UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         
     }
-
+    
     // MARK: - Navigation
-
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
-//        
-//        if segue.identifier == "searchToUserProfile" {
-//            let userDetailsVC = segue.destination as! UserDetailsViewController
-//            guard let indexPath = sender as? IndexPath else {return}
-//            let user = users[indexPath.row]
-//            userDetailsVC.userId = user.objectId
-//        }
+        //
+        //        if segue.identifier == "searchToUserProfile" {
+        //            let userDetailsVC = segue.destination as! UserDetailsViewController
+        //            guard let indexPath = sender as? IndexPath else {return}
+        //            let user = users[indexPath.row]
+        //            userDetailsVC.userId = user.objectId
+        //        }
     }
- 
-
+    
+    
 }
 
 extension FindUsersViewController:  UITableViewDelegate, UITableViewDataSource {
@@ -187,7 +190,7 @@ extension FindUsersViewController:  UITableViewDelegate, UITableViewDataSource {
         return 2
     }
     
-    func tableView(_ tableView: UITableView, 
+    func tableView(_ tableView: UITableView,
                    numberOfRowsInSection section: Int) -> Int {
         
         switch section {
@@ -198,7 +201,7 @@ extension FindUsersViewController:  UITableViewDelegate, UITableViewDataSource {
         }
     }
     
-    func tableView(_ tableView: UITableView, 
+    func tableView(_ tableView: UITableView,
                    cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.section {
         case 0:
@@ -216,7 +219,7 @@ extension FindUsersViewController:  UITableViewDelegate, UITableViewDataSource {
         }
     }
     
-    func tableView(_ tableView: UITableView, 
+    func tableView(_ tableView: UITableView,
                    didSelectRowAt indexPath: IndexPath) {
         switch indexPath.section {
         case 0:
@@ -228,6 +231,13 @@ extension FindUsersViewController:  UITableViewDelegate, UITableViewDataSource {
         default:
             
             performSegue(withIdentifier: "searchToUserProfile", sender: indexPath)
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if indexPath.row == users.count - 1 && !isLoading {
+            // Fetch more data when the last cell is about to be displayed
+            searchUsers(searchTerm: searchController.searchBar.text ?? "")
         }
     }
 }
@@ -247,23 +257,23 @@ extension FollowerCell {
         //            tagLineLabel.isHidden = true
         //        }
         
-//        if let userPhoto = follower.userPhoto {
-//            userImageView.file = userPhoto
-//            userImageView.loadInBackground()
-//        } else
+        //        if let userPhoto = follower.userPhoto {
+        //            userImageView.file = userPhoto
+        //            userImageView.loadInBackground()
+        //        } else
         
         if let userPhotoUrlString = user.avatar,
-            let userPhotoUrl = URL(string: userPhotoUrlString) {
+           let userPhotoUrl = URL(string: userPhotoUrlString) {
             userImageView.kf.setImage(with: userPhotoUrl,
                                       options: [.transition(.fade(0.5)), .forceTransition]) { [weak userImageView] result in
                 switch result {
                 case .success: break
                 case .failure:
                     userImageView?.setImage(string: user.name,
-                                           color: UIColor.lightGray,
-                                           circular: true,
-                                           textAttributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 40, weight: .light),
-                                                            NSAttributedString.Key.foregroundColor: UIColor.white])
+                                            color: UIColor.lightGray,
+                                            circular: true,
+                                            textAttributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 40, weight: .light),
+                                                             NSAttributedString.Key.foregroundColor: UIColor.white])
                 }
             }
         } else {

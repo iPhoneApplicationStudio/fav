@@ -36,7 +36,7 @@ struct AllUsersRequest: APIEndpoint {
 
 class AllUsersService {
     private let service = NetworkService()
-    func getAllUsers(request: AllUsersRequest, completion: @escaping (Result<[User], APIError>) -> Void) {
-        service.fetch(apiEndPoint: request, model: [User].self, completion: completion)
+    func getAllUsers(request: AllUsersRequest, completion: @escaping (Result<UserPage, APIError>) -> Void) {
+        service.fetch(apiEndPoint: request, model: UserPage.self, isCustom: true, completion: completion)
     }
 }

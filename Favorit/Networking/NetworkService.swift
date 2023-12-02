@@ -21,17 +21,20 @@ final class NetworkService {
     
     func fetch <T: Decodable>(apiEndPoint: APIEndpoint, 
                               model: T.Type,
+                              isCustom: Bool = false,
                               completion: @escaping (Result<T, APIError>) -> Void) {
         
         self.request(
             apiEndPoint: apiEndPoint,
             model: model,
+            isCustom: isCustom,
             completion: completion)
     }
     
     private func request <T: Decodable>(
         apiEndPoint: APIEndpoint,
         model: T.Type,
+        isCustom: Bool,
         completion: @escaping (Result<T, APIError>) -> Void) {
             
             session.makeRequest(
@@ -44,7 +47,7 @@ final class NetworkService {
                 
                 switch response.result {
                 case .success(let data):
-                    let result: Result<T, APIError> = self.parse(data: data)
+                    let result: Result<T, APIError> = self.parse(isCustom: isCustom, data: data)
                     switch result {
                     case .success(let decodedObject):
                         completion(.success(decodedObject))
@@ -58,13 +61,16 @@ final class NetworkService {
             }
     }
     
-    func parse<T: Decodable>(data: Data?) -> Result<T, APIError> {
+    func parse<T: Decodable>(isCustom: Bool, data: Data?) -> Result<T, APIError> {
         
         guard let data = data else {
             return .failure(.noData)
         }
         
         do {
+            if isCustom, let resp = try? jsonDecoder.decode(T.self, from: data) {
+                return .success(resp)
+            }
             
             let response = try jsonDecoder.decode(APIResponse<T>.self, from: data)
             

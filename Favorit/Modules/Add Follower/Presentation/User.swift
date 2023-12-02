@@ -7,6 +7,20 @@
 
 import Foundation
 
+struct UserPage: Decodable {
+    
+    struct Page: Decodable {
+        let page: AnyCodable?
+        let limit: AnyCodable?
+        let total: AnyCodable?
+    }
+    
+    let data: [User]?
+    let success: AnyCodable?
+    let message: AnyCodable?
+    let meta: Page?
+}
+
 struct User: Decodable {
     let _id: String?
     let name: String?
