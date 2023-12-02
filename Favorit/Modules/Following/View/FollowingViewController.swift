@@ -37,7 +37,7 @@ final class FollowingViewController: UIViewController {
 extension FollowingViewController {
     
     private func setup() {
-        navigationController?.setNavigationBarHidden(true, animated: false)
+        self.title = "My Followers"
         addFollowerButton.rounded()
     }
     
