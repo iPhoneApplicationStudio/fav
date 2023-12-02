@@ -202,6 +202,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="activityIndicatorView" destination="Rj4-U0-ss0" id="9Rg-yN-c1h"/>
+                        <outlet property="addFollowerButton" destination="gN2-xw-CcA" id="fNJ-0O-CdO"/>
                         <outlet property="notFollowingUsersLabel" destination="Tnu-l4-wU8" id="f8i-15-gzv"/>
                         <outlet property="tableView" destination="JHP-AU-AIB" id="hXC-QW-ASt"/>
                     </connections>

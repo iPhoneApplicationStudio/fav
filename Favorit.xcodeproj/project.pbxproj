@@ -15,6 +15,8 @@
 		2EA3DE972B1B74F10063730A /* FollowersResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA3DE962B1B74F10063730A /* FollowersResponse.swift */; };
 		2EA3DE992B1B806F0063730A /* FollowerUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA3DE982B1B806F0063730A /* FollowerUser.swift */; };
 		2EA3DE9B2B1B81B40063730A /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA3DE9A2B1B81B40063730A /* AppCoordinator.swift */; };
+		2EA3DEA12B1B95C20063730A /* FindUsersViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2EA3DEA02B1B95C20063730A /* FindUsersViewController.storyboard */; };
+		2EA3DEA32B1B96B00063730A /* FindUsersViewController+Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA3DEA22B1B96B00063730A /* FindUsersViewController+Factory.swift */; };
 		2EEA6C242B16472900AD55CB /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EEA6C232B16472900AD55CB /* UIView+Extensions.swift */; };
 		2EEA6C282B16480500AD55CB /* UIView+Border.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EEA6C272B16480500AD55CB /* UIView+Border.swift */; };
 		2EEA6C2C2B1649D400AD55CB /* Dependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EEA6C2B2B1649D400AD55CB /* Dependency.swift */; };
@@ -59,10 +61,7 @@
 		2EEA6C922B19311100AD55CB /* FollowingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EEA6C902B19311100AD55CB /* FollowingViewModel.swift */; };
 		2EEA6C932B19324400AD55CB /* FavoritConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF8B1192B1234B800EE75CB /* FavoritConstant.swift */; };
 		2EEA6C992B19C4F500AD55CB /* HomeTabBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EEA6C982B19C4F500AD55CB /* HomeTabBarItem.swift */; };
-		EE3D974E2B15B4C200ADD849 /* Follower.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3D974D2B15B4C200ADD849 /* Follower.swift */; };
-		EE3D97502B15B57100ADD849 /* UserProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3D974F2B15B57100ADD849 /* UserProtocol.swift */; };
 		EE3D97562B15B93400ADD849 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = EE3D97552B15B93400ADD849 /* Kingfisher */; };
-		EE3D97632B15DC5600ADD849 /* Following.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3D97622B15DC5600ADD849 /* Following.swift */; };
 		EE44157F2B09225F001515D6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE44157E2B09225F001515D6 /* AppDelegate.swift */; };
 		EE4415812B09225F001515D6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE4415802B09225F001515D6 /* SceneDelegate.swift */; };
 		EE4415882B092260001515D6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EE4415872B092260001515D6 /* Assets.xcassets */; };
@@ -95,6 +94,8 @@
 		2EA3DE962B1B74F10063730A /* FollowersResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowersResponse.swift; sourceTree = "<group>"; };
 		2EA3DE982B1B806F0063730A /* FollowerUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowerUser.swift; sourceTree = "<group>"; };
 		2EA3DE9A2B1B81B40063730A /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
+		2EA3DEA02B1B95C20063730A /* FindUsersViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FindUsersViewController.storyboard; sourceTree = "<group>"; };
+		2EA3DEA22B1B96B00063730A /* FindUsersViewController+Factory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FindUsersViewController+Factory.swift"; sourceTree = "<group>"; };
 		2EEA6C172B163F8400AD55CB /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
 		2EEA6C182B163F8E00AD55CB /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
 		2EEA6C232B16472900AD55CB /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
@@ -136,9 +137,6 @@
 		2EEA6C8F2B19311100AD55CB /* FindUsersViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FindUsersViewModel.swift; sourceTree = "<group>"; };
 		2EEA6C902B19311100AD55CB /* FollowingViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FollowingViewModel.swift; sourceTree = "<group>"; };
 		2EEA6C982B19C4F500AD55CB /* HomeTabBarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTabBarItem.swift; sourceTree = "<group>"; };
-		EE3D974D2B15B4C200ADD849 /* Follower.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Follower.swift; sourceTree = "<group>"; };
-		EE3D974F2B15B57100ADD849 /* UserProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProtocol.swift; sourceTree = "<group>"; };
-		EE3D97622B15DC5600ADD849 /* Following.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Following.swift; sourceTree = "<group>"; };
 		EE44157B2B09225F001515D6 /* Favorit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Favorit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE44157E2B09225F001515D6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EE4415802B09225F001515D6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -207,6 +205,41 @@
 			path = Remote;
 			sourceTree = "<group>";
 		};
+		2EA3DE9C2B1B94CB0063730A /* Add Follower */ = {
+			isa = PBXGroup;
+			children = (
+				2EA3DE9F2B1B95990063730A /* Data */,
+				2EA3DE9E2B1B95710063730A /* Presentation */,
+				2EA3DE9D2B1B94DE0063730A /* View */,
+			);
+			path = "Add Follower";
+			sourceTree = "<group>";
+		};
+		2EA3DE9D2B1B94DE0063730A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				2EEA6C872B192E8100AD55CB /* FindUsersViewController.swift */,
+				2EA3DEA22B1B96B00063730A /* FindUsersViewController+Factory.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		2EA3DE9E2B1B95710063730A /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				2EEA6C8F2B19311100AD55CB /* FindUsersViewModel.swift */,
+				2EA3DEA02B1B95C20063730A /* FindUsersViewController.storyboard */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		2EA3DE9F2B1B95990063730A /* Data */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
 		2EEA6C0A2B163B3B00AD55CB /* Login */ = {
 			isa = PBXGroup;
 			children = (
@@ -222,10 +255,11 @@
 			isa = PBXGroup;
 			children = (
 				2EEA6C0A2B163B3B00AD55CB /* Login */,
+				2EEA6C122B163C4600AD55CB /* Reset Password */,
 				2EEA6C0C2B163B4D00AD55CB /* Sign Up */,
 				2EEA6C832B19257100AD55CB /* HomeTabBar */,
 				2EEA6C772B191A0E00AD55CB /* Following */,
-				2EEA6C122B163C4600AD55CB /* Reset Password */,
+				2EA3DE9C2B1B94CB0063730A /* Add Follower */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -486,7 +520,6 @@
 		2EEA6C782B191A1600AD55CB /* View */ = {
 			isa = PBXGroup;
 			children = (
-				2EEA6C872B192E8100AD55CB /* FindUsersViewController.swift */,
 				2EEA6C882B192E8100AD55CB /* FollowingViewController.swift */,
 				2EEA6C7D2B191A6000AD55CB /* FollowerCell.swift */,
 				2EEA6C7E2B191A6000AD55CB /* InviteFriendsCell.swift */,
@@ -540,11 +573,7 @@
 		EE3D974C2B15B46F00ADD849 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
-				2EEA6C8F2B19311100AD55CB /* FindUsersViewModel.swift */,
 				2EEA6C902B19311100AD55CB /* FollowingViewModel.swift */,
-				EE3D974F2B15B57100ADD849 /* UserProtocol.swift */,
-				EE3D974D2B15B4C200ADD849 /* Follower.swift */,
-				EE3D97622B15DC5600ADD849 /* Following.swift */,
 				2EA3DE982B1B806F0063730A /* FollowerUser.swift */,
 			);
 			path = Presentation;
@@ -689,6 +718,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2EEA6C3D2B164CCD00AD55CB /* Colors.xcassets in Resources */,
+				2EA3DEA12B1B95C20063730A /* FindUsersViewController.storyboard in Resources */,
 				EE4415A02B092557001515D6 /* Login.storyboard in Resources */,
 				EEF8B10C2B12255600EE75CB /* Localizable.xcstrings in Resources */,
 				2EEA6C8E2B192FA500AD55CB /* Main.storyboard in Resources */,
@@ -708,7 +738,6 @@
 			files = (
 				2EA3DE992B1B806F0063730A /* FollowerUser.swift in Sources */,
 				2EEA6C932B19324400AD55CB /* FavoritConstant.swift in Sources */,
-				EE3D974E2B15B4C200ADD849 /* Follower.swift in Sources */,
 				EE44159E2B092526001515D6 /* LoginViewController.swift in Sources */,
 				2EEA6C622B167F3700AD55CB /* LoginStorageService.swift in Sources */,
 				2EA3DE8D2B1B11380063730A /* Follow+Dependencies.swift in Sources */,
@@ -730,6 +759,7 @@
 				EEF8B1182B1233DE00EE75CB /* FavoritApi.swift in Sources */,
 				2EEA6C992B19C4F500AD55CB /* HomeTabBarItem.swift in Sources */,
 				2EEA6C922B19311100AD55CB /* FollowingViewModel.swift in Sources */,
+				2EA3DEA32B1B96B00063730A /* FindUsersViewController+Factory.swift in Sources */,
 				EEF8B0FE2B11F25300EE75CB /* ResetPasswordViewModel.swift in Sources */,
 				EEF8B0FC2B11F24600EE75CB /* SignupViewModel.swift in Sources */,
 				2EEA6C4C2B16642D00AD55CB /* LoginService.swift in Sources */,
@@ -741,7 +771,6 @@
 				2EEA6C712B16892700AD55CB /* SignUpService.swift in Sources */,
 				2EEA6C522B16754900AD55CB /* UIViewController+ActivityIndicator.swift in Sources */,
 				2EEA6C802B191A6000AD55CB /* InviteFriendsCell.swift in Sources */,
-				EE3D97502B15B57100ADD849 /* UserProtocol.swift in Sources */,
 				EE4415A22B09259B001515D6 /* SignupViewController.swift in Sources */,
 				EE4415A42B0925A8001515D6 /* ResetPasswordViewController.swift in Sources */,
 				EE44157F2B09225F001515D6 /* AppDelegate.swift in Sources */,
@@ -752,7 +781,6 @@
 				2EEA6C242B16472900AD55CB /* UIView+Extensions.swift in Sources */,
 				2EEA6C282B16480500AD55CB /* UIView+Border.swift in Sources */,
 				2EEA6C672B16835200AD55CB /* SignUpResponse.swift in Sources */,
-				EE3D97632B15DC5600ADD849 /* Following.swift in Sources */,
 				EEF8B11C2B123C2200EE75CB /* UserHelper.swift in Sources */,
 				EEF8B1032B121D2E00EE75CB /* LoginResponse.swift in Sources */,
 				2EEA6C5E2B167D5400AD55CB /* KeychainManager.swift in Sources */,

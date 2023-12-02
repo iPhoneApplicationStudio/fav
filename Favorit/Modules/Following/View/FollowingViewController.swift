@@ -15,6 +15,7 @@ final class FollowingViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var notFollowingUsersLabel: UILabel!
     @IBOutlet weak var activityIndicatorView: NVActivityIndicatorView!
+    @IBOutlet weak var addFollowerButton: UIButton!
     
     @Dependency private var viewModel: FollowingViewModel
     
@@ -37,6 +38,7 @@ extension FollowingViewController {
     
     private func setup() {
         navigationController?.setNavigationBarHidden(true, animated: false)
+        addFollowerButton.rounded()
     }
     
     private func setupBindings() {
@@ -63,10 +65,14 @@ extension FollowingViewController {
             }
         }
     }
-    
-    
 }
 
+extension FollowingViewController {
+    
+    @IBAction func didTapAddNewFollower() {
+        
+    }
+}
 //MARK: - Handle UI
 private extension FollowingViewController {
     
