@@ -29,8 +29,8 @@ final class FollowingViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        UserDefaults.loggedInUserID = nil
-        KeychainManager.remove(for: UserDefaults.accessTokenKey!)
+//        UserDefaults.loggedInUserID = nil
+//        KeychainManager.remove(for: UserDefaults.accessTokenKey!)
     }
 }
 
@@ -69,10 +69,11 @@ extension FollowingViewController {
 
 extension FollowingViewController {
     
-    @IBAction func didTapAddNewFollower() {
-        
+    @IBAction func didTapAddNewFollower(_ sender: UIButton) {
+        navigationController?.pushViewController(FindUsersViewController.makeFindUsersViewController(), animated: true)
     }
 }
+
 //MARK: - Handle UI
 private extension FollowingViewController {
     
@@ -165,11 +166,11 @@ extension FollowerCell {
             userImageView.kf.setImage(with: userPhotoUrl,
                                       options: [.transition(.fade(0.5)), .forceTransition])
         } else {
-//            userImageView.setImage(string: follower.name,
-//                                   color: UIColor.lightGray,
-//                                   circular: true,
-//                                   textAttributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 40, weight: .light),
-//                                                    NSAttributedString.Key.foregroundColor: UIColor.white])
+            userImageView.setImage(string: user.name,
+                                   color: UIColor.lightGray,
+                                   circular: true,
+                                   textAttributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 40, weight: .light),
+                                                    NSAttributedString.Key.foregroundColor: UIColor.white])
         }
     }
 }

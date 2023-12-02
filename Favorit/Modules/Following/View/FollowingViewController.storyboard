@@ -12,7 +12,7 @@
         <!--Following View Controller-->
         <scene sceneID="M7y-ej-i8U">
             <objects>
-                <viewController id="kUO-br-cM7" customClass="FollowingViewController" customModule="Favorit" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FollowingViewController" id="kUO-br-cM7" customClass="FollowingViewController" customModule="Favorit" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="KNq-gS-lwl">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -180,6 +180,9 @@
                                 <color key="tintColor" systemColor="secondarySystemBackgroundColor"/>
                                 <inset key="imageEdgeInsets" minX="10" minY="10" maxX="10" maxY="10"/>
                                 <state key="normal" image="large_add_person"/>
+                                <connections>
+                                    <action selector="didTapAddNewFollower:" destination="kUO-br-cM7" eventType="touchUpInside" id="sig-Ou-mPl"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="IEh-kp-DUp"/>

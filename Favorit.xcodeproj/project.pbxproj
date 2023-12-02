@@ -17,6 +17,10 @@
 		2EA3DE9B2B1B81B40063730A /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA3DE9A2B1B81B40063730A /* AppCoordinator.swift */; };
 		2EA3DEA12B1B95C20063730A /* FindUsersViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2EA3DEA02B1B95C20063730A /* FindUsersViewController.storyboard */; };
 		2EA3DEA32B1B96B00063730A /* FindUsersViewController+Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA3DEA22B1B96B00063730A /* FindUsersViewController+Factory.swift */; };
+		2EA3DEA52B1B9D0C0063730A /* FloatingAddButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA3DEA42B1B9D0C0063730A /* FloatingAddButton.swift */; };
+		2EA3DEA72B1B9EBA0063730A /* AllUsersService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA3DEA62B1B9EBA0063730A /* AllUsersService.swift */; };
+		2EA3DEA92B1B9F030063730A /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA3DEA82B1B9F030063730A /* User.swift */; };
+		2EA3DEAB2B1BA4610063730A /* UIImageView+Letters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA3DEAA2B1BA4610063730A /* UIImageView+Letters.swift */; };
 		2EEA6C242B16472900AD55CB /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EEA6C232B16472900AD55CB /* UIView+Extensions.swift */; };
 		2EEA6C282B16480500AD55CB /* UIView+Border.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EEA6C272B16480500AD55CB /* UIView+Border.swift */; };
 		2EEA6C2C2B1649D400AD55CB /* Dependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EEA6C2B2B1649D400AD55CB /* Dependency.swift */; };
@@ -96,6 +100,10 @@
 		2EA3DE9A2B1B81B40063730A /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		2EA3DEA02B1B95C20063730A /* FindUsersViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FindUsersViewController.storyboard; sourceTree = "<group>"; };
 		2EA3DEA22B1B96B00063730A /* FindUsersViewController+Factory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FindUsersViewController+Factory.swift"; sourceTree = "<group>"; };
+		2EA3DEA42B1B9D0C0063730A /* FloatingAddButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatingAddButton.swift; sourceTree = "<group>"; };
+		2EA3DEA62B1B9EBA0063730A /* AllUsersService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllUsersService.swift; sourceTree = "<group>"; };
+		2EA3DEA82B1B9F030063730A /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		2EA3DEAA2B1BA4610063730A /* UIImageView+Letters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Letters.swift"; sourceTree = "<group>"; };
 		2EEA6C172B163F8400AD55CB /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
 		2EEA6C182B163F8E00AD55CB /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
 		2EEA6C232B16472900AD55CB /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
@@ -218,6 +226,7 @@
 		2EA3DE9D2B1B94DE0063730A /* View */ = {
 			isa = PBXGroup;
 			children = (
+				2EA3DEA02B1B95C20063730A /* FindUsersViewController.storyboard */,
 				2EEA6C872B192E8100AD55CB /* FindUsersViewController.swift */,
 				2EA3DEA22B1B96B00063730A /* FindUsersViewController+Factory.swift */,
 			);
@@ -228,7 +237,7 @@
 			isa = PBXGroup;
 			children = (
 				2EEA6C8F2B19311100AD55CB /* FindUsersViewModel.swift */,
-				2EA3DEA02B1B95C20063730A /* FindUsersViewController.storyboard */,
+				2EA3DEA82B1B9F030063730A /* User.swift */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -236,6 +245,7 @@
 		2EA3DE9F2B1B95990063730A /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				2EA3DEA62B1B9EBA0063730A /* AllUsersService.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -403,6 +413,7 @@
 		2EEA6C252B1647E700AD55CB /* FavoritUI */ = {
 			isa = PBXGroup;
 			children = (
+				2EA3DEA42B1B9D0C0063730A /* FloatingAddButton.swift */,
 				2EEA6C262B1647F800AD55CB /* Extensions */,
 			);
 			path = FavoritUI;
@@ -415,6 +426,7 @@
 				2EEA6C232B16472900AD55CB /* UIView+Extensions.swift */,
 				2EEA6C272B16480500AD55CB /* UIView+Border.swift */,
 				2EEA6C512B16754900AD55CB /* UIViewController+ActivityIndicator.swift */,
+				2EA3DEAA2B1BA4610063730A /* UIImageView+Letters.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -752,6 +764,7 @@
 				2EA3DE8A2B1A26790063730A /* FollowingViewController+Factory.swift in Sources */,
 				2EA3DE952B1B6E100063730A /* FollowersRequest.swift in Sources */,
 				2EEA6C692B16842C00AD55CB /* SignUpRequest.swift in Sources */,
+				2EA3DEAB2B1BA4610063730A /* UIImageView+Letters.swift in Sources */,
 				2EEA6C412B165AF700AD55CB /* APIResponse.swift in Sources */,
 				2EEA6C372B164A3E00AD55CB /* Resolver.swift in Sources */,
 				2EEA6C582B167C5100AD55CB /* Constants.swift in Sources */,
@@ -780,8 +793,10 @@
 				2EEA6C562B167C0500AD55CB /* UserDefaults.swift in Sources */,
 				2EEA6C242B16472900AD55CB /* UIView+Extensions.swift in Sources */,
 				2EEA6C282B16480500AD55CB /* UIView+Border.swift in Sources */,
+				2EA3DEA72B1B9EBA0063730A /* AllUsersService.swift in Sources */,
 				2EEA6C672B16835200AD55CB /* SignUpResponse.swift in Sources */,
 				EEF8B11C2B123C2200EE75CB /* UserHelper.swift in Sources */,
+				2EA3DEA92B1B9F030063730A /* User.swift in Sources */,
 				EEF8B1032B121D2E00EE75CB /* LoginResponse.swift in Sources */,
 				2EEA6C5E2B167D5400AD55CB /* KeychainManager.swift in Sources */,
 				2EA3DE902B1B62920063730A /* UserSessionService.swift in Sources */,
@@ -794,6 +809,7 @@
 				2EEA6C862B1925CE00AD55CB /* HomeTabBarViewController.swift in Sources */,
 				EEF8B0FA2B11F23400EE75CB /* LoginViewModel.swift in Sources */,
 				2EEA6C492B1663F200AD55CB /* ConcreteLoginViewModel.swift in Sources */,
+				2EA3DEA52B1B9D0C0063730A /* FloatingAddButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
