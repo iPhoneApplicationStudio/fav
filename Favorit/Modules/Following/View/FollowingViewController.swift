@@ -10,7 +10,6 @@ import UIKit
 import NVActivityIndicatorView
 
 final class FollowingViewController: UIViewController {
-    
     // MARK: - IBOutlets
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var notFollowingUsersLabel: UILabel!
@@ -122,6 +121,7 @@ extension FollowingViewController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: CellName.followerCell.value) as? FollowerCell else {
             return UITableViewCell()
         }
+        
         let user = viewModel.userForIndex(indexPath.row)
         cell.configure(with: user)
         return cell
@@ -165,11 +165,11 @@ extension FollowerCell {
             userImageView.kf.setImage(with: userPhotoUrl,
                                       options: [.transition(.fade(0.5)), .forceTransition])
         } else {
-//            userImageView.setImage(string: follower.name,
-//                                   color: UIColor.lightGray,
-//                                   circular: true,
-//                                   textAttributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 40, weight: .light),
-//                                                    NSAttributedString.Key.foregroundColor: UIColor.white])
+            userImageView.setImage(string: follower.name,
+                                   color: UIColor.lightGray,
+                                   circular: true,
+                                   textAttributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 40, weight: .light),
+                                                    NSAttributedString.Key.foregroundColor: UIColor.white])
         }
     }
 }

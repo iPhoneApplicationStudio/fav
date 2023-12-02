@@ -43,7 +43,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tyv-FN-P2b" userLabel="Form">
                                 <rect key="frame" x="0.0" y="202" width="375" height="115"/>
                                 <subviews>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uny-Bp-l4T">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="user1@gmail.com" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uny-Bp-l4T">
                                         <rect key="frame" x="28" y="16" width="319" height="45"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="45" id="3fx-HO-NdQ"/>
@@ -58,7 +58,7 @@
                                             <constraint firstAttribute="height" constant="1" id="EbC-Ly-lOL"/>
                                         </constraints>
                                     </view>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="SRq-Vd-vYD">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Password@1234" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="SRq-Vd-vYD">
                                         <rect key="frame" x="28" y="62" width="319" height="45"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="45" id="aTF-xN-VO7"/>
@@ -97,6 +97,9 @@
                                 <state key="normal" title="Sign up">
                                     <color key="titleColor" red="0.019607843140000001" green="0.20000000000000001" blue="0.33333333329999998" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="didClickOnSignUp" destination="wh7-vE-Opy" eventType="touchUpInside" id="4Nx-3B-Mhe"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Don't have an account?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DHF-xW-CMO">
                                 <rect key="frame" x="108" y="599" width="159.5" height="18"/>
@@ -254,7 +257,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eMI-4e-EsE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-180" y="842"/>
+            <point key="canvasLocation" x="537" y="122"/>
         </scene>
     </scenes>
 </document>

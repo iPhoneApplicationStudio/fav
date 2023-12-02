@@ -23,7 +23,7 @@ final class HomeTabBarViewController: UITabBarController {
         
         HomeTabBarItem.allCases.map { tabItem in
             switch tabItem {
-            case .following:
+            case .follower:
                 let vc = FollowingViewController.createFollowingViewController()
                 let nc = UINavigationController(rootViewController: vc)
                 nc.tabBarItem = tabItem.tabBarItem

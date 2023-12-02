@@ -125,10 +125,12 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="activityIndicatorView" destination="EJo-gj-BG9" id="g17-u8-FBS"/>
                         <outlet property="emailTextField" destination="QkU-oc-F2A" id="qx2-oO-3uk"/>
                         <outlet property="firstNameTextField" destination="DMc-k7-UNk" id="QTv-F4-qSe"/>
                         <outlet property="lastNameTextField" destination="nuJ-t6-Ur7" id="B3q-a6-NPB"/>
                         <outlet property="passwordTextField" destination="0lF-T7-WYn" id="YHN-5F-fg1"/>
+                        <outlet property="signupButton" destination="TJb-RR-25O" id="db0-1Y-AfF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Yyw-Ub-LQY" userLabel="First Responder" sceneMemberID="firstResponder"/>

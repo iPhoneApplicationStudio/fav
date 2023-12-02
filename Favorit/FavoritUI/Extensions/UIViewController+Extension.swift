@@ -29,4 +29,12 @@ extension UIViewController {
                   message: message,
                   handler: nil)
     }
+    
+    func showMessage(title: String,
+                     message: String,
+                     handler: @escaping (Bool) -> Void) {
+        showAlert(title: title,
+                  message: message,
+                  handler: handler)
+    }
 }

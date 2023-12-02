@@ -64,4 +64,12 @@ class LoginViewController: UIViewController {
             }
         }
     }
+    
+    @IBAction func didClickOnSignUp() {
+        guard let vc = SignUpViewController.createSignupViewController() else {
+            return
+        }
+        
+        self.present(vc, animated: true)
+    }
 }

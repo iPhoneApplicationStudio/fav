@@ -73,6 +73,7 @@
 		EE4415A02B092557001515D6 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE44159F2B092557001515D6 /* Login.storyboard */; };
 		EE4415A22B09259B001515D6 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE4415A12B09259B001515D6 /* SignupViewController.swift */; };
 		EE4415A42B0925A8001515D6 /* ResetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE4415A32B0925A8001515D6 /* ResetPasswordViewController.swift */; };
+		EEEC17602B1B9E6E006DD8FD /* SignupViewController+Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEEC175F2B1B9E6E006DD8FD /* SignupViewController+Factory.swift */; };
 		EEF8B0FA2B11F23400EE75CB /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF8B0F92B11F23400EE75CB /* LoginViewModel.swift */; };
 		EEF8B0FC2B11F24600EE75CB /* SignupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF8B0FB2B11F24600EE75CB /* SignupViewModel.swift */; };
 		EEF8B0FE2B11F25300EE75CB /* ResetPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF8B0FD2B11F25300EE75CB /* ResetPasswordViewModel.swift */; };
@@ -147,6 +148,7 @@
 		EE44159F2B092557001515D6 /* Login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
 		EE4415A12B09259B001515D6 /* SignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
 		EE4415A32B0925A8001515D6 /* ResetPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewController.swift; sourceTree = "<group>"; };
+		EEEC175F2B1B9E6E006DD8FD /* SignupViewController+Factory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SignupViewController+Factory.swift"; sourceTree = "<group>"; };
 		EEF8B0F92B11F23400EE75CB /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		EEF8B0FB2B11F24600EE75CB /* SignupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewModel.swift; sourceTree = "<group>"; };
 		EEF8B0FD2B11F25300EE75CB /* ResetPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewModel.swift; sourceTree = "<group>"; };
@@ -364,6 +366,7 @@
 			children = (
 				EE4415A12B09259B001515D6 /* SignupViewController.swift */,
 				2EEA6C722B18F2DC00AD55CB /* SignUpViewController.storyboard */,
+				EEEC175F2B1B9E6E006DD8FD /* SignupViewController+Factory.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -775,6 +778,7 @@
 				EE4415A42B0925A8001515D6 /* ResetPasswordViewController.swift in Sources */,
 				EE44157F2B09225F001515D6 /* AppDelegate.swift in Sources */,
 				EE4415812B09225F001515D6 /* SceneDelegate.swift in Sources */,
+				EEEC17602B1B9E6E006DD8FD /* SignupViewController+Factory.swift in Sources */,
 				2EEA6C7F2B191A6000AD55CB /* FollowerCell.swift in Sources */,
 				2EEA6C432B165B0E00AD55CB /* AnyCodable.swift in Sources */,
 				2EEA6C562B167C0500AD55CB /* UserDefaults.swift in Sources */,

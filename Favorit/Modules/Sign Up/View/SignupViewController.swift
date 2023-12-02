@@ -50,7 +50,7 @@ class SignUpViewController: UIViewController {
     
     // MARK: - Actions
     @IBAction func didTapClose(_ sender: UIButton) {
-        
+        self.dismiss(animated: true)
     }
     
     @IBAction func didTapSignUp(_ sender: UIButton) {
@@ -62,8 +62,10 @@ class SignUpViewController: UIViewController {
         viewModel.signUp { [weak self] result in
             switch result {
             case .success(_):
-                // go to home
-                break
+                self?.showMessage(title: "Success",
+                                  message: "User Created  Success. Please login again!") {_ in 
+                    self?.dismiss(animated: true)
+                }
             case .failure(let failure):
                 self?.showError(message: failure.message)
             }
