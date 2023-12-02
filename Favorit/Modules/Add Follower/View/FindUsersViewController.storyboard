@@ -12,7 +12,7 @@
         <!--Find Users View Controller-->
         <scene sceneID="oTv-bL-7Xs">
             <objects>
-                <viewController hidesBottomBarWhenPushed="YES" id="gFh-xo-Xi3" customClass="FindUsersViewController" customModule="Favorit" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FindUsersViewController" hidesBottomBarWhenPushed="YES" id="gFh-xo-Xi3" customClass="FindUsersViewController" customModule="Favorit" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="275-6I-Csh">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

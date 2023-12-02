@@ -36,7 +36,7 @@ class FollowerCell: UITableViewCell {
         followersCountLabel.text = ""
         favoritCountLabel.text = ""
         bookmarkCountLabel.text = ""
-        tagLineLabel.text = ""
+        tagLineLabel.text = "This is my optional tag line"
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

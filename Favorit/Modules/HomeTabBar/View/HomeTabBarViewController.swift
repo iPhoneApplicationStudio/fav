@@ -29,7 +29,10 @@ final class HomeTabBarViewController: UITabBarController {
                 nc.tabBarItem = tabItem.tabBarItem
                 return nc
             case .places:
-                let vc = UIViewController()
+                guard let vc = PlacesViewController.createPlacesViewController() else {
+                    return UIViewController()
+                }
+                
                 vc.tabBarItem = tabItem.tabBarItem
                 return vc
             }

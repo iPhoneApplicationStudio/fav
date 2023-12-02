@@ -17,6 +17,10 @@
 		2EA3DE9B2B1B81B40063730A /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA3DE9A2B1B81B40063730A /* AppCoordinator.swift */; };
 		2EA3DEA12B1B95C20063730A /* FindUsersViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2EA3DEA02B1B95C20063730A /* FindUsersViewController.storyboard */; };
 		2EA3DEA32B1B96B00063730A /* FindUsersViewController+Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA3DEA22B1B96B00063730A /* FindUsersViewController+Factory.swift */; };
+		2EA3DEA52B1B9D0C0063730A /* FloatingAddButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA3DEA42B1B9D0C0063730A /* FloatingAddButton.swift */; };
+		2EA3DEA72B1B9EBA0063730A /* AllUsersService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA3DEA62B1B9EBA0063730A /* AllUsersService.swift */; };
+		2EA3DEA92B1B9F030063730A /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA3DEA82B1B9F030063730A /* User.swift */; };
+		2EA3DEAB2B1BA4610063730A /* UIImageView+Letters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA3DEAA2B1BA4610063730A /* UIImageView+Letters.swift */; };
 		2EEA6C242B16472900AD55CB /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EEA6C232B16472900AD55CB /* UIView+Extensions.swift */; };
 		2EEA6C282B16480500AD55CB /* UIView+Border.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EEA6C272B16480500AD55CB /* UIView+Border.swift */; };
 		2EEA6C2C2B1649D400AD55CB /* Dependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EEA6C2B2B1649D400AD55CB /* Dependency.swift */; };
@@ -74,6 +78,10 @@
 		EE4415A22B09259B001515D6 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE4415A12B09259B001515D6 /* SignupViewController.swift */; };
 		EE4415A42B0925A8001515D6 /* ResetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE4415A32B0925A8001515D6 /* ResetPasswordViewController.swift */; };
 		EEEC17602B1B9E6E006DD8FD /* SignupViewController+Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEEC175F2B1B9E6E006DD8FD /* SignupViewController+Factory.swift */; };
+		EEEC17652B1BAB05006DD8FD /* PlacesBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEEC17642B1BAB05006DD8FD /* PlacesBaseViewController.swift */; };
+		EEEC17672B1BAB51006DD8FD /* FavoritSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEEC17662B1BAB51006DD8FD /* FavoritSegmentedControl.swift */; };
+		EEEC17692B1BACF5006DD8FD /* PlacesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEEC17682B1BACF5006DD8FD /* PlacesViewController.swift */; };
+		EEEC176B2B1BADA3006DD8FD /* PlacesViewController+Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEEC176A2B1BADA3006DD8FD /* PlacesViewController+Factory.swift */; };
 		EEF8B0FA2B11F23400EE75CB /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF8B0F92B11F23400EE75CB /* LoginViewModel.swift */; };
 		EEF8B0FC2B11F24600EE75CB /* SignupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF8B0FB2B11F24600EE75CB /* SignupViewModel.swift */; };
 		EEF8B0FE2B11F25300EE75CB /* ResetPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF8B0FD2B11F25300EE75CB /* ResetPasswordViewModel.swift */; };
@@ -97,6 +105,10 @@
 		2EA3DE9A2B1B81B40063730A /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		2EA3DEA02B1B95C20063730A /* FindUsersViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FindUsersViewController.storyboard; sourceTree = "<group>"; };
 		2EA3DEA22B1B96B00063730A /* FindUsersViewController+Factory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FindUsersViewController+Factory.swift"; sourceTree = "<group>"; };
+		2EA3DEA42B1B9D0C0063730A /* FloatingAddButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatingAddButton.swift; sourceTree = "<group>"; };
+		2EA3DEA62B1B9EBA0063730A /* AllUsersService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllUsersService.swift; sourceTree = "<group>"; };
+		2EA3DEA82B1B9F030063730A /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		2EA3DEAA2B1BA4610063730A /* UIImageView+Letters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Letters.swift"; sourceTree = "<group>"; };
 		2EEA6C172B163F8400AD55CB /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
 		2EEA6C182B163F8E00AD55CB /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
 		2EEA6C232B16472900AD55CB /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
@@ -149,6 +161,10 @@
 		EE4415A12B09259B001515D6 /* SignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
 		EE4415A32B0925A8001515D6 /* ResetPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewController.swift; sourceTree = "<group>"; };
 		EEEC175F2B1B9E6E006DD8FD /* SignupViewController+Factory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SignupViewController+Factory.swift"; sourceTree = "<group>"; };
+		EEEC17642B1BAB05006DD8FD /* PlacesBaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlacesBaseViewController.swift; sourceTree = "<group>"; };
+		EEEC17662B1BAB51006DD8FD /* FavoritSegmentedControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritSegmentedControl.swift; sourceTree = "<group>"; };
+		EEEC17682B1BACF5006DD8FD /* PlacesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlacesViewController.swift; sourceTree = "<group>"; };
+		EEEC176A2B1BADA3006DD8FD /* PlacesViewController+Factory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlacesViewController+Factory.swift"; sourceTree = "<group>"; };
 		EEF8B0F92B11F23400EE75CB /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		EEF8B0FB2B11F24600EE75CB /* SignupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewModel.swift; sourceTree = "<group>"; };
 		EEF8B0FD2B11F25300EE75CB /* ResetPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewModel.swift; sourceTree = "<group>"; };
@@ -220,6 +236,7 @@
 		2EA3DE9D2B1B94DE0063730A /* View */ = {
 			isa = PBXGroup;
 			children = (
+				2EA3DEA02B1B95C20063730A /* FindUsersViewController.storyboard */,
 				2EEA6C872B192E8100AD55CB /* FindUsersViewController.swift */,
 				2EA3DEA22B1B96B00063730A /* FindUsersViewController+Factory.swift */,
 			);
@@ -230,7 +247,7 @@
 			isa = PBXGroup;
 			children = (
 				2EEA6C8F2B19311100AD55CB /* FindUsersViewModel.swift */,
-				2EA3DEA02B1B95C20063730A /* FindUsersViewController.storyboard */,
+				2EA3DEA82B1B9F030063730A /* User.swift */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -238,6 +255,7 @@
 		2EA3DE9F2B1B95990063730A /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				2EA3DEA62B1B9EBA0063730A /* AllUsersService.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -256,6 +274,7 @@
 		2EEA6C0B2B163B4400AD55CB /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				EEEC17612B1BAAAA006DD8FD /* Places */,
 				2EEA6C0A2B163B3B00AD55CB /* Login */,
 				2EEA6C122B163C4600AD55CB /* Reset Password */,
 				2EEA6C0C2B163B4D00AD55CB /* Sign Up */,
@@ -406,6 +425,7 @@
 		2EEA6C252B1647E700AD55CB /* FavoritUI */ = {
 			isa = PBXGroup;
 			children = (
+				2EA3DEA42B1B9D0C0063730A /* FloatingAddButton.swift */,
 				2EEA6C262B1647F800AD55CB /* Extensions */,
 			);
 			path = FavoritUI;
@@ -418,6 +438,7 @@
 				2EEA6C232B16472900AD55CB /* UIView+Extensions.swift */,
 				2EEA6C272B16480500AD55CB /* UIView+Border.swift */,
 				2EEA6C512B16754900AD55CB /* UIViewController+ActivityIndicator.swift */,
+				2EA3DEAA2B1BA4610063730A /* UIImageView+Letters.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -616,6 +637,17 @@
 			path = Favorit;
 			sourceTree = "<group>";
 		};
+		EEEC17612B1BAAAA006DD8FD /* Places */ = {
+			isa = PBXGroup;
+			children = (
+				EEEC17682B1BACF5006DD8FD /* PlacesViewController.swift */,
+				EEEC17642B1BAB05006DD8FD /* PlacesBaseViewController.swift */,
+				EEEC17662B1BAB51006DD8FD /* FavoritSegmentedControl.swift */,
+				EEEC176A2B1BADA3006DD8FD /* PlacesViewController+Factory.swift */,
+			);
+			path = Places;
+			sourceTree = "<group>";
+		};
 		EEF8B0FF2B11F25B00EE75CB /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -755,6 +787,7 @@
 				2EA3DE8A2B1A26790063730A /* FollowingViewController+Factory.swift in Sources */,
 				2EA3DE952B1B6E100063730A /* FollowersRequest.swift in Sources */,
 				2EEA6C692B16842C00AD55CB /* SignUpRequest.swift in Sources */,
+				2EA3DEAB2B1BA4610063730A /* UIImageView+Letters.swift in Sources */,
 				2EEA6C412B165AF700AD55CB /* APIResponse.swift in Sources */,
 				2EEA6C372B164A3E00AD55CB /* Resolver.swift in Sources */,
 				2EEA6C582B167C5100AD55CB /* Constants.swift in Sources */,
@@ -765,6 +798,7 @@
 				2EA3DEA32B1B96B00063730A /* FindUsersViewController+Factory.swift in Sources */,
 				EEF8B0FE2B11F25300EE75CB /* ResetPasswordViewModel.swift in Sources */,
 				EEF8B0FC2B11F24600EE75CB /* SignupViewModel.swift in Sources */,
+				EEEC17672B1BAB51006DD8FD /* FavoritSegmentedControl.swift in Sources */,
 				2EEA6C4C2B16642D00AD55CB /* LoginService.swift in Sources */,
 				2EEA6C472B165C4D00AD55CB /* APIEndpoint.swift in Sources */,
 				2EEA6C2E2B1649E900AD55CB /* ServiceLocator.swift in Sources */,
@@ -773,6 +807,7 @@
 				EEF8B1082B1222D800EE75CB /* String+Extension.swift in Sources */,
 				2EEA6C712B16892700AD55CB /* SignUpService.swift in Sources */,
 				2EEA6C522B16754900AD55CB /* UIViewController+ActivityIndicator.swift in Sources */,
+				EEEC17692B1BACF5006DD8FD /* PlacesViewController.swift in Sources */,
 				2EEA6C802B191A6000AD55CB /* InviteFriendsCell.swift in Sources */,
 				EE4415A22B09259B001515D6 /* SignupViewController.swift in Sources */,
 				EE4415A42B0925A8001515D6 /* ResetPasswordViewController.swift in Sources */,
@@ -784,20 +819,25 @@
 				2EEA6C562B167C0500AD55CB /* UserDefaults.swift in Sources */,
 				2EEA6C242B16472900AD55CB /* UIView+Extensions.swift in Sources */,
 				2EEA6C282B16480500AD55CB /* UIView+Border.swift in Sources */,
+				2EA3DEA72B1B9EBA0063730A /* AllUsersService.swift in Sources */,
 				2EEA6C672B16835200AD55CB /* SignUpResponse.swift in Sources */,
 				EEF8B11C2B123C2200EE75CB /* UserHelper.swift in Sources */,
+				2EA3DEA92B1B9F030063730A /* User.swift in Sources */,
 				EEF8B1032B121D2E00EE75CB /* LoginResponse.swift in Sources */,
+				EEEC176B2B1BADA3006DD8FD /* PlacesViewController+Factory.swift in Sources */,
 				2EEA6C5E2B167D5400AD55CB /* KeychainManager.swift in Sources */,
 				2EA3DE902B1B62920063730A /* UserSessionService.swift in Sources */,
 				2EEA6C502B166C2F00AD55CB /* APIError.swift in Sources */,
 				2EEA6C892B192E8100AD55CB /* FindUsersViewController.swift in Sources */,
 				2EEA6C452B165BBE00AD55CB /* AFLogger.swift in Sources */,
 				2EA3DE972B1B74F10063730A /* FollowersResponse.swift in Sources */,
+				EEEC17652B1BAB05006DD8FD /* PlacesBaseViewController.swift in Sources */,
 				2EA3DE932B1B64C10063730A /* FollowingService.swift in Sources */,
 				2EEA6C822B191CD600AD55CB /* ApplicationAppearance.swift in Sources */,
 				2EEA6C862B1925CE00AD55CB /* HomeTabBarViewController.swift in Sources */,
 				EEF8B0FA2B11F23400EE75CB /* LoginViewModel.swift in Sources */,
 				2EEA6C492B1663F200AD55CB /* ConcreteLoginViewModel.swift in Sources */,
+				2EA3DEA52B1B9D0C0063730A /* FloatingAddButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

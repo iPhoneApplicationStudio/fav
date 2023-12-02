@@ -10,11 +10,16 @@ import UIKit
 import NVActivityIndicatorView
 
 class FindUsersViewController: UIViewController, UISearchBarDelegate {
+    
+    // MARK: - IBOutlets
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var activityIndicatorView: NVActivityIndicatorView!
     @IBOutlet weak var noSearchResultsLabel: UILabel!
     
-    @Dependency private var viewModel: FollowingViewModel?
+    let services = AllUsersService()
+    
+    private var users: [User] = []
+    
     private let searchController = UISearchController(searchResultsController: nil)
     lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
@@ -24,10 +29,15 @@ class FindUsersViewController: UIViewController, UISearchBarDelegate {
         return refreshControl
     }()
 
+    // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         self.initialSetting()
-        getUsers()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
     private func initialSetting() {
@@ -44,32 +54,37 @@ class FindUsersViewController: UIViewController, UISearchBarDelegate {
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
         definesPresentationContext = true
+        
+        searchController.searchBar.becomeFirstResponder()
+        
+        self.noSearchResultsLabel.isHidden = false
+        self.tableView.isHidden = true
     }
-
     
     @objc func refreshUsers() {
         searchController.isActive = false
-        getUsers()
-    }
-    
-    func getUsers(){
-//        activityIndicatorView.isHidden = false
-//        activityIndicatorView.startAnimating()
-//        let services = UserServices()
-//        services.getUsers { (users, error) in
-//            if error == nil {
-//                guard let initialUsers = users else {return}
-//                self.users = initialUsers
-//            } else {
-//                self.showError(message: (error?.localizedDescription)!)
-//            }
-//            self.handleActivityIndicatorAnimations()
-//            self.handleResultsUI()
-//        }
+        searchUsers(searchTerm: searchController.searchBar.text ?? "")
     }
     
     func searchUsers(searchTerm: String) {
-//        let services = UserServices()
+        
+        activityIndicatorView.isHidden = false
+        activityIndicatorView.startAnimating()
+//        let request = AllUsersRequest(queryParams: AllUsersRequest.RequestParams(search: searchTerm))
+//        services.getAllUsers(request: request) { [weak self] result in
+//            self?.activityIndicatorView.isHidden = true
+//            self?.activityIndicatorView.stopAnimating()
+//            switch result {
+//            case .success(let success):
+//                self?.users = success
+//                self?.handleResultsUI()
+//                self?.tableView.reloadData()
+//                self?.tableView.setContentOffset(.zero, animated: true)
+//            case .failure(let error):
+//                self?.showError(message: (error.localizedDescription))
+//            }
+//            self?.refreshControl.endRefreshing()
+//        }
 //        services.searchUsers(searchTerm: searchTerm) { (users, error) in
 //            if error == nil {
 //                self.users.removeAll()
@@ -83,12 +98,7 @@ class FindUsersViewController: UIViewController, UISearchBarDelegate {
 //            self.handleResultsUI()
 //        }
         
-        guard let viewModel = viewModel else {
-            return
-        }
-        
         //api call
-        viewModel.getFollowers()
 //        {[weak self] result in
 //            self?.handleActivityIndicatorAnimations()
 //            switch result {
@@ -97,17 +107,14 @@ class FindUsersViewController: UIViewController, UISearchBarDelegate {
 //                    self?.handleResultsUI()
 //                }
 //            case .failure(let error):
-//                self?.showError(message: (error.localizedDescription))
+//
 //            }
 //        }
     }
     
     func handleResultsUI() {
-        guard let viewModel = viewModel else {
-            return
-        }
         
-        if viewModel.numberOfUsers == 0 {
+        if users.isEmpty {
             self.noSearchResultsLabel.isHidden = false
             self.tableView.isHidden = true
         } else {
@@ -115,8 +122,7 @@ class FindUsersViewController: UIViewController, UISearchBarDelegate {
                 self.noSearchResultsLabel.isHidden = true
                 self.tableView.isHidden = false
             }
-            self.tableView.reloadData()
-            tableView.setContentOffset(CGPoint.zero, animated: true)
+            
         }
     }
     
@@ -184,24 +190,17 @@ extension FindUsersViewController:  UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, 
                    numberOfRowsInSection section: Int) -> Int {
-        guard let viewModel = viewModel else {
-            return 0
-        }
         
         switch section {
         case 0:
             return 1
         default:
-            return viewModel.numberOfUsers
+            return users.count
         }
     }
     
     func tableView(_ tableView: UITableView, 
                    cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let viewModel = viewModel else {
-            return UITableViewCell()
-        }
-        
         switch indexPath.section {
         case 0:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: CellName.inviteFriendsCell.value) as? InviteFriendsCell else {
@@ -213,8 +212,7 @@ extension FindUsersViewController:  UITableViewDelegate, UITableViewDataSource {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: CellName.followerCell.value) as? FollowerCell else {
                 return UITableViewCell()
             }
-            
-            _ = viewModel.userForIndex(indexPath.row)
+            cell.configure(with: users[indexPath.row])
             return cell
         }
     }
@@ -229,11 +227,52 @@ extension FindUsersViewController:  UITableViewDelegate, UITableViewDataSource {
                 self.present(activityVC, animated: true, completion: nil)
             }
         default:
-            guard viewModel != nil else {
-                return
-            }
             
             performSegue(withIdentifier: "searchToUserProfile", sender: indexPath)
+        }
+    }
+}
+
+extension FollowerCell {
+    fileprivate func configure(with user: User) {
+        
+        userNameLabel.text = user.name
+        followersCountLabel.text = "\(user.followers?.integer ?? 0)"
+        favoritCountLabel.text = "\(user.following?.integer ?? 0)"
+        //        bookmarkCountLabel.text = "\(follower.bookmarksCount)"
+        
+        //        if let tagline = follower.tagLine {
+        //            tagLineLabel.isHidden = false
+        //            tagLineLabel.text = tagline
+        //        } else {
+        //            tagLineLabel.isHidden = true
+        //        }
+        
+//        if let userPhoto = follower.userPhoto {
+//            userImageView.file = userPhoto
+//            userImageView.loadInBackground()
+//        } else
+        
+        if let userPhotoUrlString = user.avatar,
+            let userPhotoUrl = URL(string: userPhotoUrlString) {
+            userImageView.kf.setImage(with: userPhotoUrl,
+                                      options: [.transition(.fade(0.5)), .forceTransition]) { [weak userImageView] result in
+                switch result {
+                case .success: break
+                case .failure:
+                    userImageView?.setImage(string: user.name,
+                                           color: UIColor.lightGray,
+                                           circular: true,
+                                           textAttributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 40, weight: .light),
+                                                            NSAttributedString.Key.foregroundColor: UIColor.white])
+                }
+            }
+        } else {
+            userImageView.setImage(string: user.name,
+                                   color: UIColor.lightGray,
+                                   circular: true,
+                                   textAttributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 40, weight: .light),
+                                                    NSAttributedString.Key.foregroundColor: UIColor.white])
         }
     }
 }

@@ -10,6 +10,7 @@ import UIKit
 import NVActivityIndicatorView
 
 final class FollowingViewController: UIViewController {
+    
     // MARK: - IBOutlets
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var notFollowingUsersLabel: UILabel!
@@ -28,8 +29,8 @@ final class FollowingViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        UserDefaults.loggedInUserID = nil
-        KeychainManager.remove(for: UserDefaults.accessTokenKey!)
+//        UserDefaults.loggedInUserID = nil
+//        KeychainManager.remove(for: UserDefaults.accessTokenKey!)
     }
 }
 
@@ -68,10 +69,11 @@ extension FollowingViewController {
 
 extension FollowingViewController {
     
-    @IBAction func didTapAddNewFollower() {
-        
+    @IBAction func didTapAddNewFollower(_ sender: UIButton) {
+        navigationController?.pushViewController(FindUsersViewController.makeFindUsersViewController(), animated: true)
     }
 }
+
 //MARK: - Handle UI
 private extension FollowingViewController {
     
@@ -121,7 +123,6 @@ extension FollowingViewController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: CellName.followerCell.value) as? FollowerCell else {
             return UITableViewCell()
         }
-        
         let user = viewModel.userForIndex(indexPath.row)
         cell.configure(with: user)
         return cell
@@ -165,7 +166,7 @@ extension FollowerCell {
             userImageView.kf.setImage(with: userPhotoUrl,
                                       options: [.transition(.fade(0.5)), .forceTransition])
         } else {
-            userImageView.setImage(string: follower.name,
+            userImageView.setImage(string: user.name,
                                    color: UIColor.lightGray,
                                    circular: true,
                                    textAttributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 40, weight: .light),
