@@ -20,8 +20,9 @@ class FindUsersViewController: UIViewController, UISearchBarDelegate {
     
     private var users: [User] = []
     var currentPage: Int = 1
-    let itemsPerPage: Int = 5
+    let itemsPerPage: Int = 7
     var isLoading: Bool = false
+    var total = 0
     
     private let searchController = UISearchController(searchResultsController: nil)
     let loadingIndicator = UIActivityIndicatorView(style: .medium)
@@ -100,6 +101,7 @@ class FindUsersViewController: UIViewController, UISearchBarDelegate {
             switch result {
             case .success(let success):
                 self?.users += success.data ?? []
+                self?.total = success.meta?.total?.integer ?? 0
                 self?.currentPage += 1
                 self?.isLoading = false
                 self?.handleResultsUI()
@@ -235,8 +237,7 @@ extension FindUsersViewController:  UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if indexPath.row == users.count - 1 && !isLoading {
-            // Fetch more data when the last cell is about to be displayed
+        if indexPath.row == users.count - 1 && !isLoading && users.count < total {
             searchUsers(searchTerm: searchController.searchBar.text ?? "")
         }
     }
