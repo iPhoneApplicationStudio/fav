@@ -9,6 +9,8 @@ import Foundation
 
 protocol LoginStorageService {
     func store(token: String)
+    
+    func store(loggedIn userID: String)
 }
 
 final class ConcreteLoginStorageService: LoginStorageService {
@@ -16,5 +18,9 @@ final class ConcreteLoginStorageService: LoginStorageService {
         let key = UserDefaults.accessTokenKey ?? UUID().uuidString
         UserDefaults.accessTokenKey = key
         KeychainManager.save(for: key, value: token)
+    }
+    
+    func store(loggedIn userID: String) {
+        UserDefaults.loggedInUserID = userID
     }
 }

@@ -26,7 +26,7 @@ struct SignUpRequest: APIEndpoint {
         .post
     }
     
-    var parameters: Encodable {
+    var parameters: Encodable? {
         body
     }
 }

@@ -32,6 +32,9 @@ public struct UserDefault<Value> {
 }
 
 extension UserDefaults {
-    @UserDefault(key: Constants.tokenKey, defaultValue: nil)
+    @UserDefault(key: Constants.UserDefaultsKeys.tokenKey, defaultValue: nil)
     public static var accessTokenKey: String?
+    
+    @UserDefault(key: Constants.UserDefaultsKeys.userID, defaultValue: nil)
+    public static var loggedInUserID: String?
 }

@@ -34,7 +34,7 @@ final class NetworkService {
         model: T.Type,
         completion: @escaping (Result<T, APIError>) -> Void) {
             
-            session.request(
+            session.makeRequest(
                 apiEndPoint.urlString,
                 method: apiEndPoint.httpMethod,
                 parameters: apiEndPoint.parameters,
@@ -78,4 +78,33 @@ final class NetworkService {
             return .failure(.unableToDecode(decodingError: error))
         }
     }
+}
+
+extension Session {
+    public func makeRequest(
+        _ convertible: URLConvertible,
+        method: HTTPMethod = .get,
+        parameters: Encodable?,
+        encoder: ParameterEncoder = URLEncodedFormParameterEncoder.default,
+        headers: HTTPHeaders? = nil) -> DataRequest {
+            
+            let request: DataRequest
+            
+            if parameters == nil {
+                request = self.request(
+                    convertible,
+                    method: method,
+                    headers: headers)
+            } else {
+                request = self.request(
+                    convertible,
+                    method: method,
+                    parameters: parameters!,
+                    encoder: encoder,
+                    headers: headers)
+            }
+            
+            
+            return request
+        }
 }

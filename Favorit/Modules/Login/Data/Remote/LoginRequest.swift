@@ -29,7 +29,7 @@ struct LoginRequest: APIEndpoint {
         return .post
     }
     
-    var parameters: Encodable {
+    var parameters: Encodable? {
         params
     }
 }

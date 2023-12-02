@@ -13,7 +13,7 @@ protocol APIEndpoint {
     var baseURL: String { get }
     var urlString: String { get }
     var httpMethod: HTTPMethod { get }
-    var parameters: Encodable { get }
+    var parameters: Encodable? { get }
     var headers: HTTPHeaders? { get }
     var paramenterEncoding: ParameterEncoder { get }
     
@@ -26,7 +26,12 @@ extension APIEndpoint {
     }
     
     var headers: HTTPHeaders? {
-        return [:]
+        var headers: HTTPHeaders = [:]
+        if let tokenKey = UserDefaults.accessTokenKey,
+            let token = KeychainManager.retrieve(for: tokenKey) {
+            headers["Authorization"] = token
+        }
+        return headers
     }
     
     var paramenterEncoding: ParameterEncoder {

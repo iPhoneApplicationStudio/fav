@@ -8,5 +8,10 @@
 import Foundation
 
 enum Constants {
-    static let tokenKey = "access_token"
+    
+    enum UserDefaultsKeys {
+        
+        static let tokenKey = "access_token"
+        static let userID = "userID"
+    }
 }

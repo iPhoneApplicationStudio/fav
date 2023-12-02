@@ -18,6 +18,7 @@ class LoginViewController: UIViewController {
     
     //MARK: Proerties
     @Dependency private var viewModel: LoginViewModel
+    var loginCompletion: (() -> Void)?
     
     //MARK: - Life Cycle
     override func viewDidLoad() {
@@ -56,7 +57,7 @@ class LoginViewController: UIViewController {
         { [weak self] result in
             switch result {
             case .success:
-                // go to home
+                self?.loginCompletion?()
                 break
             case .failure(let error):
                 self?.showError(message: error.message)

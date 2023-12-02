@@ -14,6 +14,9 @@ final class KeychainManager {
         KeychainWrapper.standard.set(value, forKey: key)
     }
     
+    static func remove(for key: String) {
+        KeychainWrapper.standard.removeObject(forKey: key)
+    }
     static func retrieve(for key: String) -> String? {
         KeychainWrapper.standard.string(forKey: key)
     }

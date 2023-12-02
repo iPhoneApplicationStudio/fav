@@ -45,6 +45,9 @@ final class ConcreteLoginViewModel: LoginViewModel {
                     if let token = response.token {
                         self?.loginStorageService.store(token: token)
                     }
+                    if let userID = response.id {
+                        self?.loginStorageService.store(loggedIn: userID)
+                    }
                     completion(.success(response))
                 case .failure:
                     completion(.failure(.loginFailed))

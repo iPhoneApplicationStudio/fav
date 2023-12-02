@@ -25,11 +25,11 @@ struct LoginResponse: Decodable {
     enum CodingKeys: String, CodingKey {
 
         case id = "_id"
-        case name = "name"
-        case email = "email"
-        case city = "city"
-        case country = "country"
-        case avatar = "avatar"
+        case name
+        case email
+        case city
+        case country
+        case avatar
         case followers = "followers"
         case following = "following"
         case active = "active"

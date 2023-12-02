@@ -61,7 +61,7 @@ class SignUpViewController: UIViewController {
                                                     password: passwordTextField.text)
         viewModel.signUp { [weak self] result in
             switch result {
-            case .success(let success):
+            case .success(_):
                 // go to home
                 break
             case .failure(let failure):

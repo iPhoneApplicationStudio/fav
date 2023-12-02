@@ -34,5 +34,7 @@ public final class ServiceLocator {
         register { NetworkService() }
         registerLoginDependencies()
         registerSignUpDependencies()
+        registerUserSession()
+        registerFollowDependencies()
     }
 }

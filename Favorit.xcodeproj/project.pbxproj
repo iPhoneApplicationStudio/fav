@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2EA3DE8A2B1A26790063730A /* FollowingViewController+Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA3DE892B1A26790063730A /* FollowingViewController+Factory.swift */; };
+		2EA3DE8D2B1B11380063730A /* Follow+Dependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA3DE8C2B1B11380063730A /* Follow+Dependencies.swift */; };
+		2EA3DE902B1B62920063730A /* UserSessionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA3DE8F2B1B62920063730A /* UserSessionService.swift */; };
+		2EA3DE932B1B64C10063730A /* FollowingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA3DE922B1B64C10063730A /* FollowingService.swift */; };
+		2EA3DE952B1B6E100063730A /* FollowersRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA3DE942B1B6E100063730A /* FollowersRequest.swift */; };
+		2EA3DE972B1B74F10063730A /* FollowersResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA3DE962B1B74F10063730A /* FollowersResponse.swift */; };
+		2EA3DE992B1B806F0063730A /* FollowerUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA3DE982B1B806F0063730A /* FollowerUser.swift */; };
+		2EA3DE9B2B1B81B40063730A /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA3DE9A2B1B81B40063730A /* AppCoordinator.swift */; };
 		2EEA6C242B16472900AD55CB /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EEA6C232B16472900AD55CB /* UIView+Extensions.swift */; };
 		2EEA6C282B16480500AD55CB /* UIView+Border.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EEA6C272B16480500AD55CB /* UIView+Border.swift */; };
 		2EEA6C2C2B1649D400AD55CB /* Dependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EEA6C2B2B1649D400AD55CB /* Dependency.swift */; };
@@ -43,6 +51,14 @@
 		2EEA6C802B191A6000AD55CB /* InviteFriendsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EEA6C7E2B191A6000AD55CB /* InviteFriendsCell.swift */; };
 		2EEA6C822B191CD600AD55CB /* ApplicationAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EEA6C812B191CD600AD55CB /* ApplicationAppearance.swift */; };
 		2EEA6C862B1925CE00AD55CB /* HomeTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EEA6C852B1925CE00AD55CB /* HomeTabBarViewController.swift */; };
+		2EEA6C892B192E8100AD55CB /* FindUsersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EEA6C872B192E8100AD55CB /* FindUsersViewController.swift */; };
+		2EEA6C8A2B192E8100AD55CB /* FollowingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EEA6C882B192E8100AD55CB /* FollowingViewController.swift */; };
+		2EEA6C8C2B192E8E00AD55CB /* FollowingViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2EEA6C8B2B192E8E00AD55CB /* FollowingViewController.storyboard */; };
+		2EEA6C8E2B192FA500AD55CB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2EEA6C8D2B192FA500AD55CB /* Main.storyboard */; };
+		2EEA6C912B19311100AD55CB /* FindUsersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EEA6C8F2B19311100AD55CB /* FindUsersViewModel.swift */; };
+		2EEA6C922B19311100AD55CB /* FollowingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EEA6C902B19311100AD55CB /* FollowingViewModel.swift */; };
+		2EEA6C932B19324400AD55CB /* FavoritConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF8B1192B1234B800EE75CB /* FavoritConstant.swift */; };
+		2EEA6C992B19C4F500AD55CB /* HomeTabBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EEA6C982B19C4F500AD55CB /* HomeTabBarItem.swift */; };
 		EE3D974E2B15B4C200ADD849 /* Follower.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3D974D2B15B4C200ADD849 /* Follower.swift */; };
 		EE3D97502B15B57100ADD849 /* UserProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3D974F2B15B57100ADD849 /* UserProtocol.swift */; };
 		EE3D97562B15B93400ADD849 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = EE3D97552B15B93400ADD849 /* Kingfisher */; };
@@ -67,11 +83,18 @@
 		EEF8B10C2B12255600EE75CB /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = EEF8B10B2B12255600EE75CB /* Localizable.xcstrings */; };
 		EEF8B10F2B12301200EE75CB /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = EEF8B10E2B12301200EE75CB /* IQKeyboardManagerSwift */; };
 		EEF8B1182B1233DE00EE75CB /* FavoritApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF8B1172B1233DE00EE75CB /* FavoritApi.swift */; };
-		EEF8B11A2B1234B800EE75CB /* FavoritConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF8B1192B1234B800EE75CB /* FavoritConstant.swift */; };
 		EEF8B11C2B123C2200EE75CB /* UserHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF8B11B2B123C2200EE75CB /* UserHelper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2EA3DE892B1A26790063730A /* FollowingViewController+Factory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FollowingViewController+Factory.swift"; sourceTree = "<group>"; };
+		2EA3DE8C2B1B11380063730A /* Follow+Dependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Follow+Dependencies.swift"; sourceTree = "<group>"; };
+		2EA3DE8F2B1B62920063730A /* UserSessionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSessionService.swift; sourceTree = "<group>"; };
+		2EA3DE922B1B64C10063730A /* FollowingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowingService.swift; sourceTree = "<group>"; };
+		2EA3DE942B1B6E100063730A /* FollowersRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowersRequest.swift; sourceTree = "<group>"; };
+		2EA3DE962B1B74F10063730A /* FollowersResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowersResponse.swift; sourceTree = "<group>"; };
+		2EA3DE982B1B806F0063730A /* FollowerUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowerUser.swift; sourceTree = "<group>"; };
+		2EA3DE9A2B1B81B40063730A /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		2EEA6C172B163F8400AD55CB /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
 		2EEA6C182B163F8E00AD55CB /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
 		2EEA6C232B16472900AD55CB /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
@@ -106,6 +129,13 @@
 		2EEA6C7E2B191A6000AD55CB /* InviteFriendsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InviteFriendsCell.swift; sourceTree = "<group>"; };
 		2EEA6C812B191CD600AD55CB /* ApplicationAppearance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationAppearance.swift; sourceTree = "<group>"; };
 		2EEA6C852B1925CE00AD55CB /* HomeTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTabBarViewController.swift; sourceTree = "<group>"; };
+		2EEA6C872B192E8100AD55CB /* FindUsersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FindUsersViewController.swift; sourceTree = "<group>"; };
+		2EEA6C882B192E8100AD55CB /* FollowingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FollowingViewController.swift; sourceTree = "<group>"; };
+		2EEA6C8B2B192E8E00AD55CB /* FollowingViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FollowingViewController.storyboard; sourceTree = "<group>"; };
+		2EEA6C8D2B192FA500AD55CB /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		2EEA6C8F2B19311100AD55CB /* FindUsersViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FindUsersViewModel.swift; sourceTree = "<group>"; };
+		2EEA6C902B19311100AD55CB /* FollowingViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FollowingViewModel.swift; sourceTree = "<group>"; };
+		2EEA6C982B19C4F500AD55CB /* HomeTabBarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTabBarItem.swift; sourceTree = "<group>"; };
 		EE3D974D2B15B4C200ADD849 /* Follower.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Follower.swift; sourceTree = "<group>"; };
 		EE3D974F2B15B57100ADD849 /* UserProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProtocol.swift; sourceTree = "<group>"; };
 		EE3D97622B15DC5600ADD849 /* Following.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Following.swift; sourceTree = "<group>"; };
@@ -151,6 +181,32 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2EA3DE8B2B1B111D0063730A /* DI */ = {
+			isa = PBXGroup;
+			children = (
+				2EA3DE8C2B1B11380063730A /* Follow+Dependencies.swift */,
+			);
+			path = DI;
+			sourceTree = "<group>";
+		};
+		2EA3DE8E2B1B62830063730A /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				2EA3DE8F2B1B62920063730A /* UserSessionService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		2EA3DE912B1B64B50063730A /* Remote */ = {
+			isa = PBXGroup;
+			children = (
+				2EA3DE922B1B64C10063730A /* FollowingService.swift */,
+				2EA3DE942B1B6E100063730A /* FollowersRequest.swift */,
+				2EA3DE962B1B74F10063730A /* FollowersResponse.swift */,
+			);
+			path = Remote;
+			sourceTree = "<group>";
+		};
 		2EEA6C0A2B163B3B00AD55CB /* Login */ = {
 			isa = PBXGroup;
 			children = (
@@ -165,11 +221,11 @@
 		2EEA6C0B2B163B4400AD55CB /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				2EEA6C832B19257100AD55CB /* HomeTabBar */,
-				2EEA6C772B191A0E00AD55CB /* Follow */,
-				2EEA6C122B163C4600AD55CB /* Reset Password */,
 				2EEA6C0A2B163B3B00AD55CB /* Login */,
 				2EEA6C0C2B163B4D00AD55CB /* Sign Up */,
+				2EEA6C832B19257100AD55CB /* HomeTabBar */,
+				2EEA6C772B191A0E00AD55CB /* Following */,
+				2EEA6C122B163C4600AD55CB /* Reset Password */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -205,6 +261,7 @@
 				EE44158C2B092260001515D6 /* Info.plist */,
 				EE44157E2B09225F001515D6 /* AppDelegate.swift */,
 				EE4415802B09225F001515D6 /* SceneDelegate.swift */,
+				2EA3DE9A2B1B81B40063730A /* AppCoordinator.swift */,
 				EE4415892B092260001515D6 /* LaunchScreen.storyboard */,
 				2EEA6C292B1649BA00AD55CB /* DI */,
 			);
@@ -415,20 +472,26 @@
 			path = DI;
 			sourceTree = "<group>";
 		};
-		2EEA6C772B191A0E00AD55CB /* Follow */ = {
+		2EEA6C772B191A0E00AD55CB /* Following */ = {
 			isa = PBXGroup;
 			children = (
-				EE3D974C2B15B46F00ADD849 /* Follower */,
+				EE3D974C2B15B46F00ADD849 /* Presentation */,
+				2EEA6C942B19409E00AD55CB /* Data */,
 				2EEA6C782B191A1600AD55CB /* View */,
+				2EA3DE8B2B1B111D0063730A /* DI */,
 			);
-			path = Follow;
+			path = Following;
 			sourceTree = "<group>";
 		};
 		2EEA6C782B191A1600AD55CB /* View */ = {
 			isa = PBXGroup;
 			children = (
+				2EEA6C872B192E8100AD55CB /* FindUsersViewController.swift */,
+				2EEA6C882B192E8100AD55CB /* FollowingViewController.swift */,
 				2EEA6C7D2B191A6000AD55CB /* FollowerCell.swift */,
 				2EEA6C7E2B191A6000AD55CB /* InviteFriendsCell.swift */,
+				2EEA6C8B2B192E8E00AD55CB /* FollowingViewController.storyboard */,
+				2EA3DE892B1A26790063730A /* FollowingViewController+Factory.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -436,6 +499,7 @@
 		2EEA6C832B19257100AD55CB /* HomeTabBar */ = {
 			isa = PBXGroup;
 			children = (
+				2EEA6C972B19C4E600AD55CB /* Presentation */,
 				2EEA6C842B19257900AD55CB /* View */,
 			);
 			path = HomeTabBar;
@@ -444,9 +508,26 @@
 		2EEA6C842B19257900AD55CB /* View */ = {
 			isa = PBXGroup;
 			children = (
+				2EEA6C8D2B192FA500AD55CB /* Main.storyboard */,
 				2EEA6C852B1925CE00AD55CB /* HomeTabBarViewController.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		2EEA6C942B19409E00AD55CB /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				2EA3DE912B1B64B50063730A /* Remote */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		2EEA6C972B19C4E600AD55CB /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				2EEA6C982B19C4F500AD55CB /* HomeTabBarItem.swift */,
+			);
+			path = Presentation;
 			sourceTree = "<group>";
 		};
 		3B8F931CF57C892EC6AA8BA6 /* Frameworks */ = {
@@ -456,14 +537,17 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		EE3D974C2B15B46F00ADD849 /* Follower */ = {
+		EE3D974C2B15B46F00ADD849 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				2EEA6C8F2B19311100AD55CB /* FindUsersViewModel.swift */,
+				2EEA6C902B19311100AD55CB /* FollowingViewModel.swift */,
 				EE3D974F2B15B57100ADD849 /* UserProtocol.swift */,
 				EE3D974D2B15B4C200ADD849 /* Follower.swift */,
 				EE3D97622B15DC5600ADD849 /* Following.swift */,
+				2EA3DE982B1B806F0063730A /* FollowerUser.swift */,
 			);
-			path = Follower;
+			path = Presentation;
 			sourceTree = "<group>";
 		};
 		EE4415722B09225F001515D6 = {
@@ -486,6 +570,7 @@
 		EE44157D2B09225F001515D6 /* Favorit */ = {
 			isa = PBXGroup;
 			children = (
+				2EA3DE8E2B1B62830063730A /* Services */,
 				2EEA6C532B167BDC00AD55CB /* Persistent Storage */,
 				2EEA6C162B163F7A00AD55CB /* Config */,
 				2EEA6C102B163BAA00AD55CB /* Main */,
@@ -606,8 +691,10 @@
 				2EEA6C3D2B164CCD00AD55CB /* Colors.xcassets in Resources */,
 				EE4415A02B092557001515D6 /* Login.storyboard in Resources */,
 				EEF8B10C2B12255600EE75CB /* Localizable.xcstrings in Resources */,
+				2EEA6C8E2B192FA500AD55CB /* Main.storyboard in Resources */,
 				EE44158B2B092260001515D6 /* LaunchScreen.storyboard in Resources */,
 				EE4415882B092260001515D6 /* Assets.xcassets in Resources */,
+				2EEA6C8C2B192E8E00AD55CB /* FollowingViewController.storyboard in Resources */,
 				2EEA6C732B18F2DC00AD55CB /* SignUpViewController.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -619,20 +706,30 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2EA3DE992B1B806F0063730A /* FollowerUser.swift in Sources */,
+				2EEA6C932B19324400AD55CB /* FavoritConstant.swift in Sources */,
 				EE3D974E2B15B4C200ADD849 /* Follower.swift in Sources */,
 				EE44159E2B092526001515D6 /* LoginViewController.swift in Sources */,
 				2EEA6C622B167F3700AD55CB /* LoginStorageService.swift in Sources */,
+				2EA3DE8D2B1B11380063730A /* Follow+Dependencies.swift in Sources */,
+				2EEA6C912B19311100AD55CB /* FindUsersViewModel.swift in Sources */,
 				2EEA6C3F2B165AA900AD55CB /* NetworkService.swift in Sources */,
 				2EEA6C4E2B1664A700AD55CB /* LoginRequest.swift in Sources */,
 				2EEA6C3A2B164AB100AD55CB /* Login+Dependencies.swift in Sources */,
+				2EEA6C8A2B192E8100AD55CB /* FollowingViewController.swift in Sources */,
 				2EEA6C6C2B16848400AD55CB /* SignUpUserInput.swift in Sources */,
+				2EA3DE9B2B1B81B40063730A /* AppCoordinator.swift in Sources */,
 				EEF8B10A2B1224CB00EE75CB /* UIViewController+Extension.swift in Sources */,
+				2EA3DE8A2B1A26790063730A /* FollowingViewController+Factory.swift in Sources */,
+				2EA3DE952B1B6E100063730A /* FollowersRequest.swift in Sources */,
 				2EEA6C692B16842C00AD55CB /* SignUpRequest.swift in Sources */,
 				2EEA6C412B165AF700AD55CB /* APIResponse.swift in Sources */,
 				2EEA6C372B164A3E00AD55CB /* Resolver.swift in Sources */,
 				2EEA6C582B167C5100AD55CB /* Constants.swift in Sources */,
 				2EEA6C6F2B16854B00AD55CB /* SignUp+Dependencies.swift in Sources */,
 				EEF8B1182B1233DE00EE75CB /* FavoritApi.swift in Sources */,
+				2EEA6C992B19C4F500AD55CB /* HomeTabBarItem.swift in Sources */,
+				2EEA6C922B19311100AD55CB /* FollowingViewModel.swift in Sources */,
 				EEF8B0FE2B11F25300EE75CB /* ResetPasswordViewModel.swift in Sources */,
 				EEF8B0FC2B11F24600EE75CB /* SignupViewModel.swift in Sources */,
 				2EEA6C4C2B16642D00AD55CB /* LoginService.swift in Sources */,
@@ -653,16 +750,18 @@
 				2EEA6C432B165B0E00AD55CB /* AnyCodable.swift in Sources */,
 				2EEA6C562B167C0500AD55CB /* UserDefaults.swift in Sources */,
 				2EEA6C242B16472900AD55CB /* UIView+Extensions.swift in Sources */,
-				EEF8B11A2B1234B800EE75CB /* FavoritConstant.swift in Sources */,
 				2EEA6C282B16480500AD55CB /* UIView+Border.swift in Sources */,
 				2EEA6C672B16835200AD55CB /* SignUpResponse.swift in Sources */,
 				EE3D97632B15DC5600ADD849 /* Following.swift in Sources */,
-				EEF8B11A2B1234B800EE75CB /* FavoritConstant.swift in Sources */,
 				EEF8B11C2B123C2200EE75CB /* UserHelper.swift in Sources */,
 				EEF8B1032B121D2E00EE75CB /* LoginResponse.swift in Sources */,
 				2EEA6C5E2B167D5400AD55CB /* KeychainManager.swift in Sources */,
+				2EA3DE902B1B62920063730A /* UserSessionService.swift in Sources */,
 				2EEA6C502B166C2F00AD55CB /* APIError.swift in Sources */,
+				2EEA6C892B192E8100AD55CB /* FindUsersViewController.swift in Sources */,
 				2EEA6C452B165BBE00AD55CB /* AFLogger.swift in Sources */,
+				2EA3DE972B1B74F10063730A /* FollowersResponse.swift in Sources */,
+				2EA3DE932B1B64C10063730A /* FollowingService.swift in Sources */,
 				2EEA6C822B191CD600AD55CB /* ApplicationAppearance.swift in Sources */,
 				2EEA6C862B1925CE00AD55CB /* HomeTabBarViewController.swift in Sources */,
 				EEF8B0FA2B11F23400EE75CB /* LoginViewModel.swift in Sources */,
