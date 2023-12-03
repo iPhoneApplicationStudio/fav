@@ -133,8 +133,17 @@ extension FollowingViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView,
                    didSelectRowAt indexPath: IndexPath) {
-        _ = viewModel.userForIndex(indexPath.row)
-//        performSegue(withIdentifier: "toDetails", sender: follower.to)
+        guard let user = viewModel.userForIndex(indexPath.row) else {
+            return
+        }
+        let vc =
+        UIStoryboard(name: "UserDetailsViewController", bundle: nil)
+            .instantiateViewController(withIdentifier: "UserDetailsViewController")
+            as! UserDetailsViewController
+        
+        vc.userId = user.id
+        
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
 

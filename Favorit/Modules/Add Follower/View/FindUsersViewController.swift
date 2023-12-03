@@ -169,22 +169,6 @@ class FindUsersViewController: UIViewController, UISearchBarDelegate {
         
     }
     
-    // MARK: - Navigation
-    
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-        //
-        //        if segue.identifier == "searchToUserProfile" {
-        //            let userDetailsVC = segue.destination as! UserDetailsViewController
-        //            guard let indexPath = sender as? IndexPath else {return}
-        //            let user = users[indexPath.row]
-        //            userDetailsVC.userId = user.objectId
-        //        }
-    }
-    
-    
 }
 
 extension FindUsersViewController:  UITableViewDelegate, UITableViewDataSource {
@@ -231,8 +215,14 @@ extension FindUsersViewController:  UITableViewDelegate, UITableViewDataSource {
                 self.present(activityVC, animated: true, completion: nil)
             }
         default:
+            let vc =
+            UIStoryboard(name: "UserDetailsViewController", bundle: nil)
+                .instantiateViewController(withIdentifier: "UserDetailsViewController")
+                as! UserDetailsViewController
             
-            performSegue(withIdentifier: "searchToUserProfile", sender: indexPath)
+            vc.userId = users[indexPath.row]._id
+            
+            navigationController?.pushViewController(vc, animated: true)
         }
     }
     
