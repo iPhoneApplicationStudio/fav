@@ -37,7 +37,11 @@ class UserDetailsViewController: UIViewController {
     @IBOutlet weak var coverImageView: UIImageView!
     @IBOutlet weak var locationTextView: UITextField!
     
-    var user: User?
+    var user: User? {
+        didSet {
+            self.title = isMyProfile ? "My Profile" : user?.name
+        }
+    }
     var userId: String!
     var bookmarkedVenues = [String]()// [SavedVenue]()
     var favoritVenues = [String]()// [SavedVenue]()
