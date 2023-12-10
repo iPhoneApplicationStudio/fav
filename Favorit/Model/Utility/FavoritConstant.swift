@@ -10,7 +10,7 @@ import UIKit
 class FavoritConstant {
     private let isProdEnable = false
     private let prodUrl = "http://54.160.165.153:5001/api/v1"
-    private let devUrl = "http://54.160.165.153:5001/api/v1"
+    private let devUrl = "http://52.201.240.52:5001/api/v1"
     
     let downloadUrl = "https://apps.apple.com/us/app/favorit-foodie-restaurant-app/id1321962737"
     static let shared = FavoritConstant()
