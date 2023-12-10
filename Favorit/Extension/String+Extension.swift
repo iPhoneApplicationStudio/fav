@@ -18,4 +18,8 @@ extension String {
         let password = self.trimmingCharacters(in: .whitespaces)
         return password.count > 7
     }
+    
+    var isNotEmpty: Bool {
+        return !isEmpty
+    }
 }

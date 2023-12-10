@@ -5,13 +5,14 @@
 //  Created by ONS on 25/11/23.
 //
 
-import Foundation
+import UIKit
 
 class FavoritConstant {
     private let isProdEnable = false
-    private let prodUrl = ""
-    private let devUrl = ""
+    private let prodUrl = "http://54.160.165.153:5001/api/v1"
+    private let devUrl = "http://54.160.165.153:5001/api/v1"
     
+    let downloadUrl = "https://apps.apple.com/us/app/favorit-foodie-restaurant-app/id1321962737"
     static let shared = FavoritConstant()
     private init() { }
     
@@ -24,4 +25,33 @@ class FavoritConstant {
         return [:]
     }
 }
+
+enum StoryboardName: String {
+    case main = "Main"
+    case login = "Login"
+    
+    var value: String {
+        return rawValue
+    }
+}
+
+enum ViewControllerName: String {
+    case login = "LoginVC"
+    case tabbar = "TabBarVC"
+    case userDetail = "UserDetailsViewController"
+    
+    var value: String {
+        return rawValue
+    }
+}
+
+enum CellName: String {
+    case inviteFriendsCell = "inviteFriendsCell"
+    case followerCell = "followerCell"
+    
+    var value: String {
+        return rawValue
+    }
+}
+
 
