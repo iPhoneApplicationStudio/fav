@@ -42,7 +42,7 @@ class PlacesBaseViewController: UIViewController {
     lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
         refreshControl.backgroundColor = UIColor.clear
-        refreshControl.tintColor = FavoritConstant.Colors.primaryColor
+        refreshControl.tintColor = .primaryColor
         refreshControl.addTarget(self, action: #selector(refreshMyVenues), for: .valueChanged)
         
         return refreshControl

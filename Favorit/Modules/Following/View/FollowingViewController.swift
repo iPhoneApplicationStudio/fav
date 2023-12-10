@@ -70,7 +70,12 @@ extension FollowingViewController {
 extension FollowingViewController {
     
     @IBAction func didTapAddNewFollower(_ sender: UIButton) {
-        navigationController?.pushViewController(FindUsersViewController.makeFindUsersViewController(), animated: true)
+        guard let vc = FindUsersViewController.makeFindUsersViewController() else {
+            return
+        }
+        
+        self.navigationController?.pushViewController(vc,
+                                                      animated: true)
     }
 }
 
@@ -136,14 +141,16 @@ extension FollowingViewController: UITableViewDelegate {
         guard let user = viewModel.userForIndex(indexPath.row) else {
             return
         }
-        let vc =
-        UIStoryboard(name: "UserDetailsViewController", bundle: nil)
-            .instantiateViewController(withIdentifier: "UserDetailsViewController")
-            as! UserDetailsViewController
         
-        vc.userId = user.id
+        guard let vc = UIStoryboard(name: StoryboardName.main.value, bundle: nil) .instantiateViewController(withIdentifier: ViewControllerName.userDetail.value) as? UserDetailsViewController else {
+            return
+        }
         
-        navigationController?.pushViewController(vc, animated: true)
+        let viewModel = UserDetailViewModel(userID: user.id,
+                                            isEditMode: false)
+        vc.viewModel = viewModel
+        self.navigationController?.pushViewController(vc,
+                                                      animated: true)
     }
 }
 

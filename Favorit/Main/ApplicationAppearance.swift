@@ -10,9 +10,8 @@ import UIKit
 final class ApplicationAppearance {
     
     static func initialAppearance() {
-        
-        guard let primaryColor = FavoritConstant.Colors.primaryColor,
-              let accentColor = FavoritConstant.Colors.accentColor 
+        guard let primaryColor = UIColor.primaryColor,
+              let accentColor = UIColor.accentColor 
         else {
             return
         }

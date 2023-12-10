@@ -19,11 +19,12 @@ struct SignUpResponse: Decodable {
     let isActive: AnyCodable?
     let createdAt: AnyCodable?
     let updatedAt: AnyCodable?
+    let token: String?
     
     enum CodingKeys: String, CodingKey {
         case id = "_id"
         case name, email, city, country, avatar, followers, following
         case isActive = "active"
-        case createdAt, updatedAt
+        case createdAt, updatedAt, token
     }
 }

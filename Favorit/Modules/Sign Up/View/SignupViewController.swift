@@ -62,9 +62,12 @@ class SignUpViewController: UIViewController {
         viewModel.signUp { [weak self] result in
             switch result {
             case .success(_):
-                self?.showMessage(title: "Success",
-                                  message: "User Created  Success. Please login again!") {_ in 
-                    self?.dismiss(animated: true)
+                DispatchQueue.main.async {
+                    if let window = UIWindow.topWindow {
+                        window.rootViewController = HomeTabBarViewController()
+                    } else {
+                        self?.dismiss(animated: true)
+                    }
                 }
             case .failure(let failure):
                 self?.showError(message: failure.message)

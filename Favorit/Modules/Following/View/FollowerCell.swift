@@ -39,8 +39,48 @@ class FollowerCell: UITableViewCell {
         tagLineLabel.text = "This is my optional tag line"
     }
     
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
+    func configure(with user: User?) {
+        guard let user else {
+            return
+        }
+        
+        self.userNameLabel.text = user.name
+        self.followersCountLabel.text = "\(user.followerCount)"
+        self.favoritCountLabel.text = "\(user.favouriteCount)"
+        self.bookmarkCountLabel.text = "\(user.bookmarkCount)"
+        
+        //        if let tagline = follower.tagLine {
+        //            tagLineLabel.isHidden = false
+        //            tagLineLabel.text = tagline
+        //        } else {
+        //            tagLineLabel.isHidden = true
+        //        }
+        
+        //        if let userPhoto = follower.userPhoto {
+        //            userImageView.file = userPhoto
+        //            userImageView.loadInBackground()
+        //        } else
+        
+        if let userPhotoUrlString = user.avatar,
+           let userPhotoUrl = URL(string: userPhotoUrlString) {
+            self.userImageView.kf.setImage(with: userPhotoUrl,
+                                      options: [.transition(.fade(0.5)), .forceTransition]) { [weak userImageView] result in
+                switch result {
+                case .success: break
+                case .failure:
+                    userImageView?.setImage(string: user.name,
+                                            color: UIColor.lightGray,
+                                            circular: true,
+                                            textAttributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 40, weight: .light),
+                                                             NSAttributedString.Key.foregroundColor: UIColor.white])
+                }
+            }
+        } else {
+            self.userImageView.setImage(string: user.name,
+                                   color: UIColor.lightGray,
+                                   circular: true,
+                                   textAttributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 40, weight: .light),
+                                                    NSAttributedString.Key.foregroundColor: UIColor.white])
+        }
     }
-    
 }

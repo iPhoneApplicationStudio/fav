@@ -9,8 +9,8 @@ import UIKit
 
 class FavoritConstant {
     private let isProdEnable = false
-    private let prodUrl = "http://103.107.184.159:8000/api/v1"
-    private let devUrl = "http://103.107.184.159:8000/api/v1"
+    private let prodUrl = "http://54.160.165.153:5001/api/v1"
+    private let devUrl = "http://54.160.165.153:5001/api/v1"
     
     let downloadUrl = "https://apps.apple.com/us/app/favorit-foodie-restaurant-app/id1321962737"
     static let shared = FavoritConstant()
@@ -23,20 +23,6 @@ class FavoritConstant {
     class var headers: [String: String] {
         
         return [:]
-    }
-    
-    
-    struct Colors {
-        static var primaryColor: UIColor? {
-            return UIColor(named: "Primary")
-        }
-        
-        static var accentColor: UIColor? {
-            return UIColor(named: "Accent")
-        }
-        
-        static let whiteGradientTop = UIColor.white.withAlphaComponent(0.0)
-        static let whiteGradientBottom = UIColor.white
     }
 }
 
@@ -52,6 +38,7 @@ enum StoryboardName: String {
 enum ViewControllerName: String {
     case login = "LoginVC"
     case tabbar = "TabBarVC"
+    case userDetail = "UserDetailsViewController"
     
     var value: String {
         return rawValue

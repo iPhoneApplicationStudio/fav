@@ -13,11 +13,11 @@ class FavoritSegmentedControl: UISegmentedControl {
         super.init(coder: aDecoder)
         
         if #available(iOS 13.0, *) {
-            selectedSegmentTintColor = FavoritConstant.Colors.primaryColor
-            tintColor = FavoritConstant.Colors.accentColor
+            selectedSegmentTintColor = .primaryColor
+            tintColor = .accentColor
 
         } else {
-            tintColor = FavoritConstant.Colors.primaryColor
+            tintColor = .primaryColor
         }
                 
         setTitleTextAttributes([.foregroundColor: tintColor, NSAttributedString.Key.font: UIFont.systemFont(ofSize: 13, weight: .light)], for: .normal)

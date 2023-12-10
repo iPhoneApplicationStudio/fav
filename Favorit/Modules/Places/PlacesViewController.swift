@@ -39,6 +39,15 @@ class PlacesViewController: PlacesBaseViewController, UISearchBarDelegate {
 //                detailController.savedVenue = bookmarkedVenue
 //            }
 //        }
+        
+        if segue.identifier == "toFindPlaces" {
+            guard let vc = segue.destination as? FindPlacesViewController else {
+                return
+            }
+            
+            let viewMode = FindPlacesViewModel()
+            vc.viewModel = viewMode
+        }
     }
 }
 

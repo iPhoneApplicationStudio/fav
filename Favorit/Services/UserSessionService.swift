@@ -8,18 +8,16 @@
 import Foundation
 
 protocol UserSessionService {
-    
     var isLoggedIn: Bool { get }
-    
     var loggedInUserID: String? { get }
 }
 
 final class ConcreteUserSessionService: UserSessionService {
-    
     var isLoggedIn: Bool {
         guard let key = UserDefaults.accessTokenKey else {
             return false
         }
+        
         return KeychainManager.retrieve(for: key) != nil
     }
     

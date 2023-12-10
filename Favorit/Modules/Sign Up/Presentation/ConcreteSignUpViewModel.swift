@@ -12,6 +12,7 @@ final class ConcreteSignUpViewModel: SignupViewModel {
     var handleLoadingState: ((Bool) -> Void)?
     
     @Dependency var signupService: SignUpService
+    @Dependency var signUpStorageService: LoginStorageService
     
     func signUp(completion: @escaping (Result<SignUpResponse, SignupError>) -> Void) {
         let email = signUpUserInput.email
@@ -45,6 +46,12 @@ final class ConcreteSignUpViewModel: SignupViewModel {
         signupService.signUp(request: request) { [weak self] result in
             switch result {
             case .success(let response):
+                if let token = response.token {
+                    self?.signUpStorageService.store(token: token)
+                }
+                if let userID = response.id {
+                    self?.signUpStorageService.store(loggedIn: userID)
+                }
                 completion(.success(response))
             case .failure:
                 completion(.failure(.signUpFailed))

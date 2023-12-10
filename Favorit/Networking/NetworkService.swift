@@ -110,7 +110,6 @@ extension Session {
                     headers: headers)
             }
             
-            
             return request
         }
 }

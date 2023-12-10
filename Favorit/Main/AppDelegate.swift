@@ -5,7 +5,6 @@
 //  Created by ONS on 18/11/23.
 //
 
-//  UPI ID - vinitakatyal16-2@okhdfcbank
 //
 
 import UIKit
