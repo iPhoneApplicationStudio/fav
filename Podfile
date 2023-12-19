@@ -6,7 +6,7 @@ target 'Favorit' do
   use_frameworks!
 
   # Pods for Favorit
-  #pod 'Letters'
+  pod 'Lightbox'
 
 end
 

@@ -1,0 +1,24 @@
+PODS:
+  - Cache (6.0.0)
+  - Imaginary (5.0.0):
+    - Cache (~> 6.0.0)
+  - Lightbox (2.5.0):
+    - Imaginary (~> 5.0.0)
+
+DEPENDENCIES:
+  - Lightbox
+
+SPEC REPOS:
+  trunk:
+    - Cache
+    - Imaginary
+    - Lightbox
+
+SPEC CHECKSUMS:
+  Cache: 4ca7e00363fca5455f26534e5607634c820ffc2d
+  Imaginary: cf5e3a7dd6ab1dcbd47ba8ce5edf2307c4e99eb3
+  Lightbox: cc3d5124f024fa8197fd23f913160db1c61a1852
+
+PODFILE CHECKSUM: 6ce27f96031f4c0e9a38502102fc7e5b7a7fafdd
+
+COCOAPODS: 1.14.2

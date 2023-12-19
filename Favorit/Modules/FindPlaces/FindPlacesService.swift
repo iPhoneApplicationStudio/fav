@@ -10,9 +10,9 @@ import Foundation
 class FindPlacesService {
     private let service = NetworkService()
     func getAllPlaces(request: FindPlacesRequest,
-                     completion: @escaping (Result<SearchedPlaces, APIError>) -> Void) {
+                     completion: @escaping (Result<Places, APIError>) -> Void) {
         service.fetch(apiEndPoint: request,
-                      model: SearchedPlaces.self,
+                      model: Places.self,
                       isCustom: true,
                       completion: completion)
     }

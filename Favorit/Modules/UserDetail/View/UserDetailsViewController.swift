@@ -428,10 +428,10 @@ extension UserDetailsViewController {
 extension UserDetailsViewController {
     func setupUser(user: User) {
         let userFullName = user.name
-        let followerCount = user.followerCount
+        let followerCount = user.followerCount ?? 0
         let followingCount = user.followingCount ?? 0
-        let favoritCount = user.favouriteCount
-        let bookmarkCount = user.bookmarkCount
+        let favoritCount = user.favouriteCount ?? 0
+        let bookmarkCount = user.bookmarkCount ?? 0
         
         self.usernameLabel.text = userFullName
         self.followersCountLabel.text = String(followerCount)
