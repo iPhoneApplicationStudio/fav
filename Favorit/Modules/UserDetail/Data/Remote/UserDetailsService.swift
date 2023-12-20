@@ -11,9 +11,9 @@ final class UserDetailsService {
     private let networkService = NetworkService()
     
     func getUserDetails(_ request: UserDetailRequest, 
-                        completion: @escaping (Result<User, APIError>) -> Void) {
-        networkService.fetch(apiEndPoint: request, 
-                             model: User.self,
+                        completion: @escaping (Result<UserDetail, APIError>) -> Void) {
+        networkService.fetch(apiEndPoint: request,
+                             model: UserDetail.self,
                              isCustom: true,
                              completion: completion)
     }

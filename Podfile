@@ -7,6 +7,7 @@ target 'Favorit' do
 
   # Pods for Favorit
   pod 'Lightbox'
+  pod "Resolver"
 
 end
 

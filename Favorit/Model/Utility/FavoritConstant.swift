@@ -52,6 +52,7 @@ enum ViewControllerName: String {
 enum CellName: String {
     case inviteFriendsCell = "inviteFriendsCell"
     case followerCell = "followerCell"
+    case saved = "SavedCell"
     
     var value: String {
         return rawValue

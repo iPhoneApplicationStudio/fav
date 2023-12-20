@@ -2,12 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>This app would like access to your photo library</string>
-	<key>NSCameraUsageDescription</key>
-	<string>This app would like to use your camera to capture an image</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>We need your location in order to provide venues near you</string>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>

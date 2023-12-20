@@ -37,9 +37,6 @@
 		2EEA6C282B16480500AD55CB /* UIView+Border.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EEA6C272B16480500AD55CB /* UIView+Border.swift */; };
 		2EEA6C2C2B1649D400AD55CB /* Dependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EEA6C2B2B1649D400AD55CB /* Dependency.swift */; };
 		2EEA6C2E2B1649E900AD55CB /* ServiceLocator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EEA6C2D2B1649E900AD55CB /* ServiceLocator.swift */; };
-		2EEA6C312B164A1D00AD55CB /* Resolver in Frameworks */ = {isa = PBXBuildFile; productRef = 2EEA6C302B164A1D00AD55CB /* Resolver */; };
-		2EEA6C332B164A1D00AD55CB /* Resolver-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 2EEA6C322B164A1D00AD55CB /* Resolver-Dynamic */; };
-		2EEA6C352B164A1D00AD55CB /* Resolver-Static in Frameworks */ = {isa = PBXBuildFile; productRef = 2EEA6C342B164A1D00AD55CB /* Resolver-Static */; };
 		2EEA6C372B164A3E00AD55CB /* Resolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EEA6C362B164A3E00AD55CB /* Resolver.swift */; };
 		2EEA6C3A2B164AB100AD55CB /* Login+Dependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EEA6C392B164AB100AD55CB /* Login+Dependencies.swift */; };
 		2EEA6C3D2B164CCD00AD55CB /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2EEA6C3C2B164CCD00AD55CB /* Colors.xcassets */; };
@@ -75,7 +72,7 @@
 		2EEA6C922B19311100AD55CB /* FollowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EEA6C902B19311100AD55CB /* FollowViewModel.swift */; };
 		2EEA6C932B19324400AD55CB /* FavoritConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF8B1192B1234B800EE75CB /* FavoritConstant.swift */; };
 		2EEA6C992B19C4F500AD55CB /* HomeTabBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EEA6C982B19C4F500AD55CB /* HomeTabBarItem.swift */; };
-		759E28D55C4DBA61D28D1391 /* Pods_Favorit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA61C18773361E3441A5DFF5 /* Pods_Favorit.framework */; };
+		DFB1BE648E5B2C13AFE32878 /* Pods_Favorit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 339C198F22397A026F2E361D /* Pods_Favorit.framework */; };
 		EE1A79E32B2325E100589A74 /* FindPlacesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE1A79E22B2325E100589A74 /* FindPlacesViewModel.swift */; };
 		EE1A79E52B23291400589A74 /* FindPlacesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE1A79E42B23291400589A74 /* FindPlacesService.swift */; };
 		EE1A79E72B23295700589A74 /* FindPlacesRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE1A79E62B23295700589A74 /* FindPlacesRequest.swift */; };
@@ -102,6 +99,7 @@
 		EE7F8CA52B29E6B900E767F7 /* Geocodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE7F8CA42B29E6B900E767F7 /* Geocodes.swift */; };
 		EEA0AD502B2C8E4900807F4B /* FeedActivityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA0AD4F2B2C8E4900807F4B /* FeedActivityViewModel.swift */; };
 		EEA0AD532B2C914200807F4B /* ActivityModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA0AD522B2C914200807F4B /* ActivityModel.swift */; };
+		EEADBBA12B31CEAB00EEA9C3 /* UserDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEADBBA02B31CEAB00EEA9C3 /* UserDetail.swift */; };
 		EEC784942B28991B002E71F8 /* PlaceListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC784932B28991B002E71F8 /* PlaceListViewModel.swift */; };
 		EEC784972B289EEC002E71F8 /* PlaceListService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC784962B289EEC002E71F8 /* PlaceListService.swift */; };
 		EEC784992B289F25002E71F8 /* RecommendedBookmarksRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC784982B289F25002E71F8 /* RecommendedBookmarksRequest.swift */; };
@@ -208,9 +206,9 @@
 		2EEA6C8D2B192FA500AD55CB /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		2EEA6C902B19311100AD55CB /* FollowViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FollowViewModel.swift; sourceTree = "<group>"; };
 		2EEA6C982B19C4F500AD55CB /* HomeTabBarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTabBarItem.swift; sourceTree = "<group>"; };
-		B0E7F3D48D316529D3C3F94F /* Pods-Favorit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Favorit.release.xcconfig"; path = "Target Support Files/Pods-Favorit/Pods-Favorit.release.xcconfig"; sourceTree = "<group>"; };
-		B8B205413986AD2D03487921 /* Pods-Favorit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Favorit.debug.xcconfig"; path = "Target Support Files/Pods-Favorit/Pods-Favorit.debug.xcconfig"; sourceTree = "<group>"; };
-		DA61C18773361E3441A5DFF5 /* Pods_Favorit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Favorit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3105BDA9558834414D01CCD8 /* Pods-Favorit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Favorit.release.xcconfig"; path = "Target Support Files/Pods-Favorit/Pods-Favorit.release.xcconfig"; sourceTree = "<group>"; };
+		339C198F22397A026F2E361D /* Pods_Favorit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Favorit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E2B4FE8950FEB054D8811A60 /* Pods-Favorit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Favorit.debug.xcconfig"; path = "Target Support Files/Pods-Favorit/Pods-Favorit.debug.xcconfig"; sourceTree = "<group>"; };
 		EE1A79E22B2325E100589A74 /* FindPlacesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindPlacesViewModel.swift; sourceTree = "<group>"; };
 		EE1A79E42B23291400589A74 /* FindPlacesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindPlacesService.swift; sourceTree = "<group>"; };
 		EE1A79E62B23295700589A74 /* FindPlacesRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindPlacesRequest.swift; sourceTree = "<group>"; };
@@ -235,6 +233,7 @@
 		EE7F8CA42B29E6B900E767F7 /* Geocodes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Geocodes.swift; sourceTree = "<group>"; };
 		EEA0AD4F2B2C8E4900807F4B /* FeedActivityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedActivityViewModel.swift; sourceTree = "<group>"; };
 		EEA0AD522B2C914200807F4B /* ActivityModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityModel.swift; sourceTree = "<group>"; };
+		EEADBBA02B31CEAB00EEA9C3 /* UserDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetail.swift; sourceTree = "<group>"; };
 		EEC784932B28991B002E71F8 /* PlaceListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceListViewModel.swift; sourceTree = "<group>"; };
 		EEC784962B289EEC002E71F8 /* PlaceListService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceListService.swift; sourceTree = "<group>"; };
 		EEC784982B289F25002E71F8 /* RecommendedBookmarksRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendedBookmarksRequest.swift; sourceTree = "<group>"; };
@@ -283,13 +282,10 @@
 				EE44159C2B0924E7001515D6 /* NVActivityIndicatorViewExtended in Frameworks */,
 				EEF8B10F2B12301200EE75CB /* IQKeyboardManagerSwift in Frameworks */,
 				EE44159A2B0924E7001515D6 /* NVActivityIndicatorView in Frameworks */,
-				2EEA6C312B164A1D00AD55CB /* Resolver in Frameworks */,
-				2EEA6C352B164A1D00AD55CB /* Resolver-Static in Frameworks */,
-				2EEA6C332B164A1D00AD55CB /* Resolver-Dynamic in Frameworks */,
 				2EEA6C5B2B167D3400AD55CB /* SwiftKeychainWrapper in Frameworks */,
 				EE4415942B0922D5001515D6 /* Alamofire in Frameworks */,
 				EE3D97562B15B93400ADD849 /* Kingfisher in Frameworks */,
-				759E28D55C4DBA61D28D1391 /* Pods_Favorit.framework in Frameworks */,
+				DFB1BE648E5B2C13AFE32878 /* Pods_Favorit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -299,8 +295,8 @@
 		0E2A209427119F3D3D56FA4B /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				B8B205413986AD2D03487921 /* Pods-Favorit.debug.xcconfig */,
-				B0E7F3D48D316529D3C3F94F /* Pods-Favorit.release.xcconfig */,
+				E2B4FE8950FEB054D8811A60 /* Pods-Favorit.debug.xcconfig */,
+				3105BDA9558834414D01CCD8 /* Pods-Favorit.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -490,7 +486,6 @@
 		2EEA6C1B2B163FEE00AD55CB /* View */ = {
 			isa = PBXGroup;
 			children = (
-				EE44159F2B092557001515D6 /* Login.storyboard */,
 				EE44159D2B092526001515D6 /* LoginViewController.swift */,
 			);
 			path = View;
@@ -705,10 +700,10 @@
 			path = Presentation;
 			sourceTree = "<group>";
 		};
-		9426625623330D844D23ADF3 /* Frameworks */ = {
+		8D6D01FB75CD62A843B42ED9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				DA61C18773361E3441A5DFF5 /* Pods_Favorit.framework */,
+				339C198F22397A026F2E361D /* Pods_Favorit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -753,8 +748,8 @@
 			children = (
 				EE44157D2B09225F001515D6 /* Favorit */,
 				EE44157C2B09225F001515D6 /* Products */,
-				9426625623330D844D23ADF3 /* Frameworks */,
 				0E2A209427119F3D3D56FA4B /* Pods */,
+				8D6D01FB75CD62A843B42ED9 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -851,6 +846,7 @@
 			isa = PBXGroup;
 			children = (
 				2EEA6C8D2B192FA500AD55CB /* Main.storyboard */,
+				EE44159F2B092557001515D6 /* Login.storyboard */,
 			);
 			path = Story;
 			sourceTree = "<group>";
@@ -880,6 +876,7 @@
 			children = (
 				2EA3DEB82B1C75F80063730A /* UserDetailRequest.swift */,
 				2EA3DEC42B1C80FE0063730A /* UserFollowedResponse.swift */,
+				EEADBBA02B31CEAB00EEA9C3 /* UserDetail.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -959,11 +956,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = EE44158F2B092260001515D6 /* Build configuration list for PBXNativeTarget "Favorit" */;
 			buildPhases = (
-				FE4F8707EF5847D6A2F4BDA6 /* [CP] Check Pods Manifest.lock */,
+				F25119B1C074160E328A9CB1 /* [CP] Check Pods Manifest.lock */,
 				EE4415772B09225F001515D6 /* Sources */,
 				EE4415782B09225F001515D6 /* Frameworks */,
 				EE4415792B09225F001515D6 /* Resources */,
-				8F27F55A4E49C6D9BE5CD5B4 /* [CP] Embed Pods Frameworks */,
+				5D6AD7BC32229F0A0773179D /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -975,9 +972,6 @@
 				EE4415992B0924E7001515D6 /* NVActivityIndicatorView */,
 				EE44159B2B0924E7001515D6 /* NVActivityIndicatorViewExtended */,
 				EEF8B10E2B12301200EE75CB /* IQKeyboardManagerSwift */,
-				2EEA6C302B164A1D00AD55CB /* Resolver */,
-				2EEA6C322B164A1D00AD55CB /* Resolver-Dynamic */,
-				2EEA6C342B164A1D00AD55CB /* Resolver-Static */,
 				2EEA6C5A2B167D3400AD55CB /* SwiftKeychainWrapper */,
 				EE3D97552B15B93400ADD849 /* Kingfisher */,
 			);
@@ -1013,7 +1007,6 @@
 				EE4415922B0922D5001515D6 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				EE4415982B0924E7001515D6 /* XCRemoteSwiftPackageReference "NVActivityIndicatorView" */,
 				EEF8B10D2B12301200EE75CB /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
-				2EEA6C2F2B164A1D00AD55CB /* XCRemoteSwiftPackageReference "Resolver" */,
 				2EEA6C592B167D3400AD55CB /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */,
 				EE3D97542B15B93400ADD849 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
@@ -1048,7 +1041,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		8F27F55A4E49C6D9BE5CD5B4 /* [CP] Embed Pods Frameworks */ = {
+		5D6AD7BC32229F0A0773179D /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1065,7 +1058,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Favorit/Pods-Favorit-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		FE4F8707EF5847D6A2F4BDA6 /* [CP] Check Pods Manifest.lock */ = {
+		F25119B1C074160E328A9CB1 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1132,6 +1125,7 @@
 				2EEA6C992B19C4F500AD55CB /* HomeTabBarItem.swift in Sources */,
 				EEF6ED902B20B9F400077DB5 /* VenueSearchResultCell.swift in Sources */,
 				2EEA6C922B19311100AD55CB /* FollowViewModel.swift in Sources */,
+				EEADBBA12B31CEAB00EEA9C3 /* UserDetail.swift in Sources */,
 				EEC7849D2B28B1AF002E71F8 /* PlaceUser.swift in Sources */,
 				EEC784992B289F25002E71F8 /* RecommendedBookmarksRequest.swift in Sources */,
 				EE4719EC2B1CBD12008C1342 /* FavoritSegmentedControl.swift in Sources */,
@@ -1344,29 +1338,35 @@
 		};
 		EE4415902B092260001515D6 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B8B205413986AD2D03487921 /* Pods-Favorit.debug.xcconfig */;
+			baseConfigurationReference = E2B4FE8950FEB054D8811A60 /* Pods-Favorit.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = YSEE5B447K;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Favorit/Main/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "This app would like to use your camera to capture an image";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We need your location in order to provide venues near you";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "This app would like access to your photo library";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Login;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.cirqit.favorit.Favorit;
+				MARKETING_VERSION = 2.1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.cirqit.favorit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1375,29 +1375,38 @@
 		};
 		EE4415912B092260001515D6 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B0E7F3D48D316529D3C3F94F /* Pods-Favorit.release.xcconfig */;
+			baseConfigurationReference = 3105BDA9558834414D01CCD8 /* Pods-Favorit.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = YSEE5B447K;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Favorit/Main/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "This app would like to use your camera to capture an image";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We need your location in order to provide venues near you";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "This app would like access to your photo library";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Login;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.cirqit.favorit.Favorit;
+				MARKETING_VERSION = 2.1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.cirqit.favorit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Favorit Apple Provision Profile";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1428,14 +1437,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		2EEA6C2F2B164A1D00AD55CB /* XCRemoteSwiftPackageReference "Resolver" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/hmlongco/Resolver.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.5.0;
-			};
-		};
 		2EEA6C592B167D3400AD55CB /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/jrendel/SwiftKeychainWrapper";
@@ -1479,21 +1480,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		2EEA6C302B164A1D00AD55CB /* Resolver */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 2EEA6C2F2B164A1D00AD55CB /* XCRemoteSwiftPackageReference "Resolver" */;
-			productName = Resolver;
-		};
-		2EEA6C322B164A1D00AD55CB /* Resolver-Dynamic */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 2EEA6C2F2B164A1D00AD55CB /* XCRemoteSwiftPackageReference "Resolver" */;
-			productName = "Resolver-Dynamic";
-		};
-		2EEA6C342B164A1D00AD55CB /* Resolver-Static */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 2EEA6C2F2B164A1D00AD55CB /* XCRemoteSwiftPackageReference "Resolver" */;
-			productName = "Resolver-Static";
-		};
 		2EEA6C5A2B167D3400AD55CB /* SwiftKeychainWrapper */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 2EEA6C592B167D3400AD55CB /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */;

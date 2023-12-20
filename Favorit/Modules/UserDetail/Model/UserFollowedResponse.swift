@@ -8,9 +8,15 @@
 import Foundation
 
 struct UserFollowedResponse: Decodable {
+    let data: UserFollowedData?
+    let success: Bool
+    let message: String?
+}
+
+struct UserFollowedData: Decodable {
     let creator: String?
     let user: String?
-    let active: AnyCodable?
+    let active: Bool?
     let _id: String?
     let createdAt: String?
     let updatedAt: String?
