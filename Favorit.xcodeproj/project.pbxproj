@@ -117,6 +117,8 @@
 		EEDD04502B2604D3000BE18E /* FoodImageViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDD044E2B2604D3000BE18E /* FoodImageViewCell.swift */; };
 		EEDD04512B2604D3000BE18E /* FoodImageViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EEDD044F2B2604D3000BE18E /* FoodImageViewCell.xib */; };
 		EEE4520D2B22147500C64327 /* UserDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEE4520C2B22147500C64327 /* UserDetailViewModel.swift */; };
+		EEE62CE72B36EFB000BECC27 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEE62CE62B36EFB000BECC27 /* FeedViewController.swift */; };
+		EEE62CE92B3717E400BECC27 /* UserUpdateRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEE62CE82B3717E400BECC27 /* UserUpdateRequest.swift */; };
 		EEF6ED882B20B58200077DB5 /* UIWindow+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF6ED872B20B58200077DB5 /* UIWindow+Extension.swift */; };
 		EEF6ED8A2B20B82100077DB5 /* FindPlacesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF6ED892B20B82100077DB5 /* FindPlacesViewController.swift */; };
 		EEF6ED8F2B20B9F400077DB5 /* VenueSearchResultCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EEF6ED8D2B20B9F400077DB5 /* VenueSearchResultCell.xib */; };
@@ -251,6 +253,8 @@
 		EEDD044E2B2604D3000BE18E /* FoodImageViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoodImageViewCell.swift; sourceTree = "<group>"; };
 		EEDD044F2B2604D3000BE18E /* FoodImageViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FoodImageViewCell.xib; sourceTree = "<group>"; };
 		EEE4520C2B22147500C64327 /* UserDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailViewModel.swift; sourceTree = "<group>"; };
+		EEE62CE62B36EFB000BECC27 /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
+		EEE62CE82B3717E400BECC27 /* UserUpdateRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserUpdateRequest.swift; sourceTree = "<group>"; };
 		EEF6ED872B20B58200077DB5 /* UIWindow+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIWindow+Extension.swift"; sourceTree = "<group>"; };
 		EEF6ED892B20B82100077DB5 /* FindPlacesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FindPlacesViewController.swift; sourceTree = "<group>"; };
 		EEF6ED8D2B20B9F400077DB5 /* VenueSearchResultCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VenueSearchResultCell.xib; sourceTree = "<group>"; };
@@ -336,27 +340,11 @@
 			isa = PBXGroup;
 			children = (
 				EEE4520C2B22147500C64327 /* UserDetailViewModel.swift */,
-				EEE4520E2B2214FB00C64327 /* Model */,
-				2EA3DEB42B1C75B10063730A /* Data */,
-				2EA3DEAD2B1C4BDD0063730A /* View */,
-			);
-			path = UserDetail;
-			sourceTree = "<group>";
-		};
-		2EA3DEAD2B1C4BDD0063730A /* View */ = {
-			isa = PBXGroup;
-			children = (
 				2EA3DEB02B1C4C080063730A /* UserDetailsViewController.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		2EA3DEB42B1C75B10063730A /* Data */ = {
-			isa = PBXGroup;
-			children = (
+				EEE4520E2B2214FB00C64327 /* Model */,
 				2EA3DEB52B1C75B60063730A /* Remote */,
 			);
-			path = Data;
+			path = UserDetail;
 			sourceTree = "<group>";
 		};
 		2EA3DEB52B1C75B60063730A /* Remote */ = {
@@ -678,26 +666,10 @@
 		2EEA6C832B19257100AD55CB /* HomeTabBar */ = {
 			isa = PBXGroup;
 			children = (
-				2EEA6C972B19C4E600AD55CB /* Presentation */,
-				2EEA6C842B19257900AD55CB /* View */,
-			);
-			path = HomeTabBar;
-			sourceTree = "<group>";
-		};
-		2EEA6C842B19257900AD55CB /* View */ = {
-			isa = PBXGroup;
-			children = (
+				2EEA6C982B19C4F500AD55CB /* HomeTabBarItem.swift */,
 				2EEA6C852B1925CE00AD55CB /* HomeTabBarViewController.swift */,
 			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		2EEA6C972B19C4E600AD55CB /* Presentation */ = {
-			isa = PBXGroup;
-			children = (
-				2EEA6C982B19C4F500AD55CB /* HomeTabBarItem.swift */,
-			);
-			path = Presentation;
+			path = HomeTabBar;
 			sourceTree = "<group>";
 		};
 		8D6D01FB75CD62A843B42ED9 /* Frameworks */ = {
@@ -799,6 +771,7 @@
 			children = (
 				EEA0AD512B2C900200807F4B /* Model */,
 				EEA0AD4F2B2C8E4900807F4B /* FeedActivityViewModel.swift */,
+				EEE62CE62B36EFB000BECC27 /* FeedViewController.swift */,
 			);
 			path = FeedActivity;
 			sourceTree = "<group>";
@@ -875,6 +848,7 @@
 			isa = PBXGroup;
 			children = (
 				2EA3DEB82B1C75F80063730A /* UserDetailRequest.swift */,
+				EEE62CE82B3717E400BECC27 /* UserUpdateRequest.swift */,
 				2EA3DEC42B1C80FE0063730A /* UserFollowedResponse.swift */,
 				EEADBBA02B31CEAB00EEA9C3 /* UserDetail.swift */,
 			);
@@ -1091,6 +1065,7 @@
 				EEDD04432B25F7AB000BE18E /* PlaceDetailViewController.swift in Sources */,
 				EE44159E2B092526001515D6 /* LoginViewController.swift in Sources */,
 				2EEA6C622B167F3700AD55CB /* LoginStorageService.swift in Sources */,
+				EEE62CE72B36EFB000BECC27 /* FeedViewController.swift in Sources */,
 				EEF6ED982B20BC4A00077DB5 /* Places.swift in Sources */,
 				2EA3DEC32B1C7E8E0063730A /* UnFollowUserRequest.swift in Sources */,
 				2EA3DEB92B1C75F80063730A /* UserDetailRequest.swift in Sources */,
@@ -1126,6 +1101,7 @@
 				EEF6ED902B20B9F400077DB5 /* VenueSearchResultCell.swift in Sources */,
 				2EEA6C922B19311100AD55CB /* FollowViewModel.swift in Sources */,
 				EEADBBA12B31CEAB00EEA9C3 /* UserDetail.swift in Sources */,
+				EEE62CE92B3717E400BECC27 /* UserUpdateRequest.swift in Sources */,
 				EEC7849D2B28B1AF002E71F8 /* PlaceUser.swift in Sources */,
 				EEC784992B289F25002E71F8 /* RecommendedBookmarksRequest.swift in Sources */,
 				EE4719EC2B1CBD12008C1342 /* FavoritSegmentedControl.swift in Sources */,

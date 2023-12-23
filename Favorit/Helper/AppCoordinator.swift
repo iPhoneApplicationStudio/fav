@@ -9,10 +9,8 @@ import Foundation
 import UIKit
 
 final class AppCoordinator {
-    
-    @Dependency private(set) var userSessionService: UserSessionService
-    
     let window: UIWindow
+    @Dependency private(set) var userSessionService: UserSessionService
     
     init(with window: UIWindow) {
         self.window = window
@@ -21,9 +19,9 @@ final class AppCoordinator {
     
     func start() {
         if userSessionService.isLoggedIn {
-            showHome()
+            self.showHome()
         } else {
-            showLogin()
+            self.showLogin()
         }
     }
     
@@ -38,10 +36,11 @@ final class AppCoordinator {
     }
     
     func showHome() {
-        setup(root: HomeTabBarViewController())
+        self.setup(root: HomeTabBarViewController())
     }
     
-    private func setup(root: UIViewController, animated: Bool = true) {
+    private func setup(root: UIViewController, 
+                       animated: Bool = true) {
         window.rootViewController = root
         window.makeKeyAndVisible()
     }

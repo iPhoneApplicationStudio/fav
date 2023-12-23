@@ -8,29 +8,36 @@
 import UIKit
 
 enum HomeTabBarItem: CaseIterable {
-    
     case places
-    case tracking
+    case following
+    case feed
     
     var icon: UIImage {
         switch self {
-        case .tracking:
-            return UIImage(resource: .followers)
         case .places:
             return UIImage(resource: .bookmarkTab)
+        case .following:
+            return UIImage(resource: .followers)
+        case .feed:
+            return UIImage(resource: .feedIcon)
         }
     }
     
     var title: String {
         switch self {
-        case .tracking:
-            return "Tracking"
         case .places:
             return "Places"
+        case .following:
+            return "Following"
+        case .feed:
+            return "Feed"
+        
         }
     }
     
     var tabBarItem: UITabBarItem {
-        return UITabBarItem(title: title, image: icon, selectedImage: icon.withTintColor(.primary))
+        return UITabBarItem(title: title, 
+                            image: icon,
+                            selectedImage: icon.withTintColor(.primary))
     }
 }

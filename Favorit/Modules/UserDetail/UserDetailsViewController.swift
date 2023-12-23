@@ -49,53 +49,30 @@ class UserDetailsViewController: UIViewController {
             self.title = isMyProfile ? "My Profile" : user?.name
         }
     }
-        
+    
     var bookmarkedVenues = [String]()// [SavedVenue]()
     var favoritVenues = [String]()// [SavedVenue]()
+        
+    private var isUpdatingUserImage = false
+    private var isUpdatingCoverImage = false
     
-    let userFollowService = UserFollowService()
-    
-    var isUpdatingUserImage = false
-    var isUpdatingCoverImage = false
+    private var isInEditMode: Bool = false
+    @Dependency private var userSessionService: UserSessionService
     
     //MARK: View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         self.initialSetting()
+        self.fetchData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        guard let viewModel else {
-            return
-        }
-        
-        if !viewModel.isEditMode {
-            viewModel.getUserDetail {[weak self] result in
-                switch result {
-                case .success(let user):
-                    guard let user else {
-                        let message = viewModel.errorMessage ?? Message.somethingWentWrong.value
-                        self?.showError(message: message)
-                        self?.handleResultsUI()
-                        return
-                    }
-                    
-                    self?.setupUser(user: user)
-                    self?.checkIfFollowingUser()
-                    self?.getVenues()
-                    self?.handleResultsUI()
-                case .failure(let error):
-                    self?.showError(message: error.localizedDescription)
-                case .none:
-                    break
-                }
-            }
-        }
     }
     
     //MARK: Private methods
     private func initialSetting() {
+        self.userContainerView.isHidden = true
         let nib = UINib(nibName: CellName.saved.value,
                         bundle: nil)
         self.tableView.register(nib, forCellReuseIdentifier: "savedCell")
@@ -108,38 +85,176 @@ class UserDetailsViewController: UIViewController {
         self.tagLineTextField.delegate = self
         self.locationTextView.delegate = self
     }
+    
+    private func fetchData() {
+        guard let viewModel else {
+            return
+        }
+        
+        self.handleActivityIndicatorAnimations()
+        viewModel.getUserDetail {[weak self] result in
+            self?.handleActivityIndicatorAnimations()
+            switch result {
+            case .success(let user):
+                guard let user else {
+                    let message = viewModel.errorMessage ?? Message.somethingWentWrong.value
+                    self?.showError(message: message)
+                    self?.handleResultsUI()
+                    return
+                }
+                
+                self?.setupUser(user: user)
+                self?.checkIfFollowingUser()
+                self?.getVenues()
+                self?.handleResultsUI()
+                self?.userContainerView.isHidden = false
+            case .failure(let error):
+                self?.userContainerView.isHidden = true
+                self?.showError(message: error.localizedDescription)
+            case .none:
+                break
+            }
+        }
+    }
+    
+    private func handleActivityIndicatorAnimations() {
+        DispatchQueue.main.async {
+            if self.activityIndicatorView.isAnimating {
+                self.activityIndicatorView.isHidden = true
+                self.activityIndicatorView.stopAnimating()
+            } else {
+                self.activityIndicatorView.isHidden = false
+                self.activityIndicatorView.startAnimating()
+            }
+        }
+    }
+    
+    private func didClickOnEdit() {
+        self.isInEditMode ? self.hideEditModeUI() : self.showEditModeUI()
+        self.isInEditMode = !isInEditMode
+    }
+    
+    private func hideEditModeUI() {
+        UIView.animate(withDuration: 0.30) {
+            self.updateUserImageButton.isHidden = true
+            //            self.updateCoverPhotoButton.isHidden = true
+            self.tagLineTextField.isEnabled = false
+            self.locationTextView.isEnabled = false
+            self.tableView.alpha = 1.0
+            
+            if self.tagLineTextField.text?.count == 0 {
+                self.tagLineTextField.isHidden = true
+            }
+            
+            if self.locationTextView.text?.count == 0 {
+                self.locationTextView.isHidden = true
+            }
+        }
+    }
+    
+    private func showEditModeUI() {
+        UIView.animate(withDuration: 0.30) {
+            self.updateUserImageButton.isHidden = false
+            //            self.updateCoverPhotoButton.isHidden = false
+            self.tagLineTextField.isEnabled = true
+            self.tagLineTextField.isHidden = false
+            self.locationTextView.isEnabled = true
+            self.locationTextView.isHidden = false
+            self.tableView.alpha = 0.0
+        }
+    }
+    
+    private func saveChanges() {
+        self.didClickOnEdit()
+        guard let viewModel,
+              let tagLine = self.tagLineTextField.text,
+              tagLine.isNotEmpty else {
+            return
+        }
+        
+        self.handleActivityIndicatorAnimations()
+        viewModel.updateTheUser(tagLine: tagLine) {[weak self] result in
+            self?.handleActivityIndicatorAnimations()
+            switch result {
+            case .success(let status):
+                guard status else {
+                    let message = viewModel.errorMessage ?? Message.somethingWentWrong.value
+                    self?.showError(message: message)
+                    return
+                }
+                
+            case .failure(let error):
+                self?.showError(message: error.localizedDescription)
+            case .none:
+                break
+            }
+        }
+        
+//        var changesMade = false
+//        if !(tagLineTextField.text?.isEmpty)! {
+//            let user = FavoritUser.current()
+//            user?.tagLine = tagLineTextField.text
+//            changesMade = true
+//        }
+//
+//        if !(locationTextView.text?.isEmpty)! {
+//            let user = FavoritUser.current()
+//            user?.userLocationName = locationTextView.text
+//            changesMade = true
+//        }
+//
+    }
+        
+    private func signOut() {
+        guard let viewModel else {
+            return
+        }
+        
+        self.showAlertWithYesAndNo(title: "Sign Out Confirmation", 
+                                   message: "You are about to sign out of your account. This will end your current session, and any unsaved changes may be lost.",
+                                   ok: "Sign Out",
+                                   cancel: "Cancel") { status in
+            if status {
+                let flag = viewModel.signout()
+                if flag, let window = UIWindow.topWindow {
+                    let flowCoordinator = AppCoordinator(with: window)
+                    flowCoordinator.start()
+                }
+            }
+        }
+    }
 }
 
 // MARK: - Navigation
 extension UserDetailsViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if segue.identifier == "toPlaceDetails" {
-//            guard let detailController = segue.destination as? PlaceDetailViewController else {return}
-//            let indexPath = sender as! IndexPath
-//            switch indexPath.section {
-//            case 0:
-//                let favVenue = favoritVenues[indexPath.row]
-//                if !isMyProfile {
-//                    favVenue.venueTip = nil
-//                    favVenue.isFavorit = false
-//                }
-//                detailController.savedVenue = favVenue
-//            default:
-//                let bookmarkVenue = bookmarkedVenues[indexPath.row]
-//                if !isMyProfile {
-//                    bookmarkVenue.venueTip = nil
-//                }
-//                detailController.savedVenue = bookmarkVenue
-//            }
-//        }
-//
-//        if segue.identifier == "toUserFollow" {
-//            guard let userFollowVC = segue.destination as? UserFollowerViewController else {return}
-//            if let userFollowerVCState = sender as? UserFollowerVCState {
-//                userFollowVC.userFollowerVCState = userFollowerVCState
-//            }
-//            userFollowVC.viewdUser = user
-//        }
+        //        if segue.identifier == "toPlaceDetails" {
+        //            guard let detailController = segue.destination as? PlaceDetailViewController else {return}
+        //            let indexPath = sender as! IndexPath
+        //            switch indexPath.section {
+        //            case 0:
+        //                let favVenue = favoritVenues[indexPath.row]
+        //                if !isMyProfile {
+        //                    favVenue.venueTip = nil
+        //                    favVenue.isFavorit = false
+        //                }
+        //                detailController.savedVenue = favVenue
+        //            default:
+        //                let bookmarkVenue = bookmarkedVenues[indexPath.row]
+        //                if !isMyProfile {
+        //                    bookmarkVenue.venueTip = nil
+        //                }
+        //                detailController.savedVenue = bookmarkVenue
+        //            }
+        //        }
+        //
+        //        if segue.identifier == "toUserFollow" {
+        //            guard let userFollowVC = segue.destination as? UserFollowerViewController else {return}
+        //            if let userFollowerVCState = sender as? UserFollowerVCState {
+        //                userFollowVC.userFollowerVCState = userFollowerVCState
+        //            }
+        //            userFollowVC.viewdUser = user
+        //        }
     }
 }
 
@@ -149,7 +264,7 @@ private extension UserDetailsViewController {
         setupRightBarButton()
         setupFollowButton()
         setupUpdateImageButton()
-//        setupUpdateCoverPhotoButton()
+        //        setupUpdateCoverPhotoButton()
         userImageView.rounded()
         imageContainerView.rounded()
     }
@@ -163,7 +278,7 @@ private extension UserDetailsViewController {
     }
     
     private func setupDotsButton() {
-        let dotsButton = UIBarButtonItem(image: UIImage(named: "dotsIcon"), 
+        let dotsButton = UIBarButtonItem(image: UIImage(named: "dotsIcon"),
                                          style: .plain,
                                          target: self,
                                          action:  #selector(dotsMenuTapped))
@@ -210,35 +325,28 @@ private extension UserDetailsViewController {
             self.userContainerView.alpha = 1.0
         })
     }
-    
-    func handleActivityIndicatorAnimations() {
-        if activityIndicatorView.isAnimating {
-            activityIndicatorView.isHidden = true
-            activityIndicatorView.stopAnimating()
-        } else {
-            activityIndicatorView.isHidden = false
-            activityIndicatorView.startAnimating()
-        }
-    }
+
     
     func handleResultsUI() {
-        if self.favoritVenues.count == 0
-            && self.bookmarkedVenues.count == 0 {
-            setNoVenuesLabel()
-            self.noVenuesLabel.isHidden = false
-            self.tableView.isHidden = true
-            self.fadeInNoVenuesLabel()
-        } else {
-            if !self.noVenuesLabel.isHidden {
-                self.noVenuesLabel.isHidden = true
-                self.tableView.isHidden = false
+        DispatchQueue.main.async {
+            if self.favoritVenues.count == 0
+                && self.bookmarkedVenues.count == 0 {
+                self.setNoVenuesLabel()
+                self.noVenuesLabel.isHidden = false
+                self.tableView.isHidden = true
+                self.fadeInNoVenuesLabel()
+            } else {
+                if !self.noVenuesLabel.isHidden {
+                    self.noVenuesLabel.isHidden = true
+                    self.tableView.isHidden = false
+                }
+                
+                self.tableView.reloadData()
+                self.tableView.setContentOffset(CGPoint.zero, animated: true)
             }
             
-            self.tableView.reloadData()
-            tableView.setContentOffset(CGPoint.zero, animated: true)
+            self.fadeInUI()
         }
-        
-        self.fadeInUI()
     }
     
     func setNoVenuesLabel() {
@@ -281,40 +389,40 @@ private extension UserDetailsViewController {
     
     //MARK: Edit Mode
     
-    func saveImage(image: UIImage, isCover: Bool) {
-        activityIndicatorView.isHidden = false
-        activityIndicatorView.startAnimating()
+    func saveImage(image: UIImage, 
+                   isCover: Bool) {
+        self.handleActivityIndicatorAnimations()
         navigationItem.rightBarButtonItem?.isEnabled = false
-//        updateCoverPhotoButton.isEnabled = false
+        //        updateCoverPhotoButton.isEnabled = false
         updateUserImageButton.isEnabled = false
         
-//        var photoType = String()
-//        if isCover {
-//            photoType = "coverPhoto"
-//        } else {
-//            photoType = "userPhoto"
-//        }
-//        
-//        let imageData = image.jpegData(compressionQuality: 0.50)
-//        let imageFile = PFFileObject(name:"image.png", data:imageData!)
-//        
-//        guard let user = FavoritUser.current() else {
-//            return
-//        }
-//        user[photoType] = imageFile
-//        userService.saveUserImage(user: user) { (success, error) in
-//            self.isUpdatingUserImage = false
-//            if error == nil {
-//                print("Saved Photo")
-//                self.editTapped()
-//                self.handleActivityIndicatorAnimations()
-//                self.navigationItem.rightBarButtonItem?.isEnabled = true
-//                self.updateCoverPhotoButton.isEnabled = true
-//                self.updateUserImageButton.isEnabled = true
-//            } else {
-//                self.showError(message: "Error Saving Image \(error.debugDescription)")
-//            }
-//        }
+        //        var photoType = String()
+        //        if isCover {
+        //            photoType = "coverPhoto"
+        //        } else {
+        //            photoType = "userPhoto"
+        //        }
+        //
+        //        let imageData = image.jpegData(compressionQuality: 0.50)
+        //        let imageFile = PFFileObject(name:"image.png", data:imageData!)
+        //
+        //        guard let user = FavoritUser.current() else {
+        //            return
+        //        }
+        //        user[photoType] = imageFile
+        //        userService.saveUserImage(user: user) { (success, error) in
+        //            self.isUpdatingUserImage = false
+        //            if error == nil {
+        //                print("Saved Photo")
+        //                self.didClickOnEdit()
+        //                self.handleActivityIndicatorAnimations()
+        //                self.navigationItem.rightBarButtonItem?.isEnabled = true
+        //                self.updateCoverPhotoButton.isEnabled = true
+        //                self.updateUserImageButton.isEnabled = true
+        //            } else {
+        //                self.showError(message: "Error Saving Image \(error.debugDescription)")
+        //            }
+        //        }
     }
     
     func setFollowerVCState() ->  UserFollowerVCState {
@@ -338,44 +446,42 @@ private extension UserDetailsViewController {
 // MARK: - Actions
 extension UserDetailsViewController {
     @objc func dotsMenuTapped() {
-        /*var editSaveTitle = ""
-        if isInEditMode {
-            editSaveTitle = "Save"
-        } else {
-            editSaveTitle = "Edit"
-        }
-        
-        let alert = UIAlertController(title: "Choose an option", message: nil, preferredStyle: .actionSheet)
-        
-        alert.addAction(UIAlertAction(title: editSaveTitle, style: .default , handler:{ (UIAlertAction)in
-            print("User click Edit button")
-            if self.isInEditMode {
-                self.saveChanges()
-            } else {
-                self.editTapped()
-            }
+        let title = isInEditMode ? "Save" : "Edit"
+        let alert = UIAlertController(title: "Choose an option",
+                                      message: nil,
+                                      preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: title,
+                                      style: .default ,
+                                      handler:{ (UIAlertAction)in
+            self.isInEditMode ? self.saveChanges() : self.didClickOnEdit()
         }))
         
         if !isInEditMode {
-            alert.addAction(UIAlertAction(title: "Map", style: .default , handler:{ (UIAlertAction)in
+            alert.addAction(UIAlertAction(title: "Map",
+                                          style: .default,
+                                          handler:{ (UIAlertAction)in
                 self.mapButtonPressed()
             }))
         }
         
         
-        alert.addAction(UIAlertAction(title: "Sign Out", style: .destructive , handler:{ (UIAlertAction)in
+        alert.addAction(UIAlertAction(title: "Sign Out",
+                                      style: .destructive,
+                                      handler:{ (UIAlertAction)in
             self.signOut()
         }))
         
-        alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler:{ (UIAlertAction)in
+        alert.addAction(UIAlertAction(title: "Dismiss",
+                                      style: .cancel,
+                                      handler:{ (UIAlertAction)in
             if self.isInEditMode {
-                self.editTapped()
+                self.didClickOnEdit()
             }
         }))
         
-        self.present(alert, animated: true, completion: {
-            print("completion block")
-        })*/
+        self.present(alert,
+                     animated: true,
+                     completion: nil)
     }
     
     @IBAction func followButtonPressed(_ sender: Any) {
@@ -417,13 +523,13 @@ extension UserDetailsViewController {
     }
     
     @IBAction func updateUserButtonTapped(_ sender: Any) {
-        isUpdatingUserImage = true
-        updateImageButtonTapped()
+        self.isUpdatingUserImage = true
+        self.updateImageButtonTapped()
     }
     
     @IBAction func updateCoverPhotoButtonTapped(_ sender: Any) {
-        isUpdatingCoverImage = true
-        updateImageButtonTapped()
+        self.isUpdatingCoverImage = true
+        self.updateImageButtonTapped()
     }
     
     @objc func mapButtonPressed() {
@@ -434,7 +540,7 @@ extension UserDetailsViewController {
             var combinedVenues = self.bookmarkedVenues
             combinedVenues.append(contentsOf: self.favoritVenues)
             
-//            showOnMapVC.userVenues = combinedVenues
+            //            showOnMapVC.userVenues = combinedVenues
             self.navigationController?.pushViewController(showOnMapVC, animated: false)
         }, completion: nil)
     }
@@ -443,6 +549,7 @@ extension UserDetailsViewController {
 //MARK: - User Management
 extension UserDetailsViewController {
     func setupUser(user: User) {
+        self.user = user
         let userFullName = user.name
         let followerCount = user.followerCount ?? 0
         let followingCount = user.followingCount ?? 0
@@ -467,103 +574,74 @@ extension UserDetailsViewController {
                 fontWeight: .light,
                 textColor: .white))
         
-        // coverImageView ?
-//        if let userTagline = self.user?.tagLine {
-//            self.tagLineTextField.text = userTagline
-//            self.tagLineTextField.isHidden = false
-//        }
+        if let tagLine = self.user?.bio,
+           tagLine.isNotEmpty {
+            self.tagLineTextField.text = tagLine
+            self.tagLineTextField.isHidden = false
+        } else {
+            self.tagLineTextField.isHidden = true
+        }
         
-//        if let userLocationName = self.user?.userLocationName {
-//            self.locationTextView.text = userLocationName
-//            self.locationTextView.isHidden = false
-//        }
+        // coverImageView ?
+        
+        
+        //        if let userLocationName = self.user?.userLocationName {
+        //            self.locationTextView.text = userLocationName
+        //            self.locationTextView.isHidden = false
+        //        }
     }
     
-    func signOut() {
-//        PFUser.logOutInBackground { (error) in
-//            if error == nil{
-//                print("error == nil")
-//                self.handleCompletedSignOut()
-//                self.navigationController?.popViewController(animated: true)
-//            } else {
-//                self.showError(message: (error?.localizedDescription)! )
-//            }
-//        }
-    }
-    
-//    func handleCompletedSignOut() {
-//        UserDefaults.standard.set(false, forKey: "isLoggedIn")
-//        NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.NotificationKeys.userSignOutNotification), object: nil)
-//    }
-    
-    func saveChanges() {
-//        editTapped()
-//        guard let user = FavoritUser.current() else {return}
-//        var changesMade = false
-//        if !(tagLineTextField.text?.isEmpty)! {
-//            let user = FavoritUser.current()
-//            user?.tagLine = tagLineTextField.text
-//            changesMade = true
-//        }
-//        
-//        if !(locationTextView.text?.isEmpty)! {
-//            let user = FavoritUser.current()
-//            user?.userLocationName = locationTextView.text
-//            changesMade = true
-//        }
-//        
-//        if changesMade {
-//            user.saveInBackground(block: { (success, error) in
-//            })
-//        }
-    }
+    //    func handleCompletedSignOut() {
+    //        UserDefaults.standard.set(false, forKey: "isLoggedIn")
+    //        NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.NotificationKeys.userSignOutNotification), object: nil)
+    //    }
     
     func getVenues() {
-//        let params: [String:String] = [
-//            "userObjectId" : userId]
-//        let services = VenueServices()
-//        services.getUserVenues(params: params) { (favorits, bookmarked, error) in
-//            if error == nil {
-//                if self.favoritVenues.count > 0 {
-//                    self.favoritVenues.removeAll()
-//                }
-//                if let favoritsVenues = favorits, favoritsVenues.count > 0 {
-//                    self.favoritVenues = DistanceHelper.addDistanceFromUserAndSort(venueArray: favoritsVenues)
-//                }
-//                
-//                if self.bookmarkedVenues.count > 0 {
-//                    self.bookmarkedVenues.removeAll()
-//                }
-//                
-//                if let bookmarkedVenues = bookmarked, bookmarkedVenues.count > 0 {
-//                    self.bookmarkedVenues = DistanceHelper.addDistanceFromUserAndSort(venueArray: bookmarkedVenues)
-//                }
-//                
-//            } else {
-//                
-//                self.showError(message: (error?.localizedDescription)!)
-//                print(error!)
-//            }
-//            
-//            self.handleActivityIndicatorAnimations()
-//            self.handleResultsUI()
-//        }
+        //        let params: [String:String] = [
+        //            "userObjectId" : userId]
+        //        let services = VenueServices()
+        //        services.getUserVenues(params: params) { (favorits, bookmarked, error) in
+        //            if error == nil {
+        //                if self.favoritVenues.count > 0 {
+        //                    self.favoritVenues.removeAll()
+        //                }
+        //                if let favoritsVenues = favorits, favoritsVenues.count > 0 {
+        //                    self.favoritVenues = DistanceHelper.addDistanceFromUserAndSort(venueArray: favoritsVenues)
+        //                }
+        //
+        //                if self.bookmarkedVenues.count > 0 {
+        //                    self.bookmarkedVenues.removeAll()
+        //                }
+        //
+        //                if let bookmarkedVenues = bookmarked, bookmarkedVenues.count > 0 {
+        //                    self.bookmarkedVenues = DistanceHelper.addDistanceFromUserAndSort(venueArray: bookmarkedVenues)
+        //                }
+        //
+        //            } else {
+        //
+        //                self.showError(message: (error?.localizedDescription)!)
+        //                print(error!)
+        //            }
+        //
+        //            self.handleActivityIndicatorAnimations()
+        //            self.handleResultsUI()
+        //        }
     }
     
     func checkIfFollowingUser() {
-//        userService.checkIfUserIsFollowed(toUser: self.user!) { (follow, isFollowed, error) in
-//            if error == nil {
-//                self.followButton.isSelected = isFollowed
-//                if !self.followButton.isEnabled {
-//                    self.followButton.isEnabled = true
-//                }
-//                if let follow = follow {
-//                    self.follow = follow
-//                }
-//            } else {
-//                self.showError(message: "There was an error \(error?.localizedDescription)")
-//            }
-//        }
+        //        userService.checkIfUserIsFollowed(toUser: self.user!) { (follow, isFollowed, error) in
+        //            if error == nil {
+        //                self.followButton.isSelected = isFollowed
+        //                if !self.followButton.isEnabled {
+        //                    self.followButton.isEnabled = true
+        //                }
+        //                if let follow = follow {
+        //                    self.follow = follow
+        //                }
+        //            } else {
+        //                self.showError(message: "There was an error \(error?.localizedDescription)")
+        //            }
+        //        }
     }
     
     func followeUser(viewModel: UserDetailViewProtocol) {
@@ -603,61 +681,8 @@ extension UserDetailsViewController {
     }
 }
 
-// MARK: - Edit Mode
-extension UserDetailsViewController {
-    func editTapped() {
-//        if isInEditMode {
-//            hideEditModeUI()
-//            isInEditMode = false
-//        } else {
-//            showEditModeUI()
-//            isInEditMode = true
-//        }
-    }
-    
-    func hideEditModeUI() {
-        UIView.animate(withDuration: 0.30) {
-            self.updateUserImageButton.isHidden = true
-//            self.updateCoverPhotoButton.isHidden = true
-            self.tagLineTextField.isEnabled = false
-            self.locationTextView.isEnabled = false
-            self.tableView.alpha = 1.0
-            
-            if self.tagLineTextField.text?.count == 0 {
-                self.tagLineTextField.isHidden = true
-            }
-            
-            if self.locationTextView.text?.count == 0 {
-                self.locationTextView.isHidden = true
-            }
-        }
-    }
-    
-    func showEditModeUI() {
-        UIView.animate(withDuration: 0.30) {
-            self.updateUserImageButton.isHidden = false
-//            self.updateCoverPhotoButton.isHidden = false
-            self.tagLineTextField.isEnabled = true
-            self.tagLineTextField.isHidden = false
-            self.locationTextView.isEnabled = true
-            self.locationTextView.isHidden = false
-            self.tableView.alpha = 0.0
-        }
-    }
-}
-
-// MARK: UITextFieldDelegate
-extension UserDetailsViewController: UITextFieldDelegate {
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
-    }
-    
-}
-
 //MARK: ImagePickerDelegate
 extension UserDetailsViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    
     func presentCameraPickerController() {
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera) {
             let imagePicker = UIImagePickerController()
@@ -677,7 +702,6 @@ extension UserDetailsViewController: UIImagePickerControllerDelegate, UINavigati
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        
         if let pickedImage = info[.originalImage] as? UIImage {
             if isUpdatingUserImage {
                 userImageView.image = pickedImage
@@ -687,6 +711,7 @@ extension UserDetailsViewController: UIImagePickerControllerDelegate, UINavigati
                 saveImage(image: pickedImage, isCover: true)
             }
         }
+        
         picker.dismiss(animated: true, completion: nil)
     }
 }
@@ -713,22 +738,41 @@ extension UserDetailsViewController:  UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "savedCell") as! SavedCell
         cell.selectionStyle = .none
-//        let venue: SavedVenue?
+        //        let venue: SavedVenue?
         
         switch indexPath.section {
         case 0:
-//            venue = favoritVenues[indexPath.row]
-//            cell.savedVenue = venue
+            //            venue = favoritVenues[indexPath.row]
+            //            cell.savedVenue = venue
             cell.starImageView.isHidden = false
         default:
             break
-//            venue = bookmarkedVenues[indexPath.row]
-//            cell.savedVenue = venue
+            //            venue = bookmarkedVenues[indexPath.row]
+            //            cell.savedVenue = venue
         }
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: "toPlaceDetails", sender: indexPath)
+    }
+}
+
+// MARK: UITextFieldDelegate
+extension UserDetailsViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+}
+
+extension UserDetailsViewController {
+    static func createViewController() -> UserDetailsViewController? {
+        guard let vc = UIStoryboard(name: StoryboardName.main.value,
+                                    bundle: nil).instantiateViewController(withIdentifier: ViewControllerName.userDetail.value) as? UserDetailsViewController else {
+            return nil
+        }
+        
+        return vc
     }
 }

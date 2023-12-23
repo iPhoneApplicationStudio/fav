@@ -35,7 +35,6 @@ public final class ServiceLocator {
         registerLoginDependencies()
         registerSignUpDependencies()
         registerUserSession()
-        register { UserFollowService() }
         register { FindPlacesService() }
         register { PlaceDetailService() }
         register { FollowService() }

@@ -62,7 +62,7 @@ final class FollowViewModel: FollowProtocol {
     @Dependency private(set) var userSessionService: UserSessionService
     
     var title: String {
-        return "Tracking"
+        return "Following"
     }
     
     var viewState: FollowViewState {

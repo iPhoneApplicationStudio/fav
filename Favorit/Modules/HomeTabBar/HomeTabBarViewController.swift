@@ -20,18 +20,8 @@ final class HomeTabBarViewController: UITabBarController {
     
     
     private func createItemControllers() -> [UIViewController] {
-        
         HomeTabBarItem.allCases.map { tabItem in
             switch tabItem {
-            case .tracking:
-                guard let vc = FollowViewController.createFollowViewController() else {
-                    return UIViewController()
-                }
-                
-                vc.viewModel = FollowViewModel()
-                let nc = UINavigationController(rootViewController: vc)
-                nc.tabBarItem = tabItem.tabBarItem
-                return nc
             case .places:
                 guard let navVC = PlacesViewController.createNavPlacesViewController() else {
                     return UIViewController()
@@ -43,6 +33,26 @@ final class HomeTabBarViewController: UITabBarController {
                 
                 navVC.tabBarItem = tabItem.tabBarItem
                 return navVC
+                
+            case .following:
+                guard let vc = FollowViewController.createFollowViewController() else {
+                    return UIViewController()
+                }
+                
+                vc.viewModel = FollowViewModel()
+                let nc = UINavigationController(rootViewController: vc)
+                nc.tabBarItem = tabItem.tabBarItem
+                return nc
+                
+            case .feed:
+                guard let vc = FeedViewController.createViewController() else {
+                    return UIViewController()
+                }
+                
+//                vc.viewModel = FollowViewModel()
+                let nc = UINavigationController(rootViewController: vc)
+                nc.tabBarItem = tabItem.tabBarItem
+                return nc
             }
         }
     }

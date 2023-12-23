@@ -20,6 +20,7 @@ final class FollowViewController: UIViewController {
     var viewModel: FollowProtocol?
     private var filterMode: FollowType = .following
     private var shouldRefresh = false
+    @Dependency private var userSessionService: UserSessionService
     
     lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
@@ -39,8 +40,6 @@ final class FollowViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-//        UserDefaults.loggedInUserID = nil
-//        KeychainManager.remove(for: UserDefaults.accessTokenKey!)
     }
     
     //MARK: Private Methods
@@ -118,6 +117,18 @@ final class FollowViewController: UIViewController {
         }
     }
     
+    private func openUserDetailScreen(for userID: String?) {
+        guard let userID = userID,
+              let vc = UserDetailsViewController.createViewController() else {
+            return
+        }
+        
+        let userDetailViewModel = UserDetailViewModel(userID: userID)
+        vc.viewModel = userDetailViewModel
+        self.navigationController?.pushViewController(vc,
+                                                      animated: true)
+    }
+    
     @objc private func refreshList() {
         self.shouldRefresh = true
         self.fetchData()
@@ -148,6 +159,10 @@ final class FollowViewController: UIViewController {
         
         self.navigationController?.pushViewController(vc,
                                                       animated: true)
+    }
+    
+    @IBAction func didClickOnProfile() {
+        self.openUserDetailScreen(for: userSessionService.loggedInUserID)
     }
 }
 
@@ -183,14 +198,6 @@ extension FollowViewController: UITableViewDataSource, UITableViewDelegate {
             return
         }
         
-        guard let vc = UIStoryboard(name: StoryboardName.main.value, bundle: nil) .instantiateViewController(withIdentifier: ViewControllerName.userDetail.value) as? UserDetailsViewController else {
-            return
-        }
-        
-        let userDetailViewModel = UserDetailViewModel(userID: user._id,
-                                                      isEditMode: false)
-        vc.viewModel = userDetailViewModel
-        self.navigationController?.pushViewController(vc,
-                                                      animated: true)
+        self.openUserDetailScreen(for: user._id)
     }
 }

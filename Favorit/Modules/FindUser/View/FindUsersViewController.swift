@@ -173,13 +173,11 @@ extension FindUsersViewController:  UITableViewDelegate, UITableViewDataSource {
         default:
             guard let viewModel,
                   let userId = viewModel.getItemFor(index: indexPath.row)?._id,
-                  let vc = UIStoryboard(name: StoryboardName.main.value,
-                                        bundle: nil).instantiateViewController(withIdentifier: ViewControllerName.userDetail.value) as? UserDetailsViewController else {
+                  let vc = UserDetailsViewController.createViewController() else {
                 return
             }
             
-            let userDetailViewModel = UserDetailViewModel(userID: userId,
-                                                          isEditMode: false)
+            let userDetailViewModel = UserDetailViewModel(userID: userId)
             vc.viewModel = userDetailViewModel
             navigationController?.pushViewController(vc,
                                                      animated: true)

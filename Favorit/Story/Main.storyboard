@@ -209,7 +209,7 @@
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <segments>
                                             <segment title="My Places"/>
-                                            <segment title="Recommended"/>
+                                            <segment title="Followed Places"/>
                                             <segment title="All Places"/>
                                         </segments>
                                         <connections>
@@ -685,11 +685,11 @@
             <objects>
                 <viewController hidesBottomBarWhenPushed="YES" id="aaI-s6-g9b" customClass="FindUsersViewController" customModule="Favorit" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="tFn-1e-kP8">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="100" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="MxB-Uw-kef">
-                                <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
+                                <rect key="frame" x="0.0" y="103" width="393" height="715"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="inviteFriendsCell" rowHeight="60" id="AWQ-2k-zCk" customClass="InviteFriendsCell" customModule="Favorit" customModuleProvider="target">
@@ -857,7 +857,7 @@
                                 </connections>
                             </tableView>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="There are no results for your search. Please try again" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hZW-u8-9Tp">
-                                <rect key="frame" x="71.666666666666686" y="396" width="250" height="50"/>
+                                <rect key="frame" x="71.666666666666686" y="401" width="250" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="250" id="FH9-wB-Dx4"/>
                                     <constraint firstAttribute="height" constant="50" id="Sjg-73-KVG"/>
@@ -867,7 +867,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kob-1Y-OMo" customClass="NVActivityIndicatorView" customModule="NVActivityIndicatorView">
-                                <rect key="frame" x="171.66666666666666" y="396" width="50" height="50"/>
+                                <rect key="frame" x="171.66666666666666" y="401" width="50" height="50"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="tzg-BZ-dQZ"/>
@@ -908,7 +908,7 @@
         <!--Feed View Controller-->
         <scene sceneID="t9C-U5-sr4">
             <objects>
-                <viewController id="Mnb-bJ-kIe" customClass="FeedViewController" customModule="Favorit" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FeedViewController" id="Mnb-bJ-kIe" customClass="FeedViewController" customModule="Favorit" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ibZ-Qz-cnQ">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1102,24 +1102,14 @@
                                 <segue destination="yVZ-tZ-hkF" kind="presentation" identifier="showFilter" modalPresentationStyle="fullScreen" id="26g-p8-Yx0"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" image="my_profile" id="rHw-dH-JzV">
-                            <color key="tintColor" red="0.019607843140000001" green="0.20000000000000001" blue="0.33333333329999998" alpha="1" colorSpace="calibratedRGB"/>
-                            <connections>
-                                <action selector="myprofileButtonPressed:" destination="Mnb-bJ-kIe" id="up1-tR-Vnz"/>
-                            </connections>
-                        </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="activityIndicatorView" destination="blK-hI-1mo" id="N9k-aW-jvS"/>
-                        <outlet property="filterButton" destination="stj-UB-M30" id="MwY-Uh-Chm"/>
-                        <outlet property="notFollowingLabel" destination="Z7g-ki-LKa" id="BiX-lh-WtV"/>
-                        <outlet property="tableView" destination="Cb8-cQ-4Nv" id="B7y-I7-Ksz"/>
                         <segue destination="3NR-gr-FB1" kind="show" identifier="toWebVC" id="Fll-Tj-eqo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HM1-h7-ayw" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4949" y="2446"/>
+            <point key="canvasLocation" x="-3396" y="1485"/>
         </scene>
         <!--Filter View Controller-->
         <scene sceneID="xDz-83-32K">
@@ -1164,7 +1154,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BKP-IJ-cBO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4984" y="3187"/>
+            <point key="canvasLocation" x="-3361" y="2225"/>
         </scene>
         <!--Side Menu Navigation Controller-->
         <scene sceneID="6Jv-Kg-at2">
@@ -1182,7 +1172,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="94q-G4-6bq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4033" y="3187"/>
+            <point key="canvasLocation" x="-4312" y="2225"/>
         </scene>
         <!--Web View Controller-->
         <scene sceneID="uZ6-ns-ixg">
@@ -1241,7 +1231,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aUU-FB-yhq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5926" y="3242"/>
+            <point key="canvasLocation" x="-2419" y="2280"/>
         </scene>
         <!--Feed-->
         <scene sceneID="s7N-nV-QVa">
@@ -1260,7 +1250,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Gic-L0-iZd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3989" y="2446"/>
+            <point key="canvasLocation" x="-4355" y="1485"/>
         </scene>
         <!--Favorit Navigation View Controller-->
         <scene sceneID="zXf-3M-1ul">
@@ -1316,7 +1306,7 @@
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="20" id="5zH-Km-30k"/>
                                                                 </constraints>
-                                                                <color key="textColor" red="0.60784313729999995" green="0.60784313729999995" blue="0.60784313729999995" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <fontDescription key="fontDescription" type="system" weight="thin" pointSize="12"/>
                                                                 <textInputTraits key="textInputTraits"/>
                                                             </textField>
@@ -1325,7 +1315,7 @@
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="20" id="1F7-wD-Brm"/>
                                                                 </constraints>
-                                                                <color key="textColor" red="0.60784313729999995" green="0.60784313729999995" blue="0.60784313729999995" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <fontDescription key="fontDescription" type="system" weight="thin" pointSize="12"/>
                                                                 <textInputTraits key="textInputTraits"/>
                                                             </textField>
@@ -1542,10 +1532,25 @@
                                     <constraint firstAttribute="trailing" secondItem="v7w-d3-OBo" secondAttribute="trailing" id="vvl-Ig-D6n"/>
                                 </constraints>
                             </view>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="usd-Xz-KtC" customClass="NVActivityIndicatorView" customModule="NVActivityIndicatorView">
+                                <rect key="frame" x="171.66666666666666" y="401" width="50" height="50"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="WMG-d4-lF0"/>
+                                    <constraint firstAttribute="height" constant="50" id="eP4-Nb-B6k"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="typeName" value="ballScale"/>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="color">
+                                        <color key="value" red="0.70980392160000005" green="0.65098039220000004" blue="0.25882352939999997" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="no7-Du-6EF"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="usd-Xz-KtC" firstAttribute="centerX" secondItem="qRV-TE-2at" secondAttribute="centerX" id="7bE-yn-O0T"/>
                             <constraint firstItem="nwj-8X-NR2" firstAttribute="top" secondItem="JWS-xt-TF9" secondAttribute="bottom" id="A9v-Xw-Aif"/>
                             <constraint firstItem="no7-Du-6EF" firstAttribute="trailing" secondItem="JWS-xt-TF9" secondAttribute="trailing" id="FBz-Ia-BAk"/>
                             <constraint firstItem="JWS-xt-TF9" firstAttribute="leading" secondItem="no7-Du-6EF" secondAttribute="leading" id="Gdg-Gj-AfY"/>
@@ -1553,9 +1558,11 @@
                             <constraint firstItem="nwj-8X-NR2" firstAttribute="leading" secondItem="no7-Du-6EF" secondAttribute="leading" id="s0G-mW-Yyg"/>
                             <constraint firstItem="no7-Du-6EF" firstAttribute="bottom" secondItem="nwj-8X-NR2" secondAttribute="bottom" id="sed-T9-kND"/>
                             <constraint firstItem="JWS-xt-TF9" firstAttribute="top" secondItem="no7-Du-6EF" secondAttribute="top" id="xLt-T0-7li"/>
+                            <constraint firstItem="usd-Xz-KtC" firstAttribute="centerY" secondItem="qRV-TE-2at" secondAttribute="centerY" id="yoo-JC-r8Y"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="activityIndicatorView" destination="usd-Xz-KtC" id="lan-SB-cma"/>
                         <outlet property="bookmarkCountLabel" destination="9k7-ok-QAi" id="D6R-Z8-feB"/>
                         <outlet property="coverImageView" destination="fEf-pz-jSK" id="09i-g4-WwF"/>
                         <outlet property="favoritCountLabel" destination="ISp-Aq-MSl" id="xmM-A3-dud"/>
@@ -1751,7 +1758,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="WJQ-tf-mqb">
-                                <rect key="frame" x="0.0" y="115" width="393" height="703"/>
+                                <rect key="frame" x="0.0" y="159" width="393" height="659"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="followerCell" rowHeight="100" id="9Mb-ho-Dto" customClass="FollowerCell" customModule="Favorit" customModuleProvider="target">
@@ -1880,7 +1887,7 @@
                                 </connections>
                             </tableView>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hit + to follow friends, foodies, and others to see their recommendations. " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Es-D7-mW3">
-                                <rect key="frame" x="89" y="383.66666666666669" width="215" height="110"/>
+                                <rect key="frame" x="89" y="405.66666666666669" width="215" height="110.00000000000006"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="215" id="Ryi-bp-ZDo"/>
                                     <constraint firstAttribute="height" constant="110" id="xCt-pD-Usj"/>
@@ -1890,7 +1897,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zjc-i6-chg" customClass="NVActivityIndicatorView" customModule="NVActivityIndicatorView">
-                                <rect key="frame" x="171.66666666666666" y="413.66666666666669" width="50" height="50"/>
+                                <rect key="frame" x="171.66666666666666" y="435.66666666666669" width="50" height="50"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="50" id="Phu-ER-xyf"/>
@@ -1918,14 +1925,14 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="goL-oQ-qhY" userLabel="FilterView">
-                                <rect key="frame" x="8" y="59" width="377" height="46"/>
+                                <rect key="frame" x="8" y="103" width="377" height="46"/>
                                 <subviews>
                                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="QAr-Dr-lTJ" customClass="FavoritSegmentedControl" customModule="Favorit" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="8" width="377" height="39"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <segments>
                                             <segment title="Following"/>
-                                            <segment title="Follower"/>
+                                            <segment title="Followers"/>
                                         </segments>
                                         <connections>
                                             <action selector="fetchData" destination="a5D-jJ-OPu" eventType="valueChanged" id="HFi-9g-kDx"/>
@@ -1961,8 +1968,14 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="fqJ-ug-TE7">
-                        <barButtonItem key="backBarButtonItem" title="  " id="665-rk-YQM"/>
+                        <barButtonItem key="leftBarButtonItem" image="my_profile" id="qob-sS-Ux9">
+                            <color key="tintColor" red="0.019607843140000001" green="0.20000000000000001" blue="0.33333333329999998" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="didClickOnProfile" destination="a5D-jJ-OPu" id="Wed-jd-sg7"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="activityIndicatorView" destination="zjc-i6-chg" id="oAN-D6-6gd"/>
                         <outlet property="followButton" destination="3Mm-ro-zbh" id="FWz-zI-Jwi"/>
@@ -2004,7 +2017,7 @@
             <color red="0.019607843137254902" green="0.20000000000000001" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="secondarySystemBackgroundColor">
-            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

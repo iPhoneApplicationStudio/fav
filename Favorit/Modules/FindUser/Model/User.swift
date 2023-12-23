@@ -33,4 +33,5 @@ struct User: Codable {
     let followingCount: Int?
     let followed: Bool?
     let avatar: String?
+    let bio: String?
 }
