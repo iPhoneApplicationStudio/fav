@@ -166,20 +166,21 @@ class FindPlacesViewController: UIViewController {
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, 
                           sender: Any?) {
-        if segue.identifier == "toDetails" {
-//            guard let detailController = segue.destination as? PlaceDetailViewController,
-//                  let indexPath = sender as? IndexPath else {
-//                return
-//            }
-//            
-//            detailController.venue = venueArray[indexPath.row]
+        guard let viewModel,
+              segue.identifier == "PlaceDetailViewController",
+              let detailController = segue.destination as? PlaceDetailViewController,
+              let indexPath = sender as? IndexPath,
+              let place = viewModel.itemForIndex(indexPath.row) else {
+            return
         }
+        
+        let placeDetailViewModel = PlaceDetailViewModel(place: place,
+                                             placeID: place.placeId)
+        detailController.viewModel = placeDetailViewModel
     }
     
     func performToDetaisSegue(indexPath: IndexPath) {
-        self.navigationController?.setNavigationBarHidden(true,
-                                                     animated: true)
-        self.performSegue(withIdentifier: "toDetails",
+        self.performSegue(withIdentifier: "PlaceDetailViewController",
                      sender: indexPath)
     }
 }

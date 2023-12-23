@@ -23,18 +23,26 @@ final class HomeTabBarViewController: UITabBarController {
         
         HomeTabBarItem.allCases.map { tabItem in
             switch tabItem {
-            case .follower:
-                let vc = FollowingViewController.createFollowingViewController()
+            case .tracking:
+                guard let vc = FollowViewController.createFollowViewController() else {
+                    return UIViewController()
+                }
+                
+                vc.viewModel = FollowViewModel()
                 let nc = UINavigationController(rootViewController: vc)
                 nc.tabBarItem = tabItem.tabBarItem
                 return nc
             case .places:
-                guard let vc = PlacesViewController.createPlacesViewController() else {
+                guard let navVC = PlacesViewController.createNavPlacesViewController() else {
                     return UIViewController()
                 }
                 
-                vc.tabBarItem = tabItem.tabBarItem
-                return vc
+                if let vc = navVC.topViewController as? PlacesViewController {
+                    vc.viewModel = PlaceListViewModel(userID: UserDefaults.loggedInUserID ?? "")
+                }
+                
+                navVC.tabBarItem = tabItem.tabBarItem
+                return navVC
             }
         }
     }

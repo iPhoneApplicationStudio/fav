@@ -17,6 +17,7 @@ enum UserFollowerVCState {
 }
 
 class UserDetailsViewController: UIViewController {
+    //MARK: IBOutlets
     @IBOutlet weak var followButton: UIButton!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var activityIndicatorView: NVActivityIndicatorView!
@@ -36,7 +37,8 @@ class UserDetailsViewController: UIViewController {
     @IBOutlet weak var coverImageView: UIImageView!
     @IBOutlet weak var locationTextView: UITextField!
     
-    var viewModel: UserDetailViewModel?
+    //MARK: Properties
+    var viewModel: UserDetailViewProtocol?
     
     var isMyProfile: Bool {
         return viewModel?.isMyProfile ?? false
@@ -56,12 +58,10 @@ class UserDetailsViewController: UIViewController {
     var isUpdatingUserImage = false
     var isUpdatingCoverImage = false
     
+    //MARK: View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.setupTableView()
-        self.setUpUserInfoUI()
-        tagLineTextField.delegate = self
-        locationTextView.delegate = self
+        self.initialSetting()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -74,11 +74,17 @@ class UserDetailsViewController: UIViewController {
             viewModel.getUserDetail {[weak self] result in
                 switch result {
                 case .success(let user):
+                    guard let user else {
+                        let message = viewModel.errorMessage ?? Message.somethingWentWrong.value
+                        self?.showError(message: message)
+                        self?.handleResultsUI()
+                        return
+                    }
+                    
                     self?.setupUser(user: user)
                     self?.checkIfFollowingUser()
                     self?.getVenues()
                     self?.handleResultsUI()
-                    self?.fadeInUI()
                 case .failure(let error):
                     self?.showError(message: error.localizedDescription)
                 case .none:
@@ -86,6 +92,21 @@ class UserDetailsViewController: UIViewController {
                 }
             }
         }
+    }
+    
+    //MARK: Private methods
+    private func initialSetting() {
+        let nib = UINib(nibName: CellName.saved.value,
+                        bundle: nil)
+        self.tableView.register(nib, forCellReuseIdentifier: "savedCell")
+        self.tableView.contentInset = .init(top: 0,
+                                            left: 0,
+                                            bottom: 66,
+                                            right: 0)
+        self.tableView.tableFooterView = UIView()
+        self.setUpUserInfoUI()
+        self.tagLineTextField.delegate = self
+        self.locationTextView.delegate = self
     }
 }
 
@@ -124,15 +145,6 @@ extension UserDetailsViewController {
 
 // MARK: Setup
 private extension UserDetailsViewController {
-    private func setupTableView() {
-        tableView.contentInset = .init(top: 0,left: 0,bottom: 66,right: 0)
-        tableView.tableFooterView = UIView()
-        
-        let nib = UINib(nibName: "SavedCell", 
-                        bundle: nil)
-        tableView.register(nib, forCellReuseIdentifier: "savedCell")
-    }
-    
     private func setUpUserInfoUI() {
         setupRightBarButton()
         setupFollowButton()
@@ -151,8 +163,11 @@ private extension UserDetailsViewController {
     }
     
     private func setupDotsButton() {
-        let dotsButton = UIBarButtonItem(image: UIImage(named: "dotsIcon"), style: .plain, target: self, action:  #selector(dotsMenuTapped))
-        navigationItem.rightBarButtonItem = dotsButton
+        let dotsButton = UIBarButtonItem(image: UIImage(named: "dotsIcon"), 
+                                         style: .plain,
+                                         target: self,
+                                         action:  #selector(dotsMenuTapped))
+        self.navigationItem.rightBarButtonItem = dotsButton
     }
     
     private func setupMapButton() {
@@ -208,16 +223,17 @@ private extension UserDetailsViewController {
     
     func handleResultsUI() {
         if self.favoritVenues.count == 0
-            && self.bookmarkedVenues.count == 0{
+            && self.bookmarkedVenues.count == 0 {
             setNoVenuesLabel()
             self.noVenuesLabel.isHidden = false
             self.tableView.isHidden = true
-            fadeInNoVenuesLabel()
+            self.fadeInNoVenuesLabel()
         } else {
             if !self.noVenuesLabel.isHidden {
                 self.noVenuesLabel.isHidden = true
                 self.tableView.isHidden = false
             }
+            
             self.tableView.reloadData()
             tableView.setContentOffset(CGPoint.zero, animated: true)
         }
@@ -428,10 +444,10 @@ extension UserDetailsViewController {
 extension UserDetailsViewController {
     func setupUser(user: User) {
         let userFullName = user.name
-        let followerCount = user.followerCount
+        let followerCount = user.followerCount ?? 0
         let followingCount = user.followingCount ?? 0
-        let favoritCount = user.favouriteCount
-        let bookmarkCount = user.bookmarkCount
+        let favoritCount = user.favouriteCount ?? 0
+        let bookmarkCount = user.bookmarkCount ?? 0
         
         self.usernameLabel.text = userFullName
         self.followersCountLabel.text = String(followerCount)
@@ -550,12 +566,17 @@ extension UserDetailsViewController {
 //        }
     }
     
-    func followeUser(viewModel: UserDetailViewModel) {
+    func followeUser(viewModel: UserDetailViewProtocol) {
         viewModel.followTheUser {[weak self] result in
             switch result {
-            case .success:
-                self?.followButton.isSelected = true
-                //self.checkIfFollowingUser()
+            case .success(let status):
+                if status {
+                    self?.followButton.isSelected = true
+                    //self.checkIfFollowingUser()
+                } else {
+                    self?.showError(message: viewModel.errorMessage ?? "")
+                }
+                
             case .failure(let error):
                 self?.showError(message: "There was an error \(error.localizedDescription)")
             case .none:
@@ -564,12 +585,14 @@ extension UserDetailsViewController {
         }
     }
     
-    func unfollowUser(viewModel: UserDetailViewModel) {
+    func unfollowUser(viewModel: UserDetailViewProtocol) {
         viewModel.unFollowTheUser {[weak self] result in
             switch result {
             case .success(let status):
                 if status {
-                    print("Successfully unfollowed")
+                    self?.followButton.isSelected = false
+                } else {
+                    self?.showError(message: viewModel.errorMessage ?? "")
                 }
             case .failure(let error):
                 self?.showError(message: "There was an error \(error.localizedDescription)")

@@ -9,7 +9,6 @@ import Foundation
 import UIKit
 
 class SavedCell: UITableViewCell {
-
     @IBOutlet weak var primaryTipLabel: UILabel!
     @IBOutlet weak var favoritCountLabel: UILabel!
     @IBOutlet weak var savedCountLabel: UILabel!
@@ -19,24 +18,27 @@ class SavedCell: UITableViewCell {
     @IBOutlet weak var starImageView: UIImageView!
     @IBOutlet weak var bookmarkImageView: UIImageView!
     
-    var savedVenue: String? {
+    var place: Place? {
         didSet {
-            setUpSavedVenueData()
+            guard let place else {
+                return
+            }
+            
+            self.setUpData(place: place)
         }
     }
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
         bookmarkImageView.image = UIImage.getTemplateImage(imageName: "bookmark1")
-        bookmarkImageView.tintColor = UIColor.lightGray
-     
+        bookmarkImageView.tintColor = .lightGray
     }
     
     override func prepareForReuse() {
         if !starImageView.isHidden {
             starImageView.isHidden = true
         }
+        
         primaryTipLabel.text = ""
     }
     
@@ -47,35 +49,23 @@ class SavedCell: UITableViewCell {
         venueImageView.clipsToBounds = true
     }
 
-    func setUpSavedVenueData() {
-        var photoStr = ""
-//        if let photo = savedVenue?.favoritVenue?.featuredPhoto {
-//            photoStr = photo
-//        } else if let iconPhoto = savedVenue?.favoritVenue?.categoryIcon {
-//            photoStr = iconPhoto
-//        }
+    private func setUpData(place: Place) {
+        self.venueTitleLabel.text = place.name
+        self.venueCategoryLabel.text = place.categories?.first?.name ?? ""
         
-        let photoUrl = URL(string: photoStr)
-        venueImageView.kf.setImage(with: photoUrl, options: [.transition(.fade(0.5)), .forceTransition])
+        if let photoUrl = URL(string: place.categories?.first?.icon ?? "") {
+            self.venueImageView.kf.setImage(with: photoUrl,
+                                       options: [.transition(.fade(0.5)), .forceTransition])
+        }
+        
         
 //        if let venueTip = savedVenue?.venueTip {
 //            if venueTip.tip != StringConstants.TipStrings.defaultTip {
 //                primaryTipLabel.text = venueTip.tip
 //            }
 //        }
-        
-//        venueTitleLabel.text = savedVenue?.favoritVenue?.name
-//        venueCategoryLabel.text = savedVenue?.favoritVenue?.primaryCategory
-        var savedStr = ""
-//        if let saved = savedVenue?.favoritVenue?.bookmarks?.intValue {
-//            savedStr = "\(saved)"
-//        }
-        savedCountLabel.text = "\(savedStr)"
-
-        var favoritStr = ""
-//        if let favorit = savedVenue?.favoritVenue?.favorits?.intValue {
-//            favoritStr = "\(favorit)"
-//        }
-        favoritCountLabel.text = "\(favoritStr)"
+    
+        self.savedCountLabel.text = "\(place.bookmarkCount ?? 0)"
+        self.favoritCountLabel.text = "\(place.favouriteCount ?? 0)"
     }
 }

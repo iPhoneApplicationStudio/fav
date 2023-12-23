@@ -10,11 +10,11 @@ import UIKit
 enum HomeTabBarItem: CaseIterable {
     
     case places
-    case follower
+    case tracking
     
     var icon: UIImage {
         switch self {
-        case .follower:
+        case .tracking:
             return UIImage(resource: .followers)
         case .places:
             return UIImage(resource: .bookmarkTab)
@@ -23,8 +23,8 @@ enum HomeTabBarItem: CaseIterable {
     
     var title: String {
         switch self {
-        case .follower:
-            return "Follower"
+        case .tracking:
+            return "Tracking"
         case .places:
             return "Places"
         }

@@ -20,17 +20,17 @@ struct UserPage: Decodable {
     let meta: Page?
 }
 
-struct User: Decodable {
+struct User: Codable {
     let _id: String?
     let name: String?
     let email: String?
-    let active: Bool
+    let active: Bool?
     let createdAt: String?
     let updatedAt: String?
-    let bookmarkCount: Int
-    let followerCount: Int
-    let favouriteCount: Int
+    let bookmarkCount: Int?
+    let followerCount: Int?
+    let favouriteCount: Int?
     let followingCount: Int?
-    let followed: Bool
+    let followed: Bool?
     let avatar: String?
 }

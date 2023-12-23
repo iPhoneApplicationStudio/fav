@@ -8,8 +8,9 @@
 import UIKit
 
 extension PlacesViewController {
-    public static func createPlacesViewController() -> UINavigationController? {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        return storyboard.instantiateViewController(withIdentifier: "FavoritNavigationViewController") as? UINavigationController
+    public static func createNavPlacesViewController() -> UINavigationController? {
+        let storyboard = UIStoryboard(name: StoryboardName.main.value,
+                                      bundle: nil)
+        return storyboard.instantiateViewController(withIdentifier: ViewControllerName.favoritNavVC.value) as? UINavigationController
     }
 }

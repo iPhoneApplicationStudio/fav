@@ -18,7 +18,7 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="dZq-wQ-lq3">
                                 <rect key="frame" x="20" y="240.33333333333337" width="353" height="135"/>
                                 <subviews>
-                                    <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" verticalHuggingPriority="1000" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" textAlignment="natural" minimumFontSize="13" translatesAutoresizingMaskIntoConstraints="NO" id="QkU-oc-F2A">
+                                    <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" verticalHuggingPriority="1000" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="13" translatesAutoresizingMaskIntoConstraints="NO" id="QkU-oc-F2A">
                                         <rect key="frame" x="0.0" y="0.0" width="353" height="45"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="45" id="yS9-qf-Bj9"/>
@@ -26,22 +26,22 @@
                                         <fontDescription key="fontDescription" name="VitesseSSm-Book" family="Vitesse SSm" pointSize="13"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="emailAddress" returnKeyType="next"/>
                                     </textField>
-                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="q0Z-bm-BaT">
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="q0Z-bm-BaT">
                                         <rect key="frame" x="0.0" y="44.999999999999972" width="353" height="45"/>
                                         <subviews>
-                                            <textField opaque="NO" clipsSubviews="YES" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="First Name" textAlignment="natural" minimumFontSize="13" translatesAutoresizingMaskIntoConstraints="NO" id="DMc-k7-UNk">
-                                                <rect key="frame" x="0.0" y="0.0" width="176.66666666666666" height="45"/>
+                                            <textField opaque="NO" clipsSubviews="YES" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="First Name" textAlignment="natural" minimumFontSize="13" translatesAutoresizingMaskIntoConstraints="NO" id="DMc-k7-UNk">
+                                                <rect key="frame" x="0.0" y="0.0" width="176" height="45"/>
                                                 <fontDescription key="fontDescription" name="VitesseSSm-Book" family="Vitesse SSm" pointSize="13"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" spellCheckingType="no" returnKeyType="next"/>
                                             </textField>
-                                            <textField opaque="NO" clipsSubviews="YES" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Last Name" textAlignment="natural" minimumFontSize="13" translatesAutoresizingMaskIntoConstraints="NO" id="nuJ-t6-Ur7">
-                                                <rect key="frame" x="176.66666666666663" y="0.0" width="176.33333333333337" height="45"/>
+                                            <textField opaque="NO" clipsSubviews="YES" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Last Name" textAlignment="natural" minimumFontSize="13" translatesAutoresizingMaskIntoConstraints="NO" id="nuJ-t6-Ur7">
+                                                <rect key="frame" x="177" y="0.0" width="176" height="45"/>
                                                 <fontDescription key="fontDescription" name="VitesseSSm-Book" family="Vitesse SSm" pointSize="13"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" spellCheckingType="no" returnKeyType="next"/>
                                             </textField>
                                         </subviews>
                                     </stackView>
-                                    <textField opaque="NO" clipsSubviews="YES" tag="4" contentMode="scaleToFill" verticalHuggingPriority="1000" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Min 8 character password" textAlignment="natural" minimumFontSize="13" translatesAutoresizingMaskIntoConstraints="NO" id="0lF-T7-WYn">
+                                    <textField opaque="NO" clipsSubviews="YES" tag="4" contentMode="scaleToFill" verticalHuggingPriority="1000" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Min 8 character password" textAlignment="natural" minimumFontSize="13" translatesAutoresizingMaskIntoConstraints="NO" id="0lF-T7-WYn">
                                         <rect key="frame" x="0.0" y="89.999999999999972" width="353" height="45"/>
                                         <fontDescription key="fontDescription" name="VitesseSSm-Book" family="Vitesse SSm" pointSize="13"/>
                                         <textInputTraits key="textInputTraits" secureTextEntry="YES"/>

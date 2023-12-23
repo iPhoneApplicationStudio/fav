@@ -12,14 +12,14 @@ protocol FindPlacesProtocol: AnyObject {
     var searchTitle: String { get }
     var errorMessage: String? { get }
     
-    func itemForIndex(_ index: Int) -> SearchedPlace?
+    func itemForIndex(_ index: Int) -> Place?
     func getAllPlacesFor(text: String?, handler: @escaping (((Result<Bool, Error>)?) -> Void))
 }
 
 class FindPlacesViewModel: FindPlacesProtocol {
     private let sort = "DISTANCE"
     private let openNow = "true"
-    private var allPlaces = [SearchedPlace]()
+    private var allPlaces = [Place]()
     private let networkService = FindPlacesService()
     private let locationService = LocationService.sharedInstance
     private var _errorMessage: String?
@@ -40,7 +40,7 @@ class FindPlacesViewModel: FindPlacesProtocol {
         return _errorMessage
     }
     
-    func itemForIndex(_ index: Int) -> SearchedPlace? {
+    func itemForIndex(_ index: Int) -> Place? {
         guard index >= 0,
               index < allPlaces.count else {
             return nil

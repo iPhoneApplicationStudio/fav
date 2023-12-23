@@ -16,9 +16,9 @@ class VenueSearchResultCell: UITableViewCell {
     @IBOutlet weak var distanceLabel: UILabel!
     @IBOutlet weak var venueTypeLabel: UILabel!
     
-    var place: SearchedPlace? {
+    var place: Place? {
         didSet {
-            self.setUpVenueData()
+            self.setUpPlaceData()
         }
     }
     
@@ -34,25 +34,20 @@ class VenueSearchResultCell: UITableViewCell {
         self.coverImageView.clipsToBounds = true
     }
     
-    private func setUpVenueData() {
+    private func setUpPlaceData() {
         guard let place else {
             return
         }
         
         nameLabel.text = place.name
-        
-        /*var photoStr = ""
-        if let photo = venue?.featuredPhotos.first?.photoUrl {
-            photoStr = photo
-        } else if let iconPhoto = venue?.primaryCategory?.icon {
-            photoStr = iconPhoto
+        if let iconStr = place.categories?.first?.icon,
+           let iconUrl = URL(string: iconStr) {
+            coverImageView.kf.setImage(with: iconUrl,
+                                       options: [.transition(.fade(0.5)), .forceTransition])
         }
         
-        let photoUrl = URL(string: photoStr)
-        coverImageView.kf.setImage(with: photoUrl, options: [.transition(.fade(0.5)), .forceTransition])
-        
-        addressLabel.text = venue?.location?.address
-        venueTypeLabel.text = venue?.primaryCategory?.name
-        distanceLabel.text = venue?.location?.distanceString*/
+        addressLabel.text = place.location?.formattedAddress
+        venueTypeLabel.text = place.categories?.first?.name
+        distanceLabel.text = place.distanceString
     }
 }
