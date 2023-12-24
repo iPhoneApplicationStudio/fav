@@ -1758,7 +1758,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="WJQ-tf-mqb">
-                                <rect key="frame" x="0.0" y="159" width="393" height="659"/>
+                                <rect key="frame" x="0.0" y="103" width="393" height="715"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="followerCell" rowHeight="100" id="9Mb-ho-Dto" customClass="FollowerCell" customModule="Favorit" customModuleProvider="target">
@@ -1924,45 +1924,18 @@
                                     <action selector="didTapAddNewFollower:" destination="a5D-jJ-OPu" eventType="touchUpInside" id="KeF-Lp-eZP"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="goL-oQ-qhY" userLabel="FilterView">
-                                <rect key="frame" x="8" y="103" width="377" height="46"/>
-                                <subviews>
-                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="QAr-Dr-lTJ" customClass="FavoritSegmentedControl" customModule="Favorit" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="8" width="377" height="39"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                        <segments>
-                                            <segment title="Following"/>
-                                            <segment title="Followers"/>
-                                        </segments>
-                                        <connections>
-                                            <action selector="fetchData" destination="a5D-jJ-OPu" eventType="valueChanged" id="HFi-9g-kDx"/>
-                                            <action selector="fetchData" destination="EGH-n7-Cyf" eventType="valueChanged" id="a9r-oP-UdO"/>
-                                        </connections>
-                                    </segmentedControl>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstItem="QAr-Dr-lTJ" firstAttribute="top" secondItem="goL-oQ-qhY" secondAttribute="top" constant="8" id="12J-rM-431"/>
-                                    <constraint firstAttribute="height" constant="46" id="GkR-YT-JGV"/>
-                                    <constraint firstAttribute="bottom" secondItem="QAr-Dr-lTJ" secondAttribute="bottom" id="Nuk-Hi-rgW"/>
-                                    <constraint firstItem="QAr-Dr-lTJ" firstAttribute="leading" secondItem="goL-oQ-qhY" secondAttribute="leading" id="YeK-pO-jvJ"/>
-                                    <constraint firstAttribute="trailing" secondItem="QAr-Dr-lTJ" secondAttribute="trailing" id="e5I-a6-5vN"/>
-                                </constraints>
-                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="RsQ-XL-zLe"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="zjc-i6-chg" firstAttribute="centerX" secondItem="RsQ-XL-zLe" secondAttribute="centerX" id="3tp-38-IWQ"/>
-                            <constraint firstItem="goL-oQ-qhY" firstAttribute="leading" secondItem="RsQ-XL-zLe" secondAttribute="leading" constant="8" id="57X-2y-YbC"/>
                             <constraint firstItem="RsQ-XL-zLe" firstAttribute="bottom" secondItem="3Mm-ro-zbh" secondAttribute="bottom" constant="16" id="ETC-c0-PuE"/>
                             <constraint firstItem="RsQ-XL-zLe" firstAttribute="trailing" secondItem="3Mm-ro-zbh" secondAttribute="trailing" constant="16" id="ID2-Ry-UVO"/>
-                            <constraint firstItem="WJQ-tf-mqb" firstAttribute="top" secondItem="goL-oQ-qhY" secondAttribute="bottom" constant="10" id="R99-GM-FYo"/>
-                            <constraint firstItem="goL-oQ-qhY" firstAttribute="top" secondItem="RsQ-XL-zLe" secondAttribute="top" id="SM4-7F-EZ6"/>
                             <constraint firstItem="RsQ-XL-zLe" firstAttribute="trailing" secondItem="WJQ-tf-mqb" secondAttribute="trailing" id="SbV-Oa-qhO"/>
                             <constraint firstItem="5Es-D7-mW3" firstAttribute="centerX" secondItem="RsQ-XL-zLe" secondAttribute="centerX" id="ZQS-l1-Utr"/>
                             <constraint firstItem="zjc-i6-chg" firstAttribute="centerY" secondItem="RsQ-XL-zLe" secondAttribute="centerY" id="mA1-Fg-7U8"/>
+                            <constraint firstItem="WJQ-tf-mqb" firstAttribute="top" secondItem="RsQ-XL-zLe" secondAttribute="top" id="ng2-Mb-SOU"/>
                             <constraint firstItem="RsQ-XL-zLe" firstAttribute="bottom" secondItem="WJQ-tf-mqb" secondAttribute="bottom" id="nsG-OU-MPf"/>
-                            <constraint firstItem="RsQ-XL-zLe" firstAttribute="trailing" secondItem="goL-oQ-qhY" secondAttribute="trailing" constant="8" id="oRr-wc-8Vk"/>
                             <constraint firstItem="WJQ-tf-mqb" firstAttribute="leading" secondItem="RsQ-XL-zLe" secondAttribute="leading" id="ty7-WC-Qua"/>
                             <constraint firstItem="5Es-D7-mW3" firstAttribute="centerY" secondItem="RsQ-XL-zLe" secondAttribute="centerY" id="x5i-Hb-6kZ"/>
                         </constraints>
@@ -1980,7 +1953,6 @@
                         <outlet property="activityIndicatorView" destination="zjc-i6-chg" id="oAN-D6-6gd"/>
                         <outlet property="followButton" destination="3Mm-ro-zbh" id="FWz-zI-Jwi"/>
                         <outlet property="noUsersLabel" destination="5Es-D7-mW3" id="sgU-Hy-nAA"/>
-                        <outlet property="segmentedFilterControl" destination="QAr-Dr-lTJ" id="p9B-1Z-Awi"/>
                         <outlet property="tableView" destination="WJQ-tf-mqb" id="GcX-Fj-5oM"/>
                         <segue destination="aaI-s6-g9b" kind="show" id="2Vz-rD-qXW"/>
                     </connections>
@@ -2017,7 +1989,7 @@
             <color red="0.019607843137254902" green="0.20000000000000001" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="secondarySystemBackgroundColor">
-            <color red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

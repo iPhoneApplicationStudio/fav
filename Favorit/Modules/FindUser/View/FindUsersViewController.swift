@@ -34,6 +34,7 @@ class FindUsersViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.initialSetting()
+        self.refreshUsers()//TODO Testing only
     }
     
     private func initialSetting() {
@@ -104,6 +105,10 @@ class FindUsersViewController: UIViewController {
             
             self?.refreshControl.endRefreshing()
         }
+    }
+    
+    private func fetchAllUsers() {
+        
     }
     
     private func handleResultsUI() {

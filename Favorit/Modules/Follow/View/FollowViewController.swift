@@ -15,7 +15,6 @@ final class FollowViewController: UIViewController {
     @IBOutlet weak var noUsersLabel: UILabel!
     @IBOutlet weak var activityIndicatorView: NVActivityIndicatorView!
     @IBOutlet weak var followButton: UIButton!
-    @IBOutlet weak var segmentedFilterControl: FavoritSegmentedControl!
     
     var viewModel: FollowProtocol?
     private var filterMode: FollowType = .following
@@ -47,7 +46,6 @@ final class FollowViewController: UIViewController {
         self.title = viewModel?.title ?? ""
         self.followButton.rounded()
         self.tableView.addSubview(refreshControl)
-        self.segmentedFilterControl.selectedSegmentIndex = filterMode.rawValue
     }
     
     private func setupBindings() {
@@ -129,18 +127,10 @@ final class FollowViewController: UIViewController {
                                                       animated: true)
     }
     
-    @objc private func refreshList() {
-        self.shouldRefresh = true
-        self.fetchData()
-    }
-    
-    //MARK: IBAction
-    @IBAction func fetchData() {
+    private func fetchData() {
         guard let viewModel else {
             return
         }
-        
-        self.filterMode = FollowType(rawValue: segmentedFilterControl.selectedSegmentIndex) ?? .following
         
         switch filterMode
         {
@@ -152,6 +142,12 @@ final class FollowViewController: UIViewController {
         }
     }
     
+    @objc private func refreshList() {
+        self.shouldRefresh = true
+        self.fetchData()
+    }
+    
+    //MARK: IBAction
     @IBAction func didTapAddNewFollower(_ sender: UIButton) {
         guard let vc = FindUsersViewController.makeFindUsersViewController() else {
             return
