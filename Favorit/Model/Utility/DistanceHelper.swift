@@ -13,7 +13,7 @@ class DistanceHelper {
     
     static func venueDistanceFromUserLocation(lat: Double, lng: Double) -> Double {
         let venueLocation = CLLocation(latitude: lat, longitude: lng)
-        let distance = LocationService.sharedInstance.currentLocation?.distance(from: venueLocation)
+        let distance = LocationService.shared.currentLocation?.distance(from: venueLocation)
         
         return distance ?? 0.0
     }

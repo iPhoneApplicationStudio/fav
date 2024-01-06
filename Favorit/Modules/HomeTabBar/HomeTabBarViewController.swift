@@ -11,6 +11,12 @@ final class HomeTabBarViewController: UITabBarController {
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nil, bundle: nil)
+        LocationService.shared.locationServicesCheck { flag, _ in
+            if flag == nil {
+                LocationService.shared.requestAuthorization()
+            }
+        }
+        
         self.viewControllers = createItemControllers()
     }
     

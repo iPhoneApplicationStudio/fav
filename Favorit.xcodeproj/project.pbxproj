@@ -100,6 +100,12 @@
 		EEA0AD502B2C8E4900807F4B /* FeedActivityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA0AD4F2B2C8E4900807F4B /* FeedActivityViewModel.swift */; };
 		EEA0AD532B2C914200807F4B /* ActivityModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA0AD522B2C914200807F4B /* ActivityModel.swift */; };
 		EEADBBA12B31CEAB00EEA9C3 /* UserDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEADBBA02B31CEAB00EEA9C3 /* UserDetail.swift */; };
+		EEAF57E82B442A32008A94D7 /* FilterPlacesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEAF57E72B442A32008A94D7 /* FilterPlacesViewModel.swift */; };
+		EEAF57EA2B442A85008A94D7 /* RadiusFrequency.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEAF57E92B442A85008A94D7 /* RadiusFrequency.swift */; };
+		EEBCFE312B494CB100722FD8 /* SideMenu in Frameworks */ = {isa = PBXBuildFile; productRef = EEBCFE302B494CB100722FD8 /* SideMenu */; };
+		EEBCFE332B494FC900722FD8 /* FilterPlacesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBCFE322B494FC900722FD8 /* FilterPlacesViewController.swift */; };
+		EEBCFE362B49696500722FD8 /* FilterCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBCFE352B49696500722FD8 /* FilterCategory.swift */; };
+		EEBCFE382B4969B700722FD8 /* FilterAccessoryType.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBCFE372B4969B700722FD8 /* FilterAccessoryType.swift */; };
 		EEC784942B28991B002E71F8 /* PlaceListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC784932B28991B002E71F8 /* PlaceListViewModel.swift */; };
 		EEC784972B289EEC002E71F8 /* PlaceListService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC784962B289EEC002E71F8 /* PlaceListService.swift */; };
 		EEC784992B289F25002E71F8 /* RecommendedBookmarksRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC784982B289F25002E71F8 /* RecommendedBookmarksRequest.swift */; };
@@ -236,6 +242,11 @@
 		EEA0AD4F2B2C8E4900807F4B /* FeedActivityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedActivityViewModel.swift; sourceTree = "<group>"; };
 		EEA0AD522B2C914200807F4B /* ActivityModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityModel.swift; sourceTree = "<group>"; };
 		EEADBBA02B31CEAB00EEA9C3 /* UserDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetail.swift; sourceTree = "<group>"; };
+		EEAF57E72B442A32008A94D7 /* FilterPlacesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterPlacesViewModel.swift; sourceTree = "<group>"; };
+		EEAF57E92B442A85008A94D7 /* RadiusFrequency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadiusFrequency.swift; sourceTree = "<group>"; };
+		EEBCFE322B494FC900722FD8 /* FilterPlacesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterPlacesViewController.swift; sourceTree = "<group>"; };
+		EEBCFE352B49696500722FD8 /* FilterCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterCategory.swift; sourceTree = "<group>"; };
+		EEBCFE372B4969B700722FD8 /* FilterAccessoryType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterAccessoryType.swift; sourceTree = "<group>"; };
 		EEC784932B28991B002E71F8 /* PlaceListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceListViewModel.swift; sourceTree = "<group>"; };
 		EEC784962B289EEC002E71F8 /* PlaceListService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceListService.swift; sourceTree = "<group>"; };
 		EEC784982B289F25002E71F8 /* RecommendedBookmarksRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendedBookmarksRequest.swift; sourceTree = "<group>"; };
@@ -285,6 +296,7 @@
 			files = (
 				EE44159C2B0924E7001515D6 /* NVActivityIndicatorViewExtended in Frameworks */,
 				EEF8B10F2B12301200EE75CB /* IQKeyboardManagerSwift in Frameworks */,
+				EEBCFE312B494CB100722FD8 /* SideMenu in Frameworks */,
 				EE44159A2B0924E7001515D6 /* NVActivityIndicatorView in Frameworks */,
 				2EEA6C5B2B167D3400AD55CB /* SwiftKeychainWrapper in Frameworks */,
 				EE4415942B0922D5001515D6 /* Alamofire in Frameworks */,
@@ -689,6 +701,9 @@
 				EEF6ED9F2B20BCC900077DB5 /* PlaceCategory.swift */,
 				EEF6EDA02B20BCC900077DB5 /* PlaceLocation.swift */,
 				EE7F8CA42B29E6B900E767F7 /* Geocodes.swift */,
+				EEAF57E92B442A85008A94D7 /* RadiusFrequency.swift */,
+				EEBCFE352B49696500722FD8 /* FilterCategory.swift */,
+				EEBCFE372B4969B700722FD8 /* FilterAccessoryType.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -696,10 +711,11 @@
 		EE1A79E12B2325C100589A74 /* FindPlaces */ = {
 			isa = PBXGroup;
 			children = (
+				EEBCFE342B494FD300722FD8 /* ViewModel */,
 				EE1A79E02B2325B100589A74 /* Model */,
-				EE1A79E22B2325E100589A74 /* FindPlacesViewModel.swift */,
 				EEF6ED892B20B82100077DB5 /* FindPlacesViewController.swift */,
 				EE1A79E42B23291400589A74 /* FindPlacesService.swift */,
+				EEBCFE322B494FC900722FD8 /* FilterPlacesViewController.swift */,
 			);
 			path = FindPlaces;
 			sourceTree = "<group>";
@@ -791,6 +807,15 @@
 				2EA3DE962B1B74F10063730A /* FollowResponse.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		EEBCFE342B494FD300722FD8 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				EE1A79E22B2325E100589A74 /* FindPlacesViewModel.swift */,
+				EEAF57E72B442A32008A94D7 /* FilterPlacesViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		EEC784902B28940C002E71F8 /* Model */ = {
@@ -948,6 +973,7 @@
 				EEF8B10E2B12301200EE75CB /* IQKeyboardManagerSwift */,
 				2EEA6C5A2B167D3400AD55CB /* SwiftKeychainWrapper */,
 				EE3D97552B15B93400ADD849 /* Kingfisher */,
+				EEBCFE302B494CB100722FD8 /* SideMenu */,
 			);
 			productName = Favorit;
 			productReference = EE44157B2B09225F001515D6 /* Favorit.app */;
@@ -983,6 +1009,7 @@
 				EEF8B10D2B12301200EE75CB /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
 				2EEA6C592B167D3400AD55CB /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */,
 				EE3D97542B15B93400ADD849 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				EEBCFE2F2B494CB100722FD8 /* XCRemoteSwiftPackageReference "SideMenu" */,
 			);
 			productRefGroup = EE44157C2B09225F001515D6 /* Products */;
 			projectDirPath = "";
@@ -1085,6 +1112,7 @@
 				2EA3DE8A2B1A26790063730A /* FollowingViewController+Factory.swift in Sources */,
 				EEDD04502B2604D3000BE18E /* FoodImageViewCell.swift in Sources */,
 				2EA3DE952B1B6E100063730A /* FollowRequest.swift in Sources */,
+				EEBCFE382B4969B700722FD8 /* FilterAccessoryType.swift in Sources */,
 				EEF6ED8A2B20B82100077DB5 /* FindPlacesViewController.swift in Sources */,
 				EEF6EDB02B21EEA800077DB5 /* FindUsersRequest.swift in Sources */,
 				2EEA6C692B16842C00AD55CB /* SignUpRequest.swift in Sources */,
@@ -1147,11 +1175,13 @@
 				EE1A79E72B23295700589A74 /* FindPlacesRequest.swift in Sources */,
 				2EA3DEB72B1C75C80063730A /* UserDetailsService.swift in Sources */,
 				EEF842262B28623300A3E36B /* AddBookmarkResponse.swift in Sources */,
+				EEAF57E82B442A32008A94D7 /* FilterPlacesViewModel.swift in Sources */,
 				2EEA6C432B165B0E00AD55CB /* AnyCodable.swift in Sources */,
 				2EEA6C562B167C0500AD55CB /* UserDefaults.swift in Sources */,
 				2EEA6C242B16472900AD55CB /* UIView+Extensions.swift in Sources */,
 				2EEA6C282B16480500AD55CB /* UIView+Border.swift in Sources */,
 				2EA3DEA72B1B9EBA0063730A /* FindUsersService.swift in Sources */,
+				EEBCFE332B494FC900722FD8 /* FilterPlacesViewController.swift in Sources */,
 				2EEA6C672B16835200AD55CB /* SignUpResponse.swift in Sources */,
 				2EA3DEA92B1B9F030063730A /* User.swift in Sources */,
 				EEF8B1032B121D2E00EE75CB /* LoginResponse.swift in Sources */,
@@ -1171,7 +1201,9 @@
 				EE4719EA2B1CBD12008C1342 /* PlacesViewController.swift in Sources */,
 				EEDD044A2B25F819000BE18E /* PlaceDetailRequest.swift in Sources */,
 				EE1A79E92B232C3100589A74 /* Color+Extension.swift in Sources */,
+				EEAF57EA2B442A85008A94D7 /* RadiusFrequency.swift in Sources */,
 				EEDD043E2B25F483000BE18E /* DistanceHelper.swift in Sources */,
+				EEBCFE362B49696500722FD8 /* FilterCategory.swift in Sources */,
 				2EA3DECB2B1C85C50063730A /* StringConstants.swift in Sources */,
 				EEF8B0FA2B11F23400EE75CB /* LoginViewModel.swift in Sources */,
 				2EEA6C492B1663F200AD55CB /* ConcreteLoginViewModel.swift in Sources */,
@@ -1318,9 +1350,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Cirqit LLC (YSEE5B447K)";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = YSEE5B447K;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1355,11 +1387,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Cirqit LLC (YSEE5B447K)";
-				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3;
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = YSEE5B447K;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 4;
+				DEVELOPMENT_TEAM = YSEE5B447K;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Favorit/Main/Info.plist;
@@ -1381,7 +1412,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.cirqit.favorit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Favorit AppStore 2 Provision Profile";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1444,6 +1474,14 @@
 				minimumVersion = 5.1.1;
 			};
 		};
+		EEBCFE2F2B494CB100722FD8 /* XCRemoteSwiftPackageReference "SideMenu" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/jonkykong/SideMenu.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.5.0;
+			};
+		};
 		EEF8B10D2B12301200EE75CB /* XCRemoteSwiftPackageReference "IQKeyboardManager" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/hackiftekhar/IQKeyboardManager.git";
@@ -1479,6 +1517,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = EE4415982B0924E7001515D6 /* XCRemoteSwiftPackageReference "NVActivityIndicatorView" */;
 			productName = NVActivityIndicatorViewExtended;
+		};
+		EEBCFE302B494CB100722FD8 /* SideMenu */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EEBCFE2F2B494CB100722FD8 /* XCRemoteSwiftPackageReference "SideMenu" */;
+			productName = SideMenu;
 		};
 		EEF8B10E2B12301200EE75CB /* IQKeyboardManagerSwift */ = {
 			isa = XCSwiftPackageProductDependency;

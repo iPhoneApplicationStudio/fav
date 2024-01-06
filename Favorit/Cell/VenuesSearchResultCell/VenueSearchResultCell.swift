@@ -10,18 +10,21 @@ import UIKit
 import Kingfisher
 
 class VenueSearchResultCell: UITableViewCell {
+    //MARK: IBOutlets
     @IBOutlet weak var coverImageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var addressLabel: UILabel!
     @IBOutlet weak var distanceLabel: UILabel!
     @IBOutlet weak var venueTypeLabel: UILabel!
     
+    //MARK: Properties
     var place: Place? {
         didSet {
             self.setUpPlaceData()
         }
     }
     
+    //MARK: Life Cycle
     override func awakeFromNib() {
         super.awakeFromNib()
         self.selectionStyle = UITableViewCell.SelectionStyle.none
@@ -33,18 +36,24 @@ class VenueSearchResultCell: UITableViewCell {
         self.coverImageView.layer.cornerRadius = 5.0
         self.coverImageView.clipsToBounds = true
     }
-    
+    //MARK: Methods
     private func setUpPlaceData() {
         guard let place else {
             return
         }
         
         nameLabel.text = place.name
-        if let iconStr = place.categories?.first?.icon,
+        if let iconStr = place.photos?.first,
            let iconUrl = URL(string: iconStr) {
             coverImageView.kf.setImage(with: iconUrl,
                                        options: [.transition(.fade(0.5)), .forceTransition])
+        } else if let iconStr = place.categories?.first?.icon,
+                  let iconUrl = URL(string: iconStr) {
+            coverImageView.kf.setImage(with: iconUrl,
+                                       options: [.transition(.fade(0.5)), .forceTransition])
         }
+        
+        
         
         addressLabel.text = place.location?.formattedAddress
         venueTypeLabel.text = place.categories?.first?.name

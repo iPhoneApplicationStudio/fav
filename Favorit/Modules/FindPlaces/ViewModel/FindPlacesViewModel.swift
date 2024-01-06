@@ -10,19 +10,28 @@ protocol FindPlacesProtocol: AnyObject {
     var numberOfItems: Int { get }
     var pageTitle: String { get }
     var searchTitle: String { get }
+    var radius: RadiusFrequency { get set }
     var errorMessage: String? { get }
     
     func itemForIndex(_ index: Int) -> Place?
-    func getAllPlacesFor(text: String?, handler: @escaping (((Result<Bool, Error>)?) -> Void))
+    func getAllPlacesFor(text: String?,
+                         handler: @escaping (((Result<Bool, Error>)?) -> Void))
 }
 
 class FindPlacesViewModel: FindPlacesProtocol {
     private let sort = "DISTANCE"
     private let openNow = "true"
+    private let categories = 13000
+    private let limit = 50
     private var allPlaces = [Place]()
     private let networkService = FindPlacesService()
-    private let locationService = LocationService.sharedInstance
+    private let locationService = LocationService.shared
     private var _errorMessage: String?
+    private var _radius: RadiusFrequency = .nearBy
+    
+    init(radius: RadiusFrequency) {
+        self._radius = radius
+    }
     
     var pageTitle: String {
         return "Search Place"
@@ -40,6 +49,14 @@ class FindPlacesViewModel: FindPlacesProtocol {
         return _errorMessage
     }
     
+    var radius: RadiusFrequency {
+        get {
+            _radius
+        } set {
+            _radius = newValue
+        }
+    }
+    
     func itemForIndex(_ index: Int) -> Place? {
         guard index >= 0,
               index < allPlaces.count else {
@@ -51,15 +68,17 @@ class FindPlacesViewModel: FindPlacesProtocol {
     
     func getAllPlacesFor(text: String?,
                          handler: @escaping (((Result<Bool, Error>)?) -> Void)) {
-        guard let text,
-              let currentLocation = locationService.currentLocation else {
+        guard let currentLocation = locationService.currentLocation else {
             handler(nil)
             return
         }
         
         let latLongStr = "\(currentLocation.coordinate.latitude),\(currentLocation.coordinate.longitude)"
         let request = FindPlacesRequest(queryParams: FindPlacesRequest.RequestParams(query: text,
+                                                                                     limit: limit,
                                                                                      latLong: latLongStr,
+                                                                                     categories: categories,
+                                                                                     radius: _radius.value,
                                                                                      openNow: openNow,
                                                                                      sort: sort))
         networkService.getAllPlaces(request: request) {[weak self] result in

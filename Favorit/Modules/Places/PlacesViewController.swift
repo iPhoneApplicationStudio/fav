@@ -20,7 +20,7 @@ class PlacesViewController: UIViewController {
     
     private var filterMode: PlaceType = .myPlaces
     private var shouldRefresh = false
-    private let locationService = LocationService.sharedInstance
+    private let locationService = LocationService.shared
     
     var viewModel: PlaceListProtocol?
     lazy var refreshControl: UIRefreshControl = {
@@ -245,7 +245,7 @@ class PlacesViewController: UIViewController {
                 return
             }
             
-            let viewMode = FindPlacesViewModel()
+            let viewMode = FindPlacesViewModel(radius: .nearBy)
             vc.viewModel = viewMode
         }
     }
