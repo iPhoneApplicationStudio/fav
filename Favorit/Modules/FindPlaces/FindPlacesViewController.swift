@@ -8,6 +8,7 @@
 import UIKit
 import CoreLocation
 import NVActivityIndicatorView
+import SideMenu
 
 class FindPlacesViewController: UIViewController {
     //MARK: IBOutlet
@@ -27,14 +28,13 @@ class FindPlacesViewController: UIViewController {
     }()
     
     private let searchController = UISearchController(searchResultsController: nil)
-    private let locationService = LocationService.sharedInstance
+    private let locationService = LocationService.shared
     var viewModel: FindPlacesProtocol?
     
     //MARK: Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         self.initialSetting()
-        self.checkLocationService()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -52,6 +52,12 @@ class FindPlacesViewController: UIViewController {
         self.setupTableView()
         self.setupSearchController()
         self.activityIndicatorView.isHidden = false
+        self.startActivityIndicator()
+        if locationService.currentLocation != nil {
+            self.getVenuePlaces()
+        } else {
+            self.locationService.startUpdatingLocation()
+        }
     }
     
     private func setupSearchController() {
@@ -69,26 +75,6 @@ class FindPlacesViewController: UIViewController {
                         bundle: nil)
         self.tableView.register(nib,
                                 forCellReuseIdentifier: "searchCell")
-    }
-    
-    private func checkLocationService() {
-        guard let _ = viewModel else {
-            return
-        }
-        
-        locationService.locationServicesCheck {[unowned self] flag, message in
-            guard let flag else {
-                self.locationService.requestAuthorization()
-                return
-            }
-            
-            if flag == false,
-               let _ = message {
-                self.openSettingApplication()
-            } else if flag == true {
-                self.locationService.requestOneTimeLocation()
-            }
-        }
     }
     
     private func getVenuePlaces(searchText: String? = nil) {
@@ -166,17 +152,25 @@ class FindPlacesViewController: UIViewController {
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, 
                           sender: Any?) {
-        guard let viewModel,
-              segue.identifier == "PlaceDetailViewController",
-              let detailController = segue.destination as? PlaceDetailViewController,
-              let indexPath = sender as? IndexPath,
-              let place = viewModel.itemForIndex(indexPath.row) else {
-            return
+        if segue.identifier == "FilterPlaceSideMenu" {
+            let navigationViewController = segue.destination as? SideMenuNavigationController
+            if let rootVC = navigationViewController?.topViewController as? FilterPlacesViewController {
+                rootVC.delegate = self
+            }
+            
+        } else {
+            guard let viewModel,
+                  segue.identifier == "PlaceDetailViewController",
+                  let detailController = segue.destination as? PlaceDetailViewController,
+                  let indexPath = sender as? IndexPath,
+                  let place = viewModel.itemForIndex(indexPath.row) else {
+                return
+            }
+            
+            let placeDetailViewModel = PlaceDetailViewModel(place: place,
+                                                 placeID: place.placeId)
+            detailController.viewModel = placeDetailViewModel
         }
-        
-        let placeDetailViewModel = PlaceDetailViewModel(place: place,
-                                             placeID: place.placeId)
-        detailController.viewModel = placeDetailViewModel
     }
     
     func performToDetaisSegue(indexPath: IndexPath) {
@@ -247,11 +241,18 @@ extension FindPlacesViewController:  UITableViewDelegate, UITableViewDataSource 
 //MARK: LocationServiceDelegate
 extension FindPlacesViewController: LocationServiceDelegate {
     func tracingLocation(currentLocation: CLLocation) {
-        self.locationService.stopUpdatingLocation()
         self.getVenuePlaces()
     }
     
     func tracingLocationDidFailWithError(error: Error) {
         
+    }
+}
+
+extension FindPlacesViewController: FilterPlacesViewControllerDelegate {
+    func didChangeRadiusFrequencyAndCategories(frequency: RadiusFrequency,
+                                               categoties: [String]) {
+        self.viewModel?.radius = frequency
+        self.getVenuePlaces()
     }
 }

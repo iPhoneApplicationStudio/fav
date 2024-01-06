@@ -12,7 +12,8 @@ public struct UserDefault<Value> {
     public let key: String
     public let defaultValue: Value?
     
-    init(key: String, defaultValue: Value? = nil) {
+    init(key: String, 
+         defaultValue: Value? = nil) {
         self.key = key
         self.defaultValue = defaultValue
     }

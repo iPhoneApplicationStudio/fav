@@ -34,6 +34,7 @@ class FindUsersViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.initialSetting()
+        self.refreshUsers()//TODO Testing only
     }
     
     private func initialSetting() {
@@ -106,6 +107,10 @@ class FindUsersViewController: UIViewController {
         }
     }
     
+    private func fetchAllUsers() {
+        
+    }
+    
     private func handleResultsUI() {
         guard let viewModel else {
             return
@@ -173,13 +178,11 @@ extension FindUsersViewController:  UITableViewDelegate, UITableViewDataSource {
         default:
             guard let viewModel,
                   let userId = viewModel.getItemFor(index: indexPath.row)?._id,
-                  let vc = UIStoryboard(name: StoryboardName.main.value,
-                                        bundle: nil).instantiateViewController(withIdentifier: ViewControllerName.userDetail.value) as? UserDetailsViewController else {
+                  let vc = UserDetailsViewController.createViewController() else {
                 return
             }
             
-            let userDetailViewModel = UserDetailViewModel(userID: userId,
-                                                          isEditMode: false)
+            let userDetailViewModel = UserDetailViewModel(userID: userId)
             vc.viewModel = userDetailViewModel
             navigationController?.pushViewController(vc,
                                                      animated: true)

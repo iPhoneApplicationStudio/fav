@@ -16,26 +16,29 @@ protocol UserDetailViewProtocol: AnyObject {
     func getUserDetail(hanlder: @escaping ((Result<User?, APIError>)?) -> Void)
     func followTheUser(hanlder: @escaping ((Result<Bool, APIError>)?) -> Void)
     func unFollowTheUser(hanlder: @escaping ((Result<Bool, APIError>)?) -> Void)
+    
+    func updateTheUser(tagLine: String?, hanlder: @escaping ((Result<Bool, APIError>)?) -> Void)
+    func signout() -> Bool
 }
 
 class UserDetailViewModel: UserDetailViewProtocol {
     private var userID: String?
     private var _isEditEnable = false
-    private let userDetailService = UserDetailsService()
     private var user: User?
     private var _errorMessage: String?
     
-    @Dependency var userSessionService: UserSessionService
-    @Dependency var userFollowService: UserFollowService
+    private let userDetailService = UserDetailsService()
+    private let userFollowService = UserFollowService()
     
-    init?(userID: String?,
-          isEditMode: Bool) {
+    @Dependency var userSessionService: UserSessionService
+    
+    init?(userID: String?) {
         guard let userID else {
             return nil
         }
         
         self.userID = userID
-        self._isEditEnable = isEditMode
+        self._isEditEnable = isMyProfile
     }
     
     var isMyProfile: Bool {
@@ -118,5 +121,45 @@ class UserDetailViewModel: UserDetailViewProtocol {
                 hanlder(.failure(error))
             }
         }
+    }
+    
+    func updateTheUser(tagLine: String?,
+                       hanlder: @escaping ((Result<Bool, APIError>)?) -> Void) {
+        guard isMyProfile,
+              let tagLine = tagLine,
+              let userID else {
+            hanlder(nil)
+            return
+        }
+        
+        let params = UserUpdateRequest.RequestParams(bio: tagLine)
+        let request = UserUpdateRequest(queryParams: params,
+                                        userID: userID)
+        self.userDetailService.updateUserDetails(request) {[weak self] result in
+            self?._errorMessage = nil
+            switch result {
+            case .success(let userDetail):
+                guard let data = userDetail.data else {
+                    self?._errorMessage = userDetail.message ?? Message.somethingWentWrong.value
+                    hanlder(.success(false))
+                    return
+                }
+                
+                self?.user = data
+                hanlder(.success(true))
+            case .failure(let failure):
+                hanlder(.failure(failure))
+            }
+        }
+    }
+    
+    func signout() -> Bool {
+        guard isMyProfile else {
+            return false
+        }
+        
+        UserDefaults.loggedInUserID = nil
+        KeychainManager.remove(for: UserDefaults.accessTokenKey!)
+        return true
     }
 }

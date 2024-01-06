@@ -10,13 +10,16 @@ import Alamofire
 
 struct FindPlacesRequest: APIEndpoint {
     struct RequestParams: Encodable {
-        let query: String
-        let latLong: String?
+        let query: String?
+        let limit: Int
+        let latLong: String
+        let categories: Int
+        let radius: Int
         let openNow: String?
         let sort: String?
         
         enum CodingKeys: String, CodingKey {
-            case query, sort
+            case query, sort, categories, radius, limit
             case latLong = "ll"
             case openNow = "open_now"
         }

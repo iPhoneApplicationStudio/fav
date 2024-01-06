@@ -9,7 +9,6 @@ import Foundation
 
 protocol LoginStorageService {
     func store(token: String)
-    
     func store(loggedIn userID: String)
 }
 

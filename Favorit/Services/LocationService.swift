@@ -16,7 +16,7 @@ protocol LocationServiceDelegate: AnyObject {
 }
 
 class LocationService: NSObject {
-    static let sharedInstance = LocationService()
+    static let shared = LocationService()
     var locationManager: CLLocationManager?
     var currentLocation: CLLocation?
     var centerMapLocation: CLLocation?

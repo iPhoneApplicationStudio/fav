@@ -26,7 +26,7 @@ extension UIViewController {
         }
     }
     
-    private func showAlertWithYesAndNo(title: String = "",
+    func showAlertWithYesAndNo(title: String = "",
                                        message: String = "",
                                        ok: String = "OK",
                                        cancel: String = "Cancel",

@@ -18,7 +18,7 @@ class MapViewController: UIViewController {
     @IBOutlet weak var segmentedFilterControl: FavoritSegmentedControl!
     @IBOutlet weak var activityIndicatorView: NVActivityIndicatorView!
     
-    private let locationService = LocationService.sharedInstance
+    private let locationService = LocationService.shared
     private let regionRadius: CLLocationDistance = 2000
     
     weak var viewModel: PlaceListProtocol?
@@ -164,7 +164,7 @@ class MapViewController: UIViewController {
         }
         
         self.addMapPins(details: details)
-        guard let currentLocation = LocationService.sharedInstance.currentLocation else {
+        guard let currentLocation = LocationService.shared.currentLocation else {
             self.mapView.showAnnotations(self.mapView.annotations, animated: true)
             return
         }
@@ -288,8 +288,8 @@ class MapViewController: UIViewController {
 //    }
 //    // MARK: LocationService Delegate
 //    func tracingLocation(currentLocation: CLLocation) {
-//        LocationService.sharedInstance.stopUpdatingLocation()
-//        LocationService.sharedInstance.centerMapLocation = currentLocation
+//        LocationService.shared.stopUpdatingLocation()
+//        LocationService.shared.centerMapLocation = currentLocation
 //        handleFilterData()
 //    }
 //    
