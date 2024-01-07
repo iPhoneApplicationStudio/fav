@@ -294,7 +294,7 @@ extension PlacesViewController:  UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, 
                    didSelectRowAt indexPath: IndexPath) {
         guard let viewModel,
-              let detailController = PlaceDetailViewController.createPlaceDetailViewController(),
+              let detailController = PlaceDetailViewController.getViewController(),
               let bookmarkDetail = viewModel.getItemFor(index: indexPath.row,
                                                         for: filterMode),
               let place = bookmarkDetail.place else {

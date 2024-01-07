@@ -10,6 +10,15 @@
       }
     },
     {
+      "identity" : "fxpagecontrol",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/nicklockwood/FXPageControl.git",
+      "state" : {
+        "revision" : "a94633402ba98c52f86c2a70e61ff086dec9de78",
+        "version" : "1.6.0"
+      }
+    },
+    {
       "identity" : "iqkeyboardmanager",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/hackiftekhar/IQKeyboardManager.git",
@@ -52,6 +61,15 @@
       "state" : {
         "revision" : "185a3165346a03767101c4f62e9a545a0fe0530f",
         "version" : "4.0.1"
+      }
+    },
+    {
+      "identity" : "xlpagertabstrip",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/xmartlabs/XLPagerTabStrip.git",
+      "state" : {
+        "revision" : "211ed62aa376722cf93c429802a8b6ff66a8bd52",
+        "version" : "9.1.0"
       }
     }
   ],

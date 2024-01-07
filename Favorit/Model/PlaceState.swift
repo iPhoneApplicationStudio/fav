@@ -11,5 +11,4 @@ enum PlaceState: String {
     case bookmark
     case favorit
     case notSaved
-    case notSignedIn
 }

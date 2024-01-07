@@ -68,7 +68,6 @@
 		2EEA6C862B1925CE00AD55CB /* HomeTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EEA6C852B1925CE00AD55CB /* HomeTabBarViewController.swift */; };
 		2EEA6C892B192E8100AD55CB /* FindUsersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EEA6C872B192E8100AD55CB /* FindUsersViewController.swift */; };
 		2EEA6C8A2B192E8100AD55CB /* FollowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EEA6C882B192E8100AD55CB /* FollowViewController.swift */; };
-		2EEA6C8E2B192FA500AD55CB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2EEA6C8D2B192FA500AD55CB /* Main.storyboard */; };
 		2EEA6C922B19311100AD55CB /* FollowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EEA6C902B19311100AD55CB /* FollowViewModel.swift */; };
 		2EEA6C932B19324400AD55CB /* FavoritConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF8B1192B1234B800EE75CB /* FavoritConstant.swift */; };
 		2EEA6C992B19C4F500AD55CB /* HomeTabBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EEA6C982B19C4F500AD55CB /* HomeTabBarItem.swift */; };
@@ -77,6 +76,16 @@
 		EE1A79E52B23291400589A74 /* FindPlacesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE1A79E42B23291400589A74 /* FindPlacesService.swift */; };
 		EE1A79E72B23295700589A74 /* FindPlacesRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE1A79E62B23295700589A74 /* FindPlacesRequest.swift */; };
 		EE1A79E92B232C3100589A74 /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE1A79E82B232C3100589A74 /* Color+Extension.swift */; };
+		EE25A3602B4AA86400235A0C /* PlaceDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE25A35F2B4AA86400235A0C /* PlaceDetailViewController.swift */; };
+		EE25A3632B4AA96B00235A0C /* XLPagerTabStrip in Frameworks */ = {isa = PBXBuildFile; productRef = EE25A3622B4AA96B00235A0C /* XLPagerTabStrip */; };
+		EE25A3652B4AAA6D00235A0C /* ComposeTipViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE25A3642B4AAA6D00235A0C /* ComposeTipViewController.swift */; };
+		EE25A3692B4AB19F00235A0C /* PlaceTipsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE25A3682B4AB19F00235A0C /* PlaceTipsViewController.swift */; };
+		EE25A36B2B4AB21A00235A0C /* TipsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE25A36A2B4AB21A00235A0C /* TipsCell.swift */; };
+		EE25A36D2B4AB27A00235A0C /* TipRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE25A36C2B4AB27A00235A0C /* TipRecord.swift */; };
+		EE25A36F2B4ABBBA00235A0C /* PlacePhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE25A36E2B4ABBBA00235A0C /* PlacePhotoViewController.swift */; };
+		EE25A3732B4ABBF900235A0C /* VenuePhotoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EE25A3712B4ABBF900235A0C /* VenuePhotoCell.xib */; };
+		EE25A3742B4ABBF900235A0C /* VenuePhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE25A3722B4ABBF900235A0C /* VenuePhotoCell.swift */; };
+		EE25A3762B4AC3C400235A0C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE25A3752B4AC3C400235A0C /* Main.storyboard */; };
 		EE3D97562B15B93400ADD849 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = EE3D97552B15B93400ADD849 /* Kingfisher */; };
 		EE44157F2B09225F001515D6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE44157E2B09225F001515D6 /* AppDelegate.swift */; };
 		EE4415812B09225F001515D6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE4415802B09225F001515D6 /* SceneDelegate.swift */; };
@@ -115,7 +124,7 @@
 		EEC784A12B28B3FD002E71F8 /* BookmarkDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC784A02B28B3FD002E71F8 /* BookmarkDetail.swift */; };
 		EEDD043E2B25F483000BE18E /* DistanceHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDD043D2B25F483000BE18E /* DistanceHelper.swift */; };
 		EEDD04402B25F667000BE18E /* Double+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDD043F2B25F667000BE18E /* Double+Extension.swift */; };
-		EEDD04432B25F7AB000BE18E /* PlaceDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDD04422B25F7AB000BE18E /* PlaceDetailViewController.swift */; };
+		EEDD04432B25F7AB000BE18E /* PlaceDetailViewControllerOld.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDD04422B25F7AB000BE18E /* PlaceDetailViewControllerOld.swift */; };
 		EEDD04452B25F7F7000BE18E /* PlaceDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDD04442B25F7F7000BE18E /* PlaceDetailViewModel.swift */; };
 		EEDD04472B25F803000BE18E /* PlaceDetailService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDD04462B25F803000BE18E /* PlaceDetailService.swift */; };
 		EEDD044A2B25F819000BE18E /* PlaceDetailRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDD04492B25F819000BE18E /* PlaceDetailRequest.swift */; };
@@ -211,7 +220,6 @@
 		2EEA6C852B1925CE00AD55CB /* HomeTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTabBarViewController.swift; sourceTree = "<group>"; };
 		2EEA6C872B192E8100AD55CB /* FindUsersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FindUsersViewController.swift; sourceTree = "<group>"; };
 		2EEA6C882B192E8100AD55CB /* FollowViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FollowViewController.swift; sourceTree = "<group>"; };
-		2EEA6C8D2B192FA500AD55CB /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		2EEA6C902B19311100AD55CB /* FollowViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FollowViewModel.swift; sourceTree = "<group>"; };
 		2EEA6C982B19C4F500AD55CB /* HomeTabBarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTabBarItem.swift; sourceTree = "<group>"; };
 		3105BDA9558834414D01CCD8 /* Pods-Favorit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Favorit.release.xcconfig"; path = "Target Support Files/Pods-Favorit/Pods-Favorit.release.xcconfig"; sourceTree = "<group>"; };
@@ -221,6 +229,15 @@
 		EE1A79E42B23291400589A74 /* FindPlacesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindPlacesService.swift; sourceTree = "<group>"; };
 		EE1A79E62B23295700589A74 /* FindPlacesRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindPlacesRequest.swift; sourceTree = "<group>"; };
 		EE1A79E82B232C3100589A74 /* Color+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
+		EE25A35F2B4AA86400235A0C /* PlaceDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceDetailViewController.swift; sourceTree = "<group>"; };
+		EE25A3642B4AAA6D00235A0C /* ComposeTipViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComposeTipViewController.swift; sourceTree = "<group>"; };
+		EE25A3682B4AB19F00235A0C /* PlaceTipsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceTipsViewController.swift; sourceTree = "<group>"; };
+		EE25A36A2B4AB21A00235A0C /* TipsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TipsCell.swift; sourceTree = "<group>"; };
+		EE25A36C2B4AB27A00235A0C /* TipRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipRecord.swift; sourceTree = "<group>"; };
+		EE25A36E2B4ABBBA00235A0C /* PlacePhotoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlacePhotoViewController.swift; sourceTree = "<group>"; };
+		EE25A3712B4ABBF900235A0C /* VenuePhotoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VenuePhotoCell.xib; sourceTree = "<group>"; };
+		EE25A3722B4ABBF900235A0C /* VenuePhotoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VenuePhotoCell.swift; sourceTree = "<group>"; };
+		EE25A3752B4AC3C400235A0C /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		EE44157B2B09225F001515D6 /* Favorit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Favorit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE44157E2B09225F001515D6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EE4415802B09225F001515D6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -256,7 +273,7 @@
 		EEC784A02B28B3FD002E71F8 /* BookmarkDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkDetail.swift; sourceTree = "<group>"; };
 		EEDD043D2B25F483000BE18E /* DistanceHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DistanceHelper.swift; sourceTree = "<group>"; };
 		EEDD043F2B25F667000BE18E /* Double+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Extension.swift"; sourceTree = "<group>"; };
-		EEDD04422B25F7AB000BE18E /* PlaceDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceDetailViewController.swift; sourceTree = "<group>"; };
+		EEDD04422B25F7AB000BE18E /* PlaceDetailViewControllerOld.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceDetailViewControllerOld.swift; sourceTree = "<group>"; };
 		EEDD04442B25F7F7000BE18E /* PlaceDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceDetailViewModel.swift; sourceTree = "<group>"; };
 		EEDD04462B25F803000BE18E /* PlaceDetailService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceDetailService.swift; sourceTree = "<group>"; };
 		EEDD04492B25F819000BE18E /* PlaceDetailRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceDetailRequest.swift; sourceTree = "<group>"; };
@@ -302,6 +319,7 @@
 				EE4415942B0922D5001515D6 /* Alamofire in Frameworks */,
 				EE3D97562B15B93400ADD849 /* Kingfisher in Frameworks */,
 				DFB1BE648E5B2C13AFE32878 /* Pods_Favorit.framework in Frameworks */,
+				EE25A3632B4AA96B00235A0C /* XLPagerTabStrip in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -720,13 +738,26 @@
 			path = FindPlaces;
 			sourceTree = "<group>";
 		};
+		EE25A3702B4ABBF100235A0C /* VenuePhotoCell */ = {
+			isa = PBXGroup;
+			children = (
+				EE25A3722B4ABBF900235A0C /* VenuePhotoCell.swift */,
+				EE25A3712B4ABBF900235A0C /* VenuePhotoCell.xib */,
+			);
+			path = VenuePhotoCell;
+			sourceTree = "<group>";
+		};
 		EE27F6E32B2485600099934C /* PlaceDetail */ = {
 			isa = PBXGroup;
 			children = (
 				EEDD04482B25F80E000BE18E /* Model */,
-				EEDD04422B25F7AB000BE18E /* PlaceDetailViewController.swift */,
+				EEDD04422B25F7AB000BE18E /* PlaceDetailViewControllerOld.swift */,
 				EEDD04442B25F7F7000BE18E /* PlaceDetailViewModel.swift */,
-				EEDD04462B25F803000BE18E /* PlaceDetailService.swift */,
+				EE25A35F2B4AA86400235A0C /* PlaceDetailViewController.swift */,
+				EE25A3642B4AAA6D00235A0C /* ComposeTipViewController.swift */,
+				EE25A3682B4AB19F00235A0C /* PlaceTipsViewController.swift */,
+				EE25A36E2B4ABBBA00235A0C /* PlacePhotoViewController.swift */,
+				EEF842252B28623300A3E36B /* AddBookmarkResponse.swift */,
 			);
 			path = PlaceDetail;
 			sourceTree = "<group>";
@@ -843,8 +874,8 @@
 		EEDD04412B25F72E000BE18E /* Story */ = {
 			isa = PBXGroup;
 			children = (
-				2EEA6C8D2B192FA500AD55CB /* Main.storyboard */,
 				EE44159F2B092557001515D6 /* Login.storyboard */,
+				EE25A3752B4AC3C400235A0C /* Main.storyboard */,
 			);
 			path = Story;
 			sourceTree = "<group>";
@@ -855,7 +886,8 @@
 				EEDD04492B25F819000BE18E /* PlaceDetailRequest.swift */,
 				EEDD044B2B25F9BB000BE18E /* SinglePlace.swift */,
 				EEF842232B28617A00A3E36B /* BookmarkRequest.swift */,
-				EEF842252B28623300A3E36B /* AddBookmarkResponse.swift */,
+				EEDD04462B25F803000BE18E /* PlaceDetailService.swift */,
+				EE25A36C2B4AB27A00235A0C /* TipRecord.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -883,6 +915,8 @@
 		EEF6ED8B2B20B9EE00077DB5 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
+				EE25A3702B4ABBF100235A0C /* VenuePhotoCell */,
+				EE25A36A2B4AB21A00235A0C /* TipsCell.swift */,
 				2EEA6C7D2B191A6000AD55CB /* FollowerCell.swift */,
 				2EEA6C7E2B191A6000AD55CB /* InviteFriendsCell.swift */,
 				EEDD044D2B2604AA000BE18E /* FoodImageViewCell */,
@@ -974,6 +1008,7 @@
 				2EEA6C5A2B167D3400AD55CB /* SwiftKeychainWrapper */,
 				EE3D97552B15B93400ADD849 /* Kingfisher */,
 				EEBCFE302B494CB100722FD8 /* SideMenu */,
+				EE25A3622B4AA96B00235A0C /* XLPagerTabStrip */,
 			);
 			productName = Favorit;
 			productReference = EE44157B2B09225F001515D6 /* Favorit.app */;
@@ -1010,6 +1045,7 @@
 				2EEA6C592B167D3400AD55CB /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */,
 				EE3D97542B15B93400ADD849 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				EEBCFE2F2B494CB100722FD8 /* XCRemoteSwiftPackageReference "SideMenu" */,
+				EE25A3612B4AA96B00235A0C /* XCRemoteSwiftPackageReference "XLPagerTabStrip" */,
 			);
 			productRefGroup = EE44157C2B09225F001515D6 /* Products */;
 			projectDirPath = "";
@@ -1028,11 +1064,12 @@
 				EEDD04512B2604D3000BE18E /* FoodImageViewCell.xib in Resources */,
 				2EA3DECD2B1C86350063730A /* SavedCell.xib in Resources */,
 				2EEA6C3D2B164CCD00AD55CB /* Colors.xcassets in Resources */,
+				EE25A3762B4AC3C400235A0C /* Main.storyboard in Resources */,
 				EEF6ED8F2B20B9F400077DB5 /* VenueSearchResultCell.xib in Resources */,
+				EE25A3732B4ABBF900235A0C /* VenuePhotoCell.xib in Resources */,
 				2EA3DEA12B1B95C20063730A /* FindUsersViewController.storyboard in Resources */,
 				EE4415A02B092557001515D6 /* Login.storyboard in Resources */,
 				EEF8B10C2B12255600EE75CB /* Localizable.xcstrings in Resources */,
-				2EEA6C8E2B192FA500AD55CB /* Main.storyboard in Resources */,
 				EE44158B2B092260001515D6 /* LaunchScreen.storyboard in Resources */,
 				EE4415882B092260001515D6 /* Assets.xcassets in Resources */,
 				2EEA6C732B18F2DC00AD55CB /* SignUpViewController.storyboard in Resources */,
@@ -1089,12 +1126,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				2EEA6C932B19324400AD55CB /* FavoritConstant.swift in Sources */,
-				EEDD04432B25F7AB000BE18E /* PlaceDetailViewController.swift in Sources */,
+				EEDD04432B25F7AB000BE18E /* PlaceDetailViewControllerOld.swift in Sources */,
 				EE44159E2B092526001515D6 /* LoginViewController.swift in Sources */,
 				2EEA6C622B167F3700AD55CB /* LoginStorageService.swift in Sources */,
 				EEE62CE72B36EFB000BECC27 /* FeedViewController.swift in Sources */,
 				EEF6ED982B20BC4A00077DB5 /* Places.swift in Sources */,
 				2EA3DEC32B1C7E8E0063730A /* UnFollowUserRequest.swift in Sources */,
+				EE25A3652B4AAA6D00235A0C /* ComposeTipViewController.swift in Sources */,
 				2EA3DEB92B1C75F80063730A /* UserDetailRequest.swift in Sources */,
 				2EEA6C3F2B165AA900AD55CB /* NetworkService.swift in Sources */,
 				EE4719EF2B1CBD37008C1342 /* SignupViewController+Factory.swift in Sources */,
@@ -1102,12 +1140,15 @@
 				EE7F8CA12B29E4ED00E767F7 /* VenueMapPin.swift in Sources */,
 				2EEA6C4E2B1664A700AD55CB /* LoginRequest.swift in Sources */,
 				2EEA6C3A2B164AB100AD55CB /* Login+Dependencies.swift in Sources */,
+				EE25A36F2B4ABBBA00235A0C /* PlacePhotoViewController.swift in Sources */,
 				2EEA6C8A2B192E8100AD55CB /* FollowViewController.swift in Sources */,
 				2EEA6C6C2B16848400AD55CB /* SignUpUserInput.swift in Sources */,
 				2EA3DE9B2B1B81B40063730A /* AppCoordinator.swift in Sources */,
 				EEF6EDA72B20BCCA00077DB5 /* PlaceCategory.swift in Sources */,
+				EE25A3742B4ABBF900235A0C /* VenuePhotoCell.swift in Sources */,
 				2EA3DED02B1C86C40063730A /* ShowOnMapViewController.swift in Sources */,
 				EE7F8CA32B29E53E00E767F7 /* PlaceState.swift in Sources */,
+				EE25A36D2B4AB27A00235A0C /* TipRecord.swift in Sources */,
 				EEF8B10A2B1224CB00EE75CB /* UIViewController+Extension.swift in Sources */,
 				2EA3DE8A2B1A26790063730A /* FollowingViewController+Factory.swift in Sources */,
 				EEDD04502B2604D3000BE18E /* FoodImageViewCell.swift in Sources */,
@@ -1152,6 +1193,7 @@
 				2EEA6C2C2B1649D400AD55CB /* Dependency.swift in Sources */,
 				2EEA6C642B1681CF00AD55CB /* ConcreteSignUpViewModel.swift in Sources */,
 				EEF6EDAC2B21E57300077DB5 /* FindUsersViewModel.swift in Sources */,
+				EE25A36B2B4AB21A00235A0C /* TipsCell.swift in Sources */,
 				2EA3DEC72B1C84DF0063730A /* SavedCell.swift in Sources */,
 				EEC7849F2B28B36A002E71F8 /* BookmarkListResponse.swift in Sources */,
 				EEF8B1082B1222D800EE75CB /* String+Extension.swift in Sources */,
@@ -1173,6 +1215,7 @@
 				EE4415812B09225F001515D6 /* SceneDelegate.swift in Sources */,
 				2EEA6C7F2B191A6000AD55CB /* FollowerCell.swift in Sources */,
 				EE1A79E72B23295700589A74 /* FindPlacesRequest.swift in Sources */,
+				EE25A3692B4AB19F00235A0C /* PlaceTipsViewController.swift in Sources */,
 				2EA3DEB72B1C75C80063730A /* UserDetailsService.swift in Sources */,
 				EEF842262B28623300A3E36B /* AddBookmarkResponse.swift in Sources */,
 				EEAF57E82B442A32008A94D7 /* FilterPlacesViewModel.swift in Sources */,
@@ -1192,6 +1235,7 @@
 				2EEA6C892B192E8100AD55CB /* FindUsersViewController.swift in Sources */,
 				2EEA6C452B165BBE00AD55CB /* AFLogger.swift in Sources */,
 				EEC784942B28991B002E71F8 /* PlaceListViewModel.swift in Sources */,
+				EE25A3602B4AA86400235A0C /* PlaceDetailViewController.swift in Sources */,
 				2EA3DE972B1B74F10063730A /* FollowResponse.swift in Sources */,
 				EEDD044C2B25F9BB000BE18E /* SinglePlace.swift in Sources */,
 				2EA3DE932B1B64C10063730A /* FollowService.swift in Sources */,
@@ -1352,7 +1396,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = YSEE5B447K;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1389,7 +1433,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = YSEE5B447K;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1450,6 +1494,14 @@
 				minimumVersion = 4.0.1;
 			};
 		};
+		EE25A3612B4AA96B00235A0C /* XCRemoteSwiftPackageReference "XLPagerTabStrip" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/xmartlabs/XLPagerTabStrip.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 9.1.0;
+			};
+		};
 		EE3D97542B15B93400ADD849 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
@@ -1497,6 +1549,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 2EEA6C592B167D3400AD55CB /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */;
 			productName = SwiftKeychainWrapper;
+		};
+		EE25A3622B4AA96B00235A0C /* XLPagerTabStrip */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EE25A3612B4AA96B00235A0C /* XCRemoteSwiftPackageReference "XLPagerTabStrip" */;
+			productName = XLPagerTabStrip;
 		};
 		EE3D97552B15B93400ADD849 /* Kingfisher */ = {
 			isa = XCSwiftPackageProductDependency;
