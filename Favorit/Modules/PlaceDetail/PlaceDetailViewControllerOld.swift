@@ -61,7 +61,7 @@ class PlaceDetailViewControllerOld: UIViewController {
             
             self?.pageController.numberOfPages = viewModel.numnerOfIcons
             self?.labelCategory.text = viewModel.category ?? ""
-            self?.labelAddress.text = viewModel.location ?? ""
+            self?.labelAddress.text = viewModel.address ?? ""
             self?.labelDistance.text = viewModel.distance ?? ""
             self?.collectionView.reloadData()
         }

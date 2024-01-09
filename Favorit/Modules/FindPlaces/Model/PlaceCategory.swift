@@ -12,11 +12,17 @@ For support, please feel free to contact me at https://www.linkedin.com/in/syeda
 */
 
 import Foundation
-struct PlaceCategory : Codable {
+
+struct Icon: Codable {
+    let suffix : String?
+    let prefix : String?
+}
+
+struct PlaceCategory: Codable {
 	let id : Int
 	let name : String
 	let shortName : String?
-	let icon : String?
+	let icon : Icon?
 
 	enum CodingKeys: String, CodingKey {
 		case id = "id"
@@ -30,6 +36,6 @@ struct PlaceCategory : Codable {
 		id = try values.decode(Int.self, forKey: .id)
 		name = try values.decode(String.self, forKey: .name)
         shortName = try values.decodeIfPresent(String.self, forKey: .shortName)
-		icon = try values.decodeIfPresent(String.self, forKey: .icon)
+		icon = try values.decodeIfPresent(Icon.self, forKey: .icon)
 	}
 }

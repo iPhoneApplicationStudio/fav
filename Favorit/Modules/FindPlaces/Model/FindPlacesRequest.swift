@@ -13,7 +13,7 @@ struct FindPlacesRequest: APIEndpoint {
         let query: String?
         let limit: Int
         let latLong: String
-        let categories: Int
+        let categories: String?
         let radius: Int
         let openNow: String?
         let sort: String?

@@ -44,6 +44,7 @@ enum ViewControllerName: String {
     case followVC = "FollowViewController"
     case placeDetailVC = "PlaceDetailViewController"
     case feedVC = "FeedViewController"
+    case filterSideMenu = "SideMenuVC"
     
     var value: String {
         return rawValue

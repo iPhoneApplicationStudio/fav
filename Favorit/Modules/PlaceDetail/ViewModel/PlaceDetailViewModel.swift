@@ -11,12 +11,19 @@ import Lightbox
 protocol PlaceDetailProtocol: AnyObject {
     var placeName: String? { get }
     var category: String? { get }
-    var location: String? { get }
+    var featuredPhotoURL: String? { get }
+    var formattedAddress: String? { get }
+    var address: String? { get }
     var distance: String? { get }
     var numnerOfIcons: Int { get }
     var errorMessage: String? { get }
     var isBookmarked: Bool { get set }
+    var isPlaceExist: Bool { get }
+    var bookmarkCount: Int { get }
+    var favouriteCount: Int { get }
+    var venue: Place? { get }
     
+    init(place: Place?, placeID: String)
     func getAllLightBoxImages() -> [LightboxImage]?
     func getIconUrlStringFor(index: Int) -> String?
     func getPlace(handler: @escaping (((Result<Bool, Error>)?) -> Void))
@@ -31,10 +38,17 @@ class PlaceDetailViewModel: PlaceDetailProtocol {
     private var _errorMessage: String?
     private var _isBookmarked = false
     
-    init(place: Place?, placeID: String) {
+    var venue: Place? {
+        return place
+    }
+    
+    let isPlaceExist: Bool
+    
+    required init(place: Place?, placeID: String) {
         self.place = place
         self._isBookmarked = place?.isBookmarked ?? false
         self.placeID = placeID
+        self.isPlaceExist = place != nil
     }
     
     var placeName: String? {
@@ -45,8 +59,16 @@ class PlaceDetailViewModel: PlaceDetailProtocol {
         return place?.categories?.first?.name
     }
     
-    var location: String? {
+    var featuredPhotoURL: String? {
+        return place?.featurePhotoURL
+    }
+    
+    var formattedAddress: String? {
         return place?.location?.formattedAddress ?? place?.location?.address
+    }
+    
+    var address: String? {
+        return place?.location?.address ?? place?.location?.formattedAddress
     }
     
     var distance: String? {
@@ -67,6 +89,14 @@ class PlaceDetailViewModel: PlaceDetailProtocol {
         } set {
             _isBookmarked = newValue
         }
+    }
+    
+    var bookmarkCount: Int {
+        return place?.bookmarkCount ?? 0
+    }
+    
+    var favouriteCount: Int {
+        return place?.favouriteCount ?? 0
     }
     
     func getIconUrlStringFor(index: Int) -> String? {

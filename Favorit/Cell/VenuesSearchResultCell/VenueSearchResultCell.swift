@@ -43,12 +43,12 @@ class VenueSearchResultCell: UITableViewCell {
         }
         
         nameLabel.text = place.name
-        if let iconStr = place.photos?.first,
+        if let iconStr = place.featurePhotoURL,
            let iconUrl = URL(string: iconStr) {
             coverImageView.kf.setImage(with: iconUrl,
                                        options: [.transition(.fade(0.5)), .forceTransition])
-        } else if let iconStr = place.categories?.first?.icon,
-                  let iconUrl = URL(string: iconStr) {
+        } else if let categoryIconURL = place.categoryIconURL,
+                  let iconUrl = URL(string: categoryIconURL) {
             coverImageView.kf.setImage(with: iconUrl,
                                        options: [.transition(.fade(0.5)), .forceTransition])
         }

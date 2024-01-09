@@ -10,7 +10,8 @@ import Foundation
 
 protocol FilterPlacesProtocol: AnyObject {
     var totalSection: Int { get }
-    var bindViewModelToController : ((_ frequency: RadiusFrequency, _ categories: [String]) -> ())? { get set }
+    var bindViewModelToController : ((_ frequency: RadiusFrequency,
+                                      _ categories: [String]) -> ())? { get set }
     
     func numberOfItemsFor(section: Int) -> Int
     func titleFor(section: Int) -> String
@@ -50,11 +51,16 @@ class FilterPlacesViewModel: FilterPlacesProtocol {
     }()
     
     private var allCategories = [FilterCategory(title: "Restaurants",
-                                                accessoryType: .checkmark),
-                                 FilterCategory(title: "Bars"),
-                                 FilterCategory(title: "Breakfast"),
-                                 FilterCategory(title: "Coffee/Tea"),
-                                 FilterCategory(title: "Dessert")]
+                                                accessoryType: .checkmark,
+                                                key: "restaurant"),
+                                 FilterCategory(title: "Bars",
+                                                key: "bars"),
+                                 FilterCategory(title: "Breakfast",
+                                                key: "breakfast"),
+                                 FilterCategory(title: "Coffee/Tea",
+                                                key: "coffee_tea"),
+                                 FilterCategory(title: "Dessert",
+                                                key: "dessert")]
     
     var totalSection: Int {
         return FilterSection.allCases.count
@@ -140,7 +146,7 @@ class FilterPlacesViewModel: FilterPlacesProtocol {
     private func getSelectedFrequencyAndCategories() {
         let selectedCategories = allCategories.compactMap { category in
             if category.accessoryType == .checkmark {
-                return category.title
+                return category.key
             } else {
                 return nil
             }

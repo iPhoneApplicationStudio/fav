@@ -27,6 +27,24 @@ struct Place : Codable {
         
         return DistanceHelper.convertDistance(distance: distance)
     }
+    
+    var featurePhotoURL: String? {
+        return photos?.first
+    }
+    
+    var featureCategory: String? {
+        return categories?.first?.name
+    }
+    
+    var categoryIconURL: String? {
+        let icon = categories?.first?.icon
+        guard let iconPrefix = icon?.prefix,
+              let iconSuffix = icon?.suffix else {
+            return nil
+        }
+        
+        return "\(iconPrefix)\(iconSuffix)"
+    }
 
     enum CodingKeys: String, CodingKey {
         case isBookmarked = "isBookmarked"

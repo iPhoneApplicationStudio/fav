@@ -42,16 +42,16 @@ extension UIView {
     func addShadow(location: Location, color: UIColor = .black, opacity: Float = 0.5, radius: CGFloat = 5.0) {
         switch location {
         case .bottom:
-             addShadow(offset: CGSize(width: 0, height: 2), color: color, opacity: opacity, radius: radius)
+            addShadow(offset: CGSize(width: 0, height: 2), color: color, opacity: opacity, radius: radius)
         case .top:
             addShadow(offset: CGSize(width: 0, height: -2), color: color, opacity: opacity, radius: radius)
         case .left:
-             addShadow(offset: CGSize(width: -2, height: 0), color: color, opacity: opacity, radius: radius)
+            addShadow(offset: CGSize(width: -2, height: 0), color: color, opacity: opacity, radius: radius)
         case .right:
             addShadow(offset: CGSize(width: 2, height: 0), color: color, opacity: opacity, radius: radius)
         }
     }
-
+    
     func addShadow(offset: CGSize, color: UIColor = .black, opacity: Float = 0.5, radius: CGFloat = 5.0) {
         self.layer.masksToBounds = false
         self.layer.shadowColor = color.cgColor
@@ -149,28 +149,28 @@ extension UIView {
 
 extension UIView {
     func borders(for edges:[UIRectEdge], width:CGFloat = 1, color: UIColor = .black) {
-
+        
         if edges.contains(.all) {
             layer.borderWidth = width
             layer.borderColor = color.resolvedColor(with: self.traitCollection).cgColor
         } else {
             let allSpecificBorders:[UIRectEdge] = [.top, .bottom, .left, .right]
-
+            
             for edge in allSpecificBorders {
                 if let viewTag = viewWithTag(Int(edge.rawValue)) {
                     viewTag.removeFromSuperview()
                 }
-
+                
                 if edges.contains(edge) {
                     let viewTag = UIView()
                     viewTag.tag = Int(edge.rawValue)
                     viewTag.backgroundColor = color
                     viewTag.translatesAutoresizingMaskIntoConstraints = false
                     addSubview(viewTag)
-
+                    
                     var horizontalVisualFormat = "H:"
                     var verticalVisualFormat = "V:"
-
+                    
                     switch edge {
                     case UIRectEdge.bottom:
                         horizontalVisualFormat += "|-(0)-[v]-(0)-|"
@@ -187,7 +187,7 @@ extension UIView {
                     default:
                         break
                     }
-
+                    
                     self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: horizontalVisualFormat, options: .directionLeadingToTrailing, metrics: nil, views: ["v": viewTag]))
                     self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: verticalVisualFormat, options: .directionLeadingToTrailing, metrics: nil, views: ["v": viewTag]))
                 }
@@ -208,5 +208,18 @@ extension UIView {
         case .corner:
             break
         }
+    }
+}
+
+extension UIView {
+    func applyTopToBottomWhiteGradient() {
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.frame = self.bounds
+        gradientLayer.colors = [UIColor.white.withAlphaComponent(0.75).cgColor, UIColor.white.withAlphaComponent(0).cgColor]
+        gradientLayer.locations = [0.0, 1.0]
+        gradientLayer.startPoint = CGPoint(x: 0, y: 1.0)
+        gradientLayer.endPoint = CGPoint(x: 0, y: 0.0)
+        
+        self.layer.insertSublayer(gradientLayer, at: 0)
     }
 }

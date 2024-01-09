@@ -34,7 +34,7 @@ class VenueMapPin: NSObject, MKAnnotation {
         
         self.title = place.name
         self.address = place.location?.formattedAddress ?? ""
-        self.venueCategory = place.categories?.first?.name
+        self.venueCategory = place.featureCategory
         self.subtitle = self.address
         
         guard let lat = place.geocodes?.main?.latitude,

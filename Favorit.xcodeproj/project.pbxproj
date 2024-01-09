@@ -750,16 +750,23 @@
 		EE27F6E32B2485600099934C /* PlaceDetail */ = {
 			isa = PBXGroup;
 			children = (
+				EE2EB8DB2B4DA3A000DDF306 /* ViewModel */,
 				EEDD04482B25F80E000BE18E /* Model */,
 				EEDD04422B25F7AB000BE18E /* PlaceDetailViewControllerOld.swift */,
-				EEDD04442B25F7F7000BE18E /* PlaceDetailViewModel.swift */,
 				EE25A35F2B4AA86400235A0C /* PlaceDetailViewController.swift */,
 				EE25A3642B4AAA6D00235A0C /* ComposeTipViewController.swift */,
 				EE25A3682B4AB19F00235A0C /* PlaceTipsViewController.swift */,
 				EE25A36E2B4ABBBA00235A0C /* PlacePhotoViewController.swift */,
-				EEF842252B28623300A3E36B /* AddBookmarkResponse.swift */,
 			);
 			path = PlaceDetail;
+			sourceTree = "<group>";
+		};
+		EE2EB8DB2B4DA3A000DDF306 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				EEDD04442B25F7F7000BE18E /* PlaceDetailViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		EE4415722B09225F001515D6 = {
@@ -884,6 +891,7 @@
 			isa = PBXGroup;
 			children = (
 				EEDD04492B25F819000BE18E /* PlaceDetailRequest.swift */,
+				EEF842252B28623300A3E36B /* AddBookmarkResponse.swift */,
 				EEDD044B2B25F9BB000BE18E /* SinglePlace.swift */,
 				EEF842232B28617A00A3E36B /* BookmarkRequest.swift */,
 				EEDD04462B25F803000BE18E /* PlaceDetailService.swift */,
@@ -1396,7 +1404,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = YSEE5B447K;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1433,7 +1441,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = YSEE5B447K;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;

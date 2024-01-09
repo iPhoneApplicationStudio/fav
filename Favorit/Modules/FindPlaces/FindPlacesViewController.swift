@@ -29,6 +29,8 @@ class FindPlacesViewController: UIViewController {
     
     private let searchController = UISearchController(searchResultsController: nil)
     private let locationService = LocationService.shared
+    private var sideMenuNavigationController: SideMenuNavigationController?
+    
     var viewModel: FindPlacesProtocol?
     
     //MARK: Life Cycle
@@ -83,7 +85,7 @@ class FindPlacesViewController: UIViewController {
         }
         
         self.startActivityIndicator()
-        viewModel.getAllPlacesFor(text: searchText ?? "") {[weak self] result in
+        viewModel.getAllPlacesFor(text: searchText) {[weak self] result in
             self?.manageActivityIndicatorFlow()
             switch result {
             case .success(let flag):
@@ -149,33 +151,46 @@ class FindPlacesViewController: UIViewController {
         self.getVenuePlaces()
     }
     
-    // MARK: - Navigation
-    override func prepare(for segue: UIStoryboardSegue, 
-                          sender: Any?) {
-        if segue.identifier == "FilterPlaceSideMenu" {
-            let navigationViewController = segue.destination as? SideMenuNavigationController
-            if let rootVC = navigationViewController?.topViewController as? FilterPlacesViewController {
-                rootVC.delegate = self
+    //MARK: IBAction
+    @IBAction func didClickOnFilter() {
+        if self.sideMenuNavigationController == nil {
+            let storyboard = UIStoryboard(name: StoryboardName.main.value,
+                                          bundle: nil)
+            if let vc = storyboard.instantiateViewController(withIdentifier: ViewControllerName.filterSideMenu.value) as? SideMenuNavigationController {
+                self.sideMenuNavigationController = vc
+                vc.sideMenuDelegate = self
+                if let rootVC = vc.topViewController as? FilterPlacesViewController {
+                    rootVC.delegate = self
+                }
             }
-            
-        } else {
-            guard let viewModel,
-                  segue.identifier == "PlaceDetailViewController",
-                  let detailController = segue.destination as? PlaceDetailViewController,
-                  let indexPath = sender as? IndexPath,
-                  let place = viewModel.itemForIndex(indexPath.row) else {
-                return
-            }
-            
-            let placeDetailViewModel = PlaceDetailViewModel(place: place,
-                                                 placeID: place.placeId)
-            detailController.viewModel = placeDetailViewModel
         }
+        
+        guard let vc = self.sideMenuNavigationController else {
+            return
+        }
+        
+        self.present(vc, animated: true)
+    }
+    
+    // MARK: - Navigation
+    override func prepare(for segue: UIStoryboardSegue,
+                          sender: Any?) {
+        guard let viewModel,
+              segue.identifier == "PlaceDetailViewController",
+              let detailController = segue.destination as? PlaceDetailViewController,
+              let indexPath = sender as? IndexPath,
+              let place = viewModel.itemForIndex(indexPath.row) else {
+            return
+        }
+        
+        let placeDetailViewModel = PlaceDetailViewModel(place: place,
+                                                        placeID: place.placeId)
+        detailController.viewModel = placeDetailViewModel
     }
     
     func performToDetaisSegue(indexPath: IndexPath) {
         self.performSegue(withIdentifier: "PlaceDetailViewController",
-                     sender: indexPath)
+                          sender: indexPath)
     }
 }
 
@@ -205,17 +220,17 @@ extension FindPlacesViewController: UISearchBarDelegate {
 
 //MARK: UITableViewDelegate-DataSource
 extension FindPlacesViewController:  UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, 
+    func tableView(_ tableView: UITableView,
                    numberOfRowsInSection section: Int) -> Int {
         return viewModel?.numberOfItems ?? 0
     }
     
-    func tableView(_ tableView: UITableView, 
+    func tableView(_ tableView: UITableView,
                    heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 100
     }
     
-    func tableView(_ tableView: UITableView, 
+    func tableView(_ tableView: UITableView,
                    cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let viewModel, let cell = tableView.dequeueReusableCell(withIdentifier: "searchCell") as? VenueSearchResultCell else {
             return UITableViewCell()
@@ -253,6 +268,12 @@ extension FindPlacesViewController: FilterPlacesViewControllerDelegate {
     func didChangeRadiusFrequencyAndCategories(frequency: RadiusFrequency,
                                                categoties: [String]) {
         self.viewModel?.radius = frequency
+        self.viewModel?.selectedSubCategories = categoties
+    }
+}
+
+extension FindPlacesViewController: SideMenuNavigationControllerDelegate {
+    func sideMenuDidDisappear(menu: SideMenuNavigationController, animated: Bool) {
         self.getVenuePlaces()
     }
 }

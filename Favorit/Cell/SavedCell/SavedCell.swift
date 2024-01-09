@@ -53,10 +53,10 @@ class SavedCell: UITableViewCell {
         self.venueTitleLabel.text = place.name
         self.venueCategoryLabel.text = place.categories?.first?.name ?? ""
         
-        if let photoUrl = URL(string: place.categories?.first?.icon ?? "") {
-            self.venueImageView.kf.setImage(with: photoUrl,
-                                       options: [.transition(.fade(0.5)), .forceTransition])
-        }
+//        if let photoUrl = URL(string: place.categories?.first?.icon ?? "") {
+//            self.venueImageView.kf.setImage(with: photoUrl,
+//                                       options: [.transition(.fade(0.5)), .forceTransition])
+//        }
         
         
 //        if let venueTip = savedVenue?.venueTip {

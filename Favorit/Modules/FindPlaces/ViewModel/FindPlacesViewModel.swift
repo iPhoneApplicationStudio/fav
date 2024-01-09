@@ -11,6 +11,7 @@ protocol FindPlacesProtocol: AnyObject {
     var pageTitle: String { get }
     var searchTitle: String { get }
     var radius: RadiusFrequency { get set }
+    var selectedSubCategories: [String] { get set }
     var errorMessage: String? { get }
     
     func itemForIndex(_ index: Int) -> Place?
@@ -21,7 +22,7 @@ protocol FindPlacesProtocol: AnyObject {
 class FindPlacesViewModel: FindPlacesProtocol {
     private let sort = "DISTANCE"
     private let openNow = "true"
-    private let categories = 13000
+    //private let categories = 13000
     private let limit = 50
     private var allPlaces = [Place]()
     private let networkService = FindPlacesService()
@@ -57,6 +58,8 @@ class FindPlacesViewModel: FindPlacesProtocol {
         }
     }
     
+    var selectedSubCategories: [String] = ["restaurant"]//Default
+    
     func itemForIndex(_ index: Int) -> Place? {
         guard index >= 0,
               index < allPlaces.count else {
@@ -73,6 +76,7 @@ class FindPlacesViewModel: FindPlacesProtocol {
             return
         }
         
+        let categories = selectedSubCategories.joined(separator: ",")
         let latLongStr = "\(currentLocation.coordinate.latitude),\(currentLocation.coordinate.longitude)"
         let request = FindPlacesRequest(queryParams: FindPlacesRequest.RequestParams(query: text,
                                                                                      limit: limit,

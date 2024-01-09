@@ -71,7 +71,7 @@
                     <navigationItem key="navigationItem" id="YZo-sa-opF">
                         <barButtonItem key="rightBarButtonItem" image="filter" id="a1C-LQ-9MS">
                             <connections>
-                                <segue destination="tz5-pb-I8B" kind="presentation" identifier="FilterPlaceSideMenu" id="Ujn-fO-UBO"/>
+                                <action selector="didClickOnFilter" destination="Gp1-aW-cFI" id="TLV-HL-MWO"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -479,7 +479,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Ech-Mu-zP9">
-                                <rect key="frame" x="0.0" y="59" width="393" height="759"/>
+                                <rect key="frame" x="0.0" y="103" width="393" height="715"/>
                             </mapView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Myl-SZ-GVc"/>
@@ -498,18 +498,18 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2sR-vZ-mbL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="8836" y="906"/>
+            <point key="canvasLocation" x="2465" y="1028"/>
         </scene>
         <!--Side Menu Navigation Controller-->
         <scene sceneID="dIp-bW-t2I">
             <objects>
-                <navigationController id="tz5-pb-I8B" customClass="SideMenuNavigationController" customModule="SideMenu" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="SideMenuVC" id="tz5-pb-I8B" customClass="SideMenuNavigationController" customModule="SideMenu" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="3td-ex-i0L">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="56"/>
+                        <rect key="frame" x="0.0" y="59" width="393" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="boolean" keyPath="leftSide" value="YES"/>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="leftSide" value="NO"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <segue destination="X76-wg-A3R" kind="relationship" relationship="rootViewController" id="xeC-E4-dpj"/>
@@ -524,11 +524,11 @@
             <objects>
                 <viewController id="X76-wg-A3R" customClass="FilterPlacesViewController" customModule="Favorit" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="E7y-mr-IuA">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" estimatedSectionHeaderHeight="-1" sectionFooterHeight="28" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="FfZ-Oe-clU">
-                                <rect key="frame" x="0.0" y="56" width="393" height="786"/>
+                                <rect key="frame" x="0.0" y="103" width="393" height="715"/>
                                 <connections>
                                     <outlet property="dataSource" destination="X76-wg-A3R" id="fbz-mt-aGs"/>
                                     <outlet property="delegate" destination="X76-wg-A3R" id="VRe-VF-1iy"/>
@@ -1664,8 +1664,8 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3MR-nJ-wzb" customClass="GradientView" customModule="Favorit" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="66" width="393" height="184"/>
                                         <subviews>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DCJ-3T-ujq">
-                                                <rect key="frame" x="0.0" y="99" width="393" height="77"/>
+                                            <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DCJ-3T-ujq">
+                                                <rect key="frame" x="0.0" y="107" width="393" height="77"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="knL-7C-vy4">
                                                         <rect key="frame" x="8" y="0.0" width="329" height="77"/>
@@ -1737,7 +1737,7 @@
                                                                                 <color key="textColor" red="0.019607843140000001" green="0.20000000000000001" blue="0.33333333329999998" alpha="1" colorSpace="calibratedRGB"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
-                                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Venue Distance" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YdE-A8-fbm">
+                                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Venue Distance" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YdE-A8-fbm">
                                                                                 <rect key="frame" x="108" y="0.0" width="106" height="27"/>
                                                                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
                                                                                 <color key="textColor" red="0.019607843140000001" green="0.20000000000000001" blue="0.33333333329999998" alpha="1" colorSpace="calibratedRGB"/>
@@ -1796,7 +1796,7 @@
                                         <constraints>
                                             <constraint firstItem="DCJ-3T-ujq" firstAttribute="leading" secondItem="3MR-nJ-wzb" secondAttribute="leading" id="NXp-cD-6ff"/>
                                             <constraint firstAttribute="height" constant="184" id="hMN-cB-atW"/>
-                                            <constraint firstAttribute="bottom" secondItem="DCJ-3T-ujq" secondAttribute="bottom" constant="8" id="hbd-wh-NIj"/>
+                                            <constraint firstAttribute="bottom" secondItem="DCJ-3T-ujq" secondAttribute="bottom" id="hbd-wh-NIj"/>
                                             <constraint firstAttribute="trailing" secondItem="DCJ-3T-ujq" secondAttribute="trailing" id="sFf-kO-Zrk"/>
                                         </constraints>
                                     </view>
@@ -1885,6 +1885,7 @@
                         <outlet property="venueAddressLabel" destination="OdR-DB-G3k" id="UhA-Ir-eKc"/>
                         <outlet property="venueDetailsContainerStackView" destination="1LZ-G4-2c9" id="wVZ-JE-vRu"/>
                         <outlet property="venueDistanceLabel" destination="YdE-A8-fbm" id="EWh-Y3-h1O"/>
+                        <segue destination="x6o-0X-h64" kind="show" identifier="showOnMap" id="2uc-FD-GvD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Oge-MB-D9K" sceneMemberID="firstResponder"/>

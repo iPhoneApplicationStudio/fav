@@ -15,6 +15,7 @@ protocol SegueHandlerDelegate: AnyObject {
 }
 
 class PlaceDetailViewController: ButtonBarPagerTabStripViewController, SegueHandlerDelegate {
+    //MARK: IBOutlets
     @IBOutlet weak var headerImageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var typeLabel: UILabel!
@@ -34,14 +35,9 @@ class PlaceDetailViewController: ButtonBarPagerTabStripViewController, SegueHand
     @IBOutlet weak var bookmarkStackView: UIStackView!
     @IBOutlet weak var addressStackView: UIStackView!
     
+    //MARK: Properties
     var composeTipsVC: ComposeTipViewController?
     var viewModel: PlaceDetailProtocol?
-    var venue: Place? {
-        didSet {
-            venueName = venue?.name ?? ""
-        }
-    }
-    
     var venueName = ""
     var placeState: PlaceState = .notSaved
     var isEditMode = false
@@ -55,10 +51,8 @@ class PlaceDetailViewController: ButtonBarPagerTabStripViewController, SegueHand
         super.viewDidLoad()
         self.setNeedsStatusBarAppearanceUpdate()
         
-        setVenue()
-        
         let addressTapGesture = UITapGestureRecognizer(target: self, action: #selector(addressTapped))
-//        venueDetailsContainerStackView.addGestureRecognizer(tapGesture)
+        //        venueDetailsContainerStackView.addGestureRecognizer(tapGesture)
         
         addressStackView.addGestureRecognizer(addressTapGesture)
         
@@ -67,14 +61,7 @@ class PlaceDetailViewController: ButtonBarPagerTabStripViewController, SegueHand
         
         let bookmarkTapGesture = UITapGestureRecognizer(target: self, action: #selector(bookmarkLabelTapped))
         bookmarkStackView.addGestureRecognizer(bookmarkTapGesture)
-    }
-    
-    func setVenue() {
-        if venue != nil { //check if came from venue search, if venue !=nil, previous screen was venue search
-            getFavoritVenueDetails()
-        } else {
-            setupVenueUI(isNewVenue: false)
-        }
+        self.initialSetting()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -87,6 +74,44 @@ class PlaceDetailViewController: ButtonBarPagerTabStripViewController, SegueHand
         navigationController?.setNavigationBarHidden(false, animated: false)
     }
     
+    //MARK: Private methods
+    private func initialSetting() {
+        guard let viewModel else {
+            return
+        }
+        
+        self.addGradientToImageView(imageView: headerImageView)
+        if viewModel.isPlaceExist {
+            self.setScreenData()
+            self.fadeInUI()
+        }
+    }
+    
+    private func setScreenData() {
+        guard let viewModel else {
+            return
+        }
+        
+        self.nameLabel.text = viewModel.placeName
+        self.typeLabel.textColor = .accentColor
+        self.typeLabel.text = viewModel.category
+        if let photoUrl = viewModel.featuredPhotoURL,
+           let photoUrl = URL(string: photoUrl) {
+               self.headerImageView.kf.setImage(with: photoUrl,
+                                           options: [.transition(.fade(0.5)), .forceTransition])
+           }
+        
+        if let addressString = viewModel.address {
+            self.venueAddressLabel.attributedText = NSAttributedString(string: addressString, 
+                                                                       attributes:
+                                                                        [.underlineStyle: NSUnderlineStyle.single.rawValue])
+        }
+        
+        self.venueDistanceLabel.text = viewModel.distance ?? ""
+        self.bookmarkedLabel.text = "\(viewModel.bookmarkCount)"
+        self.favoritLabel.text = "\(viewModel.favouriteCount)"
+    }
+    
     //MARK: Pager Setup
     override func viewControllers(for pagerTabStripController: PagerTabStripViewController) -> [UIViewController] {
         composeTipsVC = ComposeTipViewController.getViewController()
@@ -95,27 +120,27 @@ class PlaceDetailViewController: ButtonBarPagerTabStripViewController, SegueHand
         
         let photosVC = PlacePhotoViewController.getViewController()
         
-//        if savedVenue != nil && savedVenue?.venueTip?.tip != "" {
-//            tipsVC.primaryTip = savedVenue?.venueTip
-//        }
-//        if favoritVenue != nil {
-//            tipsVC.venueId = favoritVenue?.venueId
-//            composeTipsVC?.favoritVenue = favoritVenue
-//            photosVC.venueId = favoritVenue?.venueId
-//        }
+        //        if savedVenue != nil && savedVenue?.venueTip?.tip != "" {
+        //            tipsVC.primaryTip = savedVenue?.venueTip
+        //        }
+        //        if favoritVenue != nil {
+        //            tipsVC.venueId = favoritVenue?.venueId
+        //            composeTipsVC?.favoritVenue = favoritVenue
+        //            photosVC.venueId = favoritVenue?.venueId
+        //        }
         
-//        var vcArray = [tipsVC, photosVC]
-//        
-//        if venueState == .notSaved || isEditMode {
-//            vcArray.insert(composeTipsVC!, at: 0)
-//            if isEditMode { //user is editing their note
-//                composeTipsVC?.venueTip = savedVenue?.venueTip
-//                composeTipsVC?.isEditMode = true
-//                isEditMode = false
-//            }
-//        }
+        //        var vcArray = [tipsVC, photosVC]
+        //
+        //        if venueState == .notSaved || isEditMode {
+        //            vcArray.insert(composeTipsVC!, at: 0)
+        //            if isEditMode { //user is editing their note
+        //                composeTipsVC?.venueTip = savedVenue?.venueTip
+        //                composeTipsVC?.isEditMode = true
+        //                isEditMode = false
+        //            }
+        //        }
         
-//        return vcArray
+        //        return vcArray
         return [composeTipsVC!, tipsVC!, photosVC!]
     }
     
@@ -125,36 +150,32 @@ class PlaceDetailViewController: ButtonBarPagerTabStripViewController, SegueHand
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if segue.identifier == "showOnMap" {
-//            guard let showOnMapVC = segue.destination as? ShowOnMapViewController else {return}
-//            if let savedVenue = savedVenue {
-//                showOnMapVC.savedVenue = savedVenue
-//            } else if let favoritVenue = favoritVenue {
-//                showOnMapVC.favoritVenue = favoritVenue
-//            }
-//        }
-//        
-//        if segue.identifier == "toUserProfile" {
-//            guard let userDetailsVc = segue.destination as? UserDetailsViewController,
-//                let selectedUserId = sender as? String else {return}
-//            userDetailsVc.userId = selectedUserId
-//        }
-//        
-//        if segue.identifier == "toWebVC" {
-//            guard let webVC = segue.destination as? WebViewController,
-//                let url = sender as? URL else {return}
-//            webVC.setURL(url: url)
-//        }
-//        
-//        if segue.identifier == "toUserFollower" {
-//            guard let userFollowerVC = segue.destination as? UserFollowerViewController,
-//                  let isFavorit = sender as? Bool else {return}
-//            print("TO USER FOLLOWERRRRRR")
-//
-//            userFollowerVC.isFavorit = isFavorit
-//            userFollowerVC.venueId = favoritVenue?.venueId
-//            userFollowerVC.userFollowerVCState = .venueFollowing
-//        }
+                if segue.identifier == "showOnMap" {
+                    guard let showOnMapVC = segue.destination as? ShowOnMapViewController else {return}
+                    showOnMapVC.place = viewModel?.venue
+                }
+        //
+        //        if segue.identifier == "toUserProfile" {
+        //            guard let userDetailsVc = segue.destination as? UserDetailsViewController,
+        //                let selectedUserId = sender as? String else {return}
+        //            userDetailsVc.userId = selectedUserId
+        //        }
+        //
+        //        if segue.identifier == "toWebVC" {
+        //            guard let webVC = segue.destination as? WebViewController,
+        //                let url = sender as? URL else {return}
+        //            webVC.setURL(url: url)
+        //        }
+        //
+        //        if segue.identifier == "toUserFollower" {
+        //            guard let userFollowerVC = segue.destination as? UserFollowerViewController,
+        //                  let isFavorit = sender as? Bool else {return}
+        //            print("TO USER FOLLOWERRRRRR")
+        //
+        //            userFollowerVC.isFavorit = isFavorit
+        //            userFollowerVC.venueId = favoritVenue?.venueId
+        //            userFollowerVC.userFollowerVCState = .venueFollowing
+        //        }
     }
     
 }
@@ -166,12 +187,12 @@ private extension PlaceDetailViewController {
     
     @objc func favoritLabelTapped(sender: UITapGestureRecognizer) {
         performSegue(withIdentifier: "toUserFollower", sender: true)
-
+        
     }
     
     @objc func bookmarkLabelTapped(sender: UITapGestureRecognizer) {
         performSegue(withIdentifier: "toUserFollower", sender: false)
-
+        
     }
     
     func launchLoginScreen() {
@@ -201,73 +222,51 @@ private extension PlaceDetailViewController {
     }
     
     func isVenueFavoritOrSaved() {
-//        if let venue = favoritVenue {
-//            let services = VenueServices()
-//            services.checkIfVenueIsSaved(favoritVenue: venue) { (venueState, savedVenue, /*isFavorit, isBookmark,*/ error) in
-//                if venueState == .notSignedIn {
-//                    self.reloadPagerTabStripView()
-//                    self.setButtonStates()
-//                    self.fadeInUI()
-//                } else if error == nil {
-//                    self.venueState = venueState
-//                    if savedVenue != nil {
-//                        self.savedVenue = savedVenue
-//                    }
-//                    self.reloadPagerTabStripView()
-//                    self.setButtonStates()
-//                    self.fadeInUI()
-//                } else {
-//                    self.showError(message: "\(Constants.ErrorMessages.genericError) \(String(describing: (error?.localizedDescription)))")
-//                }
-//            }
-//        }
+        //        if let venue = favoritVenue {
+        //            let services = VenueServices()
+        //            services.checkIfVenueIsSaved(favoritVenue: venue) { (venueState, savedVenue, /*isFavorit, isBookmark,*/ error) in
+        //                if venueState == .notSignedIn {
+        //                    self.reloadPagerTabStripView()
+        //                    self.setButtonStates()
+        //                    self.fadeInUI()
+        //                } else if error == nil {
+        //                    self.venueState = venueState
+        //                    if savedVenue != nil {
+        //                        self.savedVenue = savedVenue
+        //                    }
+        //                    self.reloadPagerTabStripView()
+        //                    self.setButtonStates()
+        //                    self.fadeInUI()
+        //                } else {
+        //                    self.showError(message: "\(Constants.ErrorMessages.genericError) \(String(describing: (error?.localizedDescription)))")
+        //                }
+        //            }
+        //        }
     }
     
     
     func setCountLabels() {
-//        if let favoritCount = favoritVenue?.favorits {
-//            favoritLabel.text = "\(favoritCount)"
-//        }
-//        if let bookmarkCount = favoritVenue?.bookmarks {
-//            bookmarkedLabel.text = "\(bookmarkCount)"
-//        }
+        //        if let favoritCount = favoritVenue?.favorits {
+        //            favoritLabel.text = "\(favoritCount)"
+        //        }
+        //        if let bookmarkCount = favoritVenue?.bookmarks {
+        //            bookmarkedLabel.text = "\(bookmarkCount)"
+        //        }
     }
     
     func setFavoritBalanceLabel() {
-//        if let favoritCountBalance = FavoritUser.current()?.favoritsCount {
-//            let favoritBalance = 10 - favoritCountBalance
-//            favoritBalanceLabel.text = "\(favoritBalance) Left"
-//        }
+        //        if let favoritCountBalance = FavoritUser.current()?.favoritsCount {
+        //            let favoritBalance = 10 - favoritCountBalance
+        //            favoritBalanceLabel.text = "\(favoritBalance) Left"
+        //        }
     }
     
     func handleAddingBookmarkedVenueToFavorits() {
-//        if let bookmarkCount = favoritVenue?.bookmarks {
-//            bookmarkedLabel.text = "\(bookmarkCount)"
-//        }
-//        savedVenue?.isFavorit = true
-//        venueState = .favorit
-    }
-    
-    func setupVenueDetails() {
-//        var photoStr = ""
-//        if let photo = favoritVenue?.featuredPhoto {
-//            photoStr = photo
-//        }
-//        let photoUrl = URL(string: photoStr)
-//        headerImageView.kf.setImage(with: photoUrl, options: [.transition(.fade(0.5)), .forceTransition])
-//        nameLabel.text = favoritVenue?.name
-//        typeLabel.textColor = Constants.Colors.accentColor
-//        typeLabel.text = favoritVenue?.primaryCategory
-//        if let addressString = favoritVenue?.address {
-//            venueAddressLabel.attributedText = NSAttributedString(string: addressString, attributes:
-//                [.underlineStyle: NSUnderlineStyle.styleSingle.rawValue])
-//        }
-//        
-//        if let distanceStr = favoritVenue?.distanceStr {
-//            venueDistanceLabel.text = "(\(distanceStr))"
-//        } else {
-//            venueDistanceLabel.text = ""
-//        }
+        //        if let bookmarkCount = favoritVenue?.bookmarks {
+        //            bookmarkedLabel.text = "\(bookmarkCount)"
+        //        }
+        //        savedVenue?.isFavorit = true
+        //        venueState = .favorit
     }
     
     func setupVenueUI(isNewVenue: Bool) {
@@ -283,7 +282,7 @@ private extension PlaceDetailViewController {
     }
     
     func setupUI() {
-        setupVenueDetails()
+        setScreenData()
         setupButtons()
         setupVenueCountLabels()
     }
@@ -296,23 +295,31 @@ private extension PlaceDetailViewController {
     }
     
     func setButtonStates() {
-//        optionsButton.isHidden = venueState == .notSaved
-//        favoritButton.isSelected = venueState == .favorit
+        //        optionsButton.isHidden = venueState == .notSaved
+        //        favoritButton.isSelected = venueState == .favorit
     }
     
     func setupVenueCountLabels() {
-//        var favStr = "0"
-//        if let favoritCount = favoritVenue?.favorits {
-//            favStr = "\(favoritCount)"
-//        }
-//        
-//        var bookmarkStr = "0"
-//        if let followCount = favoritVenue?.bookmarks {
-//            bookmarkStr = "\(followCount)"
-//        }
-//        favoritLabel.text = favStr
-//        bookmarkedLabel.text = bookmarkStr
+        //        var favStr = "0"
+        //        if let favoritCount = favoritVenue?.favorits {
+        //            favStr = "\(favoritCount)"
+        //        }
+        //
+        //        var bookmarkStr = "0"
+        //        if let followCount = favoritVenue?.bookmarks {
+        //            bookmarkStr = "\(followCount)"
+        //        }
+        //        favoritLabel.text = favStr
+        //        bookmarkedLabel.text = bookmarkStr
         bookmarkedCountImageView.tintColor = .lightGray
+    }
+    
+    func addGradientToImageView(imageView: UIImageView) {
+        let container = UIView(frame: imageView.frame)
+        container.applyTopToBottomWhiteGradient()
+
+        headerImageView.superview?.insertSubview(container, aboveSubview: imageView)
+        container.isUserInteractionEnabled = false
     }
     
     func fadeInUI(){
@@ -337,40 +344,40 @@ private extension PlaceDetailViewController {
     
     //MARK: Venue Management
     func getFavoritVenueDetails() {
-//        let services = VenueServices()
-//        services.getVenueDetails(venueId: (venue?.venueId)!) { (favVenue, error) in
-//            if error == nil {
-//                if let venue = favVenue {
-//                    self.favoritVenue = venue
-//                    self.venue = nil
-//                    self.setupVenueUI(isNewVenue: false) //Setup Venue UI
-//                } else {
-//                    self.setFavoritVenueDetails() //setup FavoritVenue PFObject if there is not already one on the database
-//                }
-//            } else {
-//                print("ERROR \(error)")
-//            }
-//        }
+        //        let services = VenueServices()
+        //        services.getVenueDetails(venueId: (venue?.venueId)!) { (favVenue, error) in
+        //            if error == nil {
+        //                if let venue = favVenue {
+        //                    self.favoritVenue = venue
+        //                    self.venue = nil
+        //                    self.setupVenueUI(isNewVenue: false) //Setup Venue UI
+        //                } else {
+        //                    self.setFavoritVenueDetails() //setup FavoritVenue PFObject if there is not already one on the database
+        //                }
+        //            } else {
+        //                print("ERROR \(error)")
+        //            }
+        //        }
     }
     
     func setFavoritVenueDetails() {
-//        getPhotos(venue: venue!)
+        //        getPhotos(venue: venue!)
     }
     
-//    func getPhotos(venue: Venue) {
-//        let service = VenueServices()
-//        service.getVenuePhotos(venueID: venue.venueId!) { (photos, errorCode, errorMessage) in
-//            if photos != nil {
-//                venue.featuredPhotos = photos!
-//                let favoriteVenueDetails = FavoritVenue(venue: venue)
-//                self.favoritVenue = favoriteVenueDetails
-//                self.setupVenueUI(isNewVenue: true) //Setup Venue UI
-//                
-//            } else {
-//                print("Photos Error Code \(String(describing: errorCode))")
-//            }
-//        }
-//    }
+    //    func getPhotos(venue: Venue) {
+    //        let service = VenueServices()
+    //        service.getVenuePhotos(venueID: venue.venueId!) { (photos, errorCode, errorMessage) in
+    //            if photos != nil {
+    //                venue.featuredPhotos = photos!
+    //                let favoriteVenueDetails = FavoritVenue(venue: venue)
+    //                self.favoritVenue = favoriteVenueDetails
+    //                self.setupVenueUI(isNewVenue: true) //Setup Venue UI
+    //
+    //            } else {
+    //                print("Photos Error Code \(String(describing: errorCode))")
+    //            }
+    //        }
+    //    }
     
     func handleFavoritButtonToggle() {
         switch favoritButton.isSelected {
@@ -382,106 +389,106 @@ private extension PlaceDetailViewController {
     }
     
     func setVenueAsFavorit() {
-//        guard let user = FavoritUser.current(), user.favoritsCount < 10 else {
-//            self.showError(message: "You cannot have more than 10 Favorits")
-//            return
-//        }
-//        updateCount(type: Constants.VenueRelationType.favoritRelation, incriment: 1)
-//        if venueState == .bookmark {
-//            handleAddingBookmarkedVenueToFavorits()
-//            updateSavedVenue()
-//        } else {
-//            updateCount(type: Constants.VenueRelationType.bookmarkRelation, incriment: 1)
-//            configureObjectsToSave()
-//        }
-//        setCountLabels()
-//        setFavoritBalanceLabel()
+        //        guard let user = FavoritUser.current(), user.favoritsCount < 10 else {
+        //            self.showError(message: "You cannot have more than 10 Favorits")
+        //            return
+        //        }
+        //        updateCount(type: Constants.VenueRelationType.favoritRelation, incriment: 1)
+        //        if venueState == .bookmark {
+        //            handleAddingBookmarkedVenueToFavorits()
+        //            updateSavedVenue()
+        //        } else {
+        //            updateCount(type: Constants.VenueRelationType.bookmarkRelation, incriment: 1)
+        //            configureObjectsToSave()
+        //        }
+        //        setCountLabels()
+        //        setFavoritBalanceLabel()
     }
     
     func removeVenueAsFavorit() {
-//        updateCount(type: Constants.VenueRelationType.favoritRelation, incriment: -1)
-//        setCountLabels()
-//        setFavoritBalanceLabel()
-//        savedVenue?.isFavorit = false
-//        venueState = .bookmark
-//        updateSavedVenue()
+        //        updateCount(type: Constants.VenueRelationType.favoritRelation, incriment: -1)
+        //        setCountLabels()
+        //        setFavoritBalanceLabel()
+        //        savedVenue?.isFavorit = false
+        //        venueState = .bookmark
+        //        updateSavedVenue()
     }
     
     func configureObjectsToSave() {
-//        guard let venue = favoritVenue,
-//            let venueId = venue.venueId,
-//            let venueName = venue.name else {
-//                self.showError(message: "Oops, something went wrong. Please try again")
-//                return
-//        }
-//        var objectArray = [] as! [PFObject]
-//        var tipString = Constants.TipStrings.defaultTip
-//        if let composeVC = composeTipsVC {
-//            if composeVC.isValidTip() {
-//                tipString = composeVC.tipTextView.text
-//            }
-//        }
-//        let params: [String:String] = [
-//            "venueTip"  : tipString,
-//            "venueId"   : venueId,
-//            "venueName" : venueName]
-//        let newVenueTip = VenueTips(tip: params)
-//        let savedVenue = SavedVenue(favoritVenue: venue, venueTip: newVenueTip, isFavorit: true)
-//        self.savedVenue = savedVenue
-//        objectArray = [newVenueTip, savedVenue, venue]
-//        //        isBookmark = true
-//        venueState = .favorit
-//        setButtonStates()
-//        setupUI()
-//        saveVenueAsFavorit(objectArray: objectArray)
+        //        guard let venue = favoritVenue,
+        //            let venueId = venue.venueId,
+        //            let venueName = venue.name else {
+        //                self.showError(message: "Oops, something went wrong. Please try again")
+        //                return
+        //        }
+        //        var objectArray = [] as! [PFObject]
+        //        var tipString = Constants.TipStrings.defaultTip
+        //        if let composeVC = composeTipsVC {
+        //            if composeVC.isValidTip() {
+        //                tipString = composeVC.tipTextView.text
+        //            }
+        //        }
+        //        let params: [String:String] = [
+        //            "venueTip"  : tipString,
+        //            "venueId"   : venueId,
+        //            "venueName" : venueName]
+        //        let newVenueTip = VenueTips(tip: params)
+        //        let savedVenue = SavedVenue(favoritVenue: venue, venueTip: newVenueTip, isFavorit: true)
+        //        self.savedVenue = savedVenue
+        //        objectArray = [newVenueTip, savedVenue, venue]
+        //        //        isBookmark = true
+        //        venueState = .favorit
+        //        setButtonStates()
+        //        setupUI()
+        //        saveVenueAsFavorit(objectArray: objectArray)
     }
     
-//    func saveVenueAsFavorit(objectArray: [PFObject]) {
-//        let services = VenueServices()
-//        services.saveVenueAndTip(objectArray: objectArray, type: Constants.VenueRelationType.bookmarkRelation, onCompletion: { (success, error) in
-//            if success {
-//                self.fadeFavoritCountLabel()
-//                self.reloadPagerTabStripView()
-//            } else {
-//                self.showError(message: "ERROR: DID NOT SAVE \(error!.localizedDescription)")
-//            }
-//        })
-//    }
+    //    func saveVenueAsFavorit(objectArray: [PFObject]) {
+    //        let services = VenueServices()
+    //        services.saveVenueAndTip(objectArray: objectArray, type: Constants.VenueRelationType.bookmarkRelation, onCompletion: { (success, error) in
+    //            if success {
+    //                self.fadeFavoritCountLabel()
+    //                self.reloadPagerTabStripView()
+    //            } else {
+    //                self.showError(message: "ERROR: DID NOT SAVE \(error!.localizedDescription)")
+    //            }
+    //        })
+    //    }
     
     func updateSavedVenue() {
-//        setButtonStates()
-//        reloadPagerTabStripView()
-//        let services = VenueServices()
-//        services.updateSavedVenue(savedVenue: savedVenue!) { (success, error) in
-//            if success {
-//                self.fadeFavoritCountLabel()
-//            }
-//        }
+        //        setButtonStates()
+        //        reloadPagerTabStripView()
+        //        let services = VenueServices()
+        //        services.updateSavedVenue(savedVenue: savedVenue!) { (success, error) in
+        //            if success {
+        //                self.fadeFavoritCountLabel()
+        //            }
+        //        }
     }
     
     func deleteSavedVenue() {
-//        let services = VenueServices()
-//        services.deleteSavedVenue(favoritVenue: savedVenue?.favoritVenue, savedVenue: savedVenue!) { (success, error) in
-//            if success {
-//                self.venueState = .notSaved
-//                self.navigationController?.popViewController(animated: true)
-//            }
-//        }
+        //        let services = VenueServices()
+        //        services.deleteSavedVenue(favoritVenue: savedVenue?.favoritVenue, savedVenue: savedVenue!) { (success, error) in
+        //            if success {
+        //                self.venueState = .notSaved
+        //                self.navigationController?.popViewController(animated: true)
+        //            }
+        //        }
     }
     
     //MARK: ActionSheet Functions
     func removeBookmark() {
-//        switch venueState {
-//        case .bookmark:
-//            updateCount(type: Constants.VenueRelationType.bookmarkRelation, incriment: -1)
-//            setCountLabels()
-//        case .favorit:
-//            updateCount(type: Constants.VenueRelationType.favoritRelation, incriment: -1)
-//            updateCount(type: Constants.VenueRelationType.bookmarkRelation, incriment: -1)
-//            setCountLabels()
-//        default:
-//            break
-//        }
+        //        switch venueState {
+        //        case .bookmark:
+        //            updateCount(type: Constants.VenueRelationType.bookmarkRelation, incriment: -1)
+        //            setCountLabels()
+        //        case .favorit:
+        //            updateCount(type: Constants.VenueRelationType.favoritRelation, incriment: -1)
+        //            updateCount(type: Constants.VenueRelationType.bookmarkRelation, incriment: -1)
+        //            setCountLabels()
+        //        default:
+        //            break
+        //        }
         deleteSavedVenue()
     }
     
@@ -492,37 +499,37 @@ private extension PlaceDetailViewController {
     
     func showShareVenuePopup() {
         // Create a custom view controller
-//        let shareVC = ShareDialogViewController(nibName: "ShareDialogViewController", bundle: nil)
-//        if let venueName = favoritVenue?.name {
-//            shareVC.venueName = venueName
-//        }
-//        
-//        // Create the dialog
-//        let popup = PopupDialog(viewController: shareVC,
-//                                buttonAlignment: .horizontal,
-//                                transitionStyle: .zoomIn,
-//                                tapGestureDismissal: true,
-//                                panGestureDismissal: false)
-//        
-//        // Create first button
-//        let buttonOne = CancelButton(title: "Cancel", height: 60) {
-//        }
-//        
-//        // Create second button
-//        let buttonTwo = DefaultButton(title: "Share", height: 60) {
-//            guard let shareText = shareVC.commentTextView.text else {return}
-//            let placeholderString = shareVC.placeholderString
-//            let shareString = self.configureShareText(shareText: shareText, placeholderString: placeholderString)
-//            self.shareVenue(shareText: shareString)
-//        }
-//        
-//        buttonTwo.tintColor = Constants.Colors.accentColor
-//        
-//        // Add buttons to dialog
-//        popup.addButtons([buttonOne, buttonTwo])
-//        
-//        // Present dialog
-//        present(popup, animated: true, completion: nil)
+        //        let shareVC = ShareDialogViewController(nibName: "ShareDialogViewController", bundle: nil)
+        //        if let venueName = favoritVenue?.name {
+        //            shareVC.venueName = venueName
+        //        }
+        //
+        //        // Create the dialog
+        //        let popup = PopupDialog(viewController: shareVC,
+        //                                buttonAlignment: .horizontal,
+        //                                transitionStyle: .zoomIn,
+        //                                tapGestureDismissal: true,
+        //                                panGestureDismissal: false)
+        //
+        //        // Create first button
+        //        let buttonOne = CancelButton(title: "Cancel", height: 60) {
+        //        }
+        //
+        //        // Create second button
+        //        let buttonTwo = DefaultButton(title: "Share", height: 60) {
+        //            guard let shareText = shareVC.commentTextView.text else {return}
+        //            let placeholderString = shareVC.placeholderString
+        //            let shareString = self.configureShareText(shareText: shareText, placeholderString: placeholderString)
+        //            self.shareVenue(shareText: shareString)
+        //        }
+        //
+        //        buttonTwo.tintColor = Constants.Colors.accentColor
+        //
+        //        // Add buttons to dialog
+        //        popup.addButtons([buttonOne, buttonTwo])
+        //
+        //        // Present dialog
+        //        present(popup, animated: true, completion: nil)
     }
     
     func configureShareText(shareText: String, placeholderString: String) -> String {
@@ -534,29 +541,29 @@ private extension PlaceDetailViewController {
     }
     
     func shareVenue(shareText: String) {
-//        guard let venueName = favoritVenue?.name,
-//            let venueId = favoritVenue?.venueId,
-//            let fullName = FavoritUser.current()?.fullName else {
-//                self.showError(message: "Oops, something went wrong. Please try again")
-//                return
-//        }
-//        let params: [String : String] = ["userFullName": fullName,
-//                                         "venueName" : venueName,
-//                                         "venueId" : venueId,
-//                                         "shareText": shareText]
-//        let services = VenueServices()
-//        services.shareVenueToUserTimelines(params: params ) { (success, error) in
-//            if success {
-//                let messageString = "You have shared \(venueName) with your followers"
-//                self.showAlert(title: "Success", message: messageString)
-//            } else {
-//                guard let err = error else {
-//                    self.showError(message: "Oops, something went wrong. Please try again")
-//                    return
-//                }
-//                self.showError(message: "shareVenue \(err.localizedDescription)")
-//            }
-//        }
+        //        guard let venueName = favoritVenue?.name,
+        //            let venueId = favoritVenue?.venueId,
+        //            let fullName = FavoritUser.current()?.fullName else {
+        //                self.showError(message: "Oops, something went wrong. Please try again")
+        //                return
+        //        }
+        //        let params: [String : String] = ["userFullName": fullName,
+        //                                         "venueName" : venueName,
+        //                                         "venueId" : venueId,
+        //                                         "shareText": shareText]
+        //        let services = VenueServices()
+        //        services.shareVenueToUserTimelines(params: params ) { (success, error) in
+        //            if success {
+        //                let messageString = "You have shared \(venueName) with your followers"
+        //                self.showAlert(title: "Success", message: messageString)
+        //            } else {
+        //                guard let err = error else {
+        //                    self.showError(message: "Oops, something went wrong. Please try again")
+        //                    return
+        //                }
+        //                self.showError(message: "shareVenue \(err.localizedDescription)")
+        //            }
+        //        }
     }
     
     //MARK: IBAction
@@ -607,36 +614,36 @@ private extension PlaceDetailViewController {
     
     //MARK: Helper Methods
     func updateCount(type: String, incriment: NSNumber) {
-//        guard let user = FavoritUser.current(),
-//            let venue = favoritVenue else {return}
-//        let countKey = Constants.VenueRelationType.getCountString(relation: type)
-//        print("Count Key \(countKey), type: \(type)")
-//        user.incrementKey(countKey, byAmount: incriment)
-//        venue.incrementKey(type, byAmount: incriment)
+        //        guard let user = FavoritUser.current(),
+        //            let venue = favoritVenue else {return}
+        //        let countKey = Constants.VenueRelationType.getCountString(relation: type)
+        //        print("Count Key \(countKey), type: \(type)")
+        //        user.incrementKey(countKey, byAmount: incriment)
+        //        venue.incrementKey(type, byAmount: incriment)
     }
     
     func setBookmarkCount(incriment: NSNumber) {
-//        print("Count BOOKMARK -1")
-//        FavoritUser.current()?.incrementKey("bookmarksCount", byAmount: incriment)
-//        savedVenue?.favoritVenue?.incrementKey(Constants.VenueRelationType.bookmarkRelation, byAmount: incriment)
+        //        print("Count BOOKMARK -1")
+        //        FavoritUser.current()?.incrementKey("bookmarksCount", byAmount: incriment)
+        //        savedVenue?.favoritVenue?.incrementKey(Constants.VenueRelationType.bookmarkRelation, byAmount: incriment)
     }
     
     func getAlertActionTitles() -> String {
         var bookmarkStr = "Bookmark"
-//        if venueState != .notSaved {
-//            bookmarkStr = "Remove Bookmark"
-//        }
+        //        if venueState != .notSaved {
+        //            bookmarkStr = "Remove Bookmark"
+        //        }
         return bookmarkStr
     }
     
-//    func showError( message: String) {
-//        let alertController = UIAlertController(title: "Error", message: message, preferredStyle: UIAlertControllerStyle.alert)
-//        alertController.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default) { alertAction in
-//            
-//        })
-//        
-//        self.present(alertController, animated: true, completion: nil)
-//    }
+    //    func showError( message: String) {
+    //        let alertController = UIAlertController(title: "Error", message: message, preferredStyle: UIAlertControllerStyle.alert)
+    //        alertController.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default) { alertAction in
+    //
+    //        })
+    //
+    //        self.present(alertController, animated: true, completion: nil)
+    //    }
     
     func showAlert(title: String, message: String) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
@@ -676,17 +683,17 @@ extension PlaceDetailViewController {
     func getFavoritVenueDetailsWith(venueId: String) {
         print("getFavoritVenueDetailsWith Venue ID \(venueId)")
         
-//        let services = VenueServices()
-//        services.getVenueDetails(venueId: venueId) { (favVenue, error) in
-//            print("getVenueDetails Venue ID \(favVenue), error \(error.debugDescription)")
-//            
-//            if error == nil {
-//                if let venue = favVenue {
-//                    self.favoritVenue = venue
-//                }
-//                self.setupVenueUI(isNewVenue: false)
-//            }
-//        }
+        //        let services = VenueServices()
+        //        services.getVenueDetails(venueId: venueId) { (favVenue, error) in
+        //            print("getVenueDetails Venue ID \(favVenue), error \(error.debugDescription)")
+        //
+        //            if error == nil {
+        //                if let venue = favVenue {
+        //                    self.favoritVenue = venue
+        //                }
+        //                self.setupVenueUI(isNewVenue: false)
+        //            }
+        //        }
     }
 }
 
@@ -713,9 +720,11 @@ extension PlaceDetailViewController: MFMailComposeViewControllerDelegate {
     
 }
 extension PlaceDetailViewController {
-    static func getViewController() -> PlaceDetailViewController? {
+    static func getViewController(viewModel: PlaceDetailProtocol) -> PlaceDetailViewController? {
         let storyboard = UIStoryboard(name: StoryboardName.main.value,
                                       bundle: nil)
-        return storyboard.instantiateViewController(withIdentifier: ViewControllerName.placeDetailVC.value) as? PlaceDetailViewController
+        let placeDetailVC =  storyboard.instantiateViewController(withIdentifier: ViewControllerName.placeDetailVC.value) as? PlaceDetailViewController
+        placeDetailVC?.viewModel = viewModel
+        return placeDetailVC
     }
 }

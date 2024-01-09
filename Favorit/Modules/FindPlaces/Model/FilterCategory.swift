@@ -10,4 +10,5 @@ import Foundation
 struct FilterCategory {
     let title: String
     var accessoryType: FilterAccessoryType = .none
+    var key = ""
 }

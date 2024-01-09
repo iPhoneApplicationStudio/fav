@@ -16,6 +16,8 @@ class ShowOnMapViewController: UIViewController {
 //    var savedVenue: SavedVenue?
 //    var userVenues: [SavedVenue]?
     
+    var place: Place?
+    
     var isfromProfile = false
     
     let regionRadius: CLLocationDistance = 2000
@@ -62,6 +64,10 @@ class ShowOnMapViewController: UIViewController {
             mapView.removeAnnotations(mapView.annotations)
         }
         
+        if let place {
+            addMapPin(venue: place, shouldCenter: true)
+        }
+        
 //        if let venue = favoritVenue {
 //            let savedVenue = SavedVenue(favoritVenue: venue, venueTip: nil, isFavorit: false)
 //            addMapPin(venue: savedVenue, shouldCenter: true)
@@ -76,14 +82,14 @@ class ShowOnMapViewController: UIViewController {
     }
     
     
-//    func addMapPin(venue: SavedVenue, shouldCenter: Bool){
-//        let venuePin = VenueMapPin(savedVenue: venue)
-//        mapView.addAnnotation(venuePin)
-//        
-//        if shouldCenter {
-//            centerMapOnLocation(coordinate: venuePin.coordinate)
-//        }
-//    }
+    func addMapPin(venue: Place, shouldCenter: Bool){
+        let venuePin = VenueMapPin(place: place)
+        mapView.addAnnotation(venuePin)
+        
+        if shouldCenter {
+            centerMapOnLocation(coordinate: venuePin.coordinate)
+        }
+    }
     
     func centerMapOnLocation(coordinate: CLLocationCoordinate2D)
     {

@@ -294,16 +294,13 @@ extension PlacesViewController:  UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, 
                    didSelectRowAt indexPath: IndexPath) {
         guard let viewModel,
-              let detailController = PlaceDetailViewController.getViewController(),
               let bookmarkDetail = viewModel.getItemFor(index: indexPath.row,
                                                         for: filterMode),
-              let place = bookmarkDetail.place else {
+              let place = bookmarkDetail.place,
+              let detailController = PlaceDetailViewController.getViewController(viewModel: PlaceDetailViewModel(place: place, placeID: place.placeId))else {
             return
         }
-        
-        let placeDetailViewModel = PlaceDetailViewModel(place: place,
-                                                        placeID: place.placeId)
-        detailController.viewModel = placeDetailViewModel
+    
         self.navigationController?.pushViewController(detailController,
                                                       animated: true)
     }
