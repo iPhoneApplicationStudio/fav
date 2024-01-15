@@ -17,18 +17,18 @@ class PlaceDetailService {
                       completion: completion)
     }
     
-    func addBookmarkPlace(request: AddBookmarkRequest,
-                  completion: @escaping (Result<BookmarkResponse, APIError>) -> Void) {
+    func addFavouritePlace(request: AddFavouriteRequest,
+                           completion: @escaping (Result<FavouriteResponse, APIError>) -> Void) {
         service.fetch(apiEndPoint: request,
-                      model: BookmarkResponse.self,
+                      model: FavouriteResponse.self,
                       isCustom: true,
                       completion: completion)
     }
     
-    func removeBookmarkPlace(request: RemoveBookmarkRequest,
-                  completion: @escaping (Result<BookmarkResponse, APIError>) -> Void) {
+    func removeFavouritePlace(request: RemoveFavouriteRequest,
+                              completion: @escaping (Result<FavouriteResponse, APIError>) -> Void) {
         service.fetch(apiEndPoint: request,
-                      model: BookmarkResponse.self,
+                      model: FavouriteResponse.self,
                       isCustom: true,
                       completion: completion)
     }

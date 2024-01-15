@@ -24,6 +24,8 @@ class FavoritConstant {
         
         return [:]
     }
+    
+    static let defaultFrequency: RadiusFrequency = .point5Mile
 }
 
 enum StoryboardName: String {

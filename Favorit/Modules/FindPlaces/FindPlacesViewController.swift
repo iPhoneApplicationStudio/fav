@@ -186,6 +186,7 @@ class FindPlacesViewController: UIViewController {
         let placeDetailViewModel = PlaceDetailViewModel(place: place,
                                                         placeID: place.placeId)
         detailController.viewModel = placeDetailViewModel
+        detailController.placeDetailDelegate = self
     }
     
     func performToDetaisSegue(indexPath: IndexPath) {
@@ -275,5 +276,23 @@ extension FindPlacesViewController: FilterPlacesViewControllerDelegate {
 extension FindPlacesViewController: SideMenuNavigationControllerDelegate {
     func sideMenuDidDisappear(menu: SideMenuNavigationController, animated: Bool) {
         self.getVenuePlaces()
+    }
+}
+
+extension FindPlacesViewController: PlaceDetailDelegate {
+    func favouriteStateChangedFor(placeID: String?, state: Bool) {
+        guard let placeID else {
+            return
+        }
+        
+        self.viewModel?.updateFavouriteState(state: state, placeID: placeID)
+    }
+    
+    func bookmarkedStateChangedFor(placeID: String?, state: Bool) {
+        guard let placeID else {
+            return
+        }
+        
+        self.viewModel?.updateBookmarkState(state: state, placeID: placeID)
     }
 }

@@ -43,10 +43,10 @@ class FilterPlacesViewModel: FilterPlacesProtocol {
     private lazy var allRadiusFrequency = {
         let allFrequencies = RadiusFrequency.allCases
         var frequencies = allFrequencies.map { frequency in
-            FilterCategory(title: frequency.title)
+            FilterCategory(title: frequency.title,
+                           accessoryType: frequency == FavoritConstant.defaultFrequency ? .checkmark : .none)
         }
         
-        frequencies[0].accessoryType = .checkmark
         return frequencies
     }()
     
@@ -153,7 +153,7 @@ class FilterPlacesViewModel: FilterPlacesProtocol {
         }
         
         let selectedFrequencyTitle = allRadiusFrequency[lastSelectedRadiusFrequencyIndex].title
-        let selectedFrequency = RadiusFrequency(rawValue: selectedFrequencyTitle) ?? .nearBy
+        let selectedFrequency = RadiusFrequency(rawValue: selectedFrequencyTitle) ?? FavoritConstant.defaultFrequency
         bindViewModelToController?(selectedFrequency, selectedCategories)
     }
 }

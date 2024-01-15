@@ -34,6 +34,11 @@ class FilterPlacesViewController: UIViewController {
                                                                   categoties: categories)
         }
     }
+    
+    //MARK: IBAction
+    @IBAction func didClickOnclose() {
+        self.dismiss(animated: true)
+    }
 }
 
 extension FilterPlacesViewController: UITableViewDataSource, UITableViewDelegate {

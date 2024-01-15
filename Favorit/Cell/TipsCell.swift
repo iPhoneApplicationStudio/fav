@@ -17,7 +17,7 @@ class TipsCell: UITableViewCell {
     @IBOutlet weak var userFavoritsLabel: UILabel!
     @IBOutlet weak var tipTextView: UITextView!
     
-    var venueTip: TipRecord? {
+    var note: Note? {
         didSet {
             setupCell()
         }
@@ -25,6 +25,7 @@ class TipsCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        selectionStyle = .none
         tipTextView.textContainerInset = .zero
         tipTextView.contentInset = UIEdgeInsets(top: 0,
                                                 left: -5,
@@ -49,19 +50,24 @@ class TipsCell: UITableViewCell {
     }
     
     func setupCell() {
-        guard let venueTip = venueTip else {return}
-        usernameLabel.text = venueTip.user?.name
-        tipTextView.text = venueTip.note
+        guard let note = note else {
+            return
+        }
+        
+        usernameLabel.text = note.user?.name
+        tipTextView.text = note.note
         tipTextView.translatesAutoresizingMaskIntoConstraints = true
         tipTextView.sizeToFit()
         
-        if let followerCount = venueTip.user?.followerCount {
+        if let followerCount = note.user?.followerCount {
             userFollowersLabel.text = "\(followerCount)"
         }
-        if let bookmarksCount = venueTip.user?.bookmarkCount {
+        
+        if let bookmarksCount = note.user?.bookmarkCount {
             userBookmarksLabel.text = "\(bookmarksCount)"
         }
-        if let favoritsCount = venueTip.user?.favouriteCount {
+        
+        if let favoritsCount = note.user?.favouriteCount {
             userFavoritsLabel.text = "\(favoritsCount)"
         }
     }

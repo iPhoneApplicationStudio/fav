@@ -8,7 +8,8 @@
 import Foundation
 
 protocol SignUpService {
-    func signUp(request: SignUpRequest, completion: @escaping (Result<SignUpResponse, APIError>) -> Void)
+    func signUp(request: SignUpRequest, 
+                completion: @escaping (Result<SignUpResponse, APIError>) -> Void)
 }
 
 extension NetworkService: SignUpService {

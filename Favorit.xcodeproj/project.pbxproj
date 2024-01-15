@@ -79,9 +79,9 @@
 		EE25A3602B4AA86400235A0C /* PlaceDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE25A35F2B4AA86400235A0C /* PlaceDetailViewController.swift */; };
 		EE25A3632B4AA96B00235A0C /* XLPagerTabStrip in Frameworks */ = {isa = PBXBuildFile; productRef = EE25A3622B4AA96B00235A0C /* XLPagerTabStrip */; };
 		EE25A3652B4AAA6D00235A0C /* ComposeTipViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE25A3642B4AAA6D00235A0C /* ComposeTipViewController.swift */; };
-		EE25A3692B4AB19F00235A0C /* PlaceTipsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE25A3682B4AB19F00235A0C /* PlaceTipsViewController.swift */; };
+		EE25A3692B4AB19F00235A0C /* NotesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE25A3682B4AB19F00235A0C /* NotesViewController.swift */; };
 		EE25A36B2B4AB21A00235A0C /* TipsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE25A36A2B4AB21A00235A0C /* TipsCell.swift */; };
-		EE25A36D2B4AB27A00235A0C /* TipRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE25A36C2B4AB27A00235A0C /* TipRecord.swift */; };
+		EE25A36D2B4AB27A00235A0C /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE25A36C2B4AB27A00235A0C /* Note.swift */; };
 		EE25A36F2B4ABBBA00235A0C /* PlacePhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE25A36E2B4ABBBA00235A0C /* PlacePhotoViewController.swift */; };
 		EE25A3732B4ABBF900235A0C /* VenuePhotoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EE25A3712B4ABBF900235A0C /* VenuePhotoCell.xib */; };
 		EE25A3742B4ABBF900235A0C /* VenuePhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE25A3722B4ABBF900235A0C /* VenuePhotoCell.swift */; };
@@ -102,12 +102,23 @@
 		EE4719EB2B1CBD12008C1342 /* PlacesViewController+Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE4719E72B1CBD12008C1342 /* PlacesViewController+Factory.swift */; };
 		EE4719EC2B1CBD12008C1342 /* FavoritSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE4719E82B1CBD12008C1342 /* FavoritSegmentedControl.swift */; };
 		EE4719EF2B1CBD37008C1342 /* SignupViewController+Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE4719EE2B1CBD37008C1342 /* SignupViewController+Factory.swift */; };
+		EE4DD3D92B55594100DC3CDE /* ComposeNoteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE4DD3D82B55594100DC3CDE /* ComposeNoteViewModel.swift */; };
+		EE4DD3DB2B555BBA00DC3CDE /* ComposeNoteService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE4DD3DA2B555BBA00DC3CDE /* ComposeNoteService.swift */; };
+		EE4DD3DD2B55663600DC3CDE /* SaveNoteResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE4DD3DC2B55663600DC3CDE /* SaveNoteResponse.swift */; };
+		EE4DD3DF2B55667300DC3CDE /* SaveNoteRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE4DD3DE2B55667300DC3CDE /* SaveNoteRequest.swift */; };
+		EE63B6BB2B5021D900D54897 /* FavouriteRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE63B6BA2B5021D900D54897 /* FavouriteRequest.swift */; };
+		EE63B6BD2B50229B00D54897 /* FavouriteResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE63B6BC2B50229B00D54897 /* FavouriteResponse.swift */; };
+		EE63B6BF2B503BEC00D54897 /* PlacePhotoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE63B6BE2B503BEC00D54897 /* PlacePhotoViewModel.swift */; };
 		EE7F8C9F2B29BD2100E767F7 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE7F8C9E2B29BD2100E767F7 /* MapViewController.swift */; };
 		EE7F8CA12B29E4ED00E767F7 /* VenueMapPin.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE7F8CA02B29E4ED00E767F7 /* VenueMapPin.swift */; };
 		EE7F8CA32B29E53E00E767F7 /* PlaceState.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE7F8CA22B29E53E00E767F7 /* PlaceState.swift */; };
 		EE7F8CA52B29E6B900E767F7 /* Geocodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE7F8CA42B29E6B900E767F7 /* Geocodes.swift */; };
 		EEA0AD502B2C8E4900807F4B /* FeedActivityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA0AD4F2B2C8E4900807F4B /* FeedActivityViewModel.swift */; };
 		EEA0AD532B2C914200807F4B /* ActivityModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA0AD522B2C914200807F4B /* ActivityModel.swift */; };
+		EEA22BA42B51772200674059 /* NotesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA22BA32B51772200674059 /* NotesResponse.swift */; };
+		EEA22BA62B51778A00674059 /* NotesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA22BA52B51778A00674059 /* NotesViewModel.swift */; };
+		EEA22BA82B5178D900674059 /* NotesRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA22BA72B5178D900674059 /* NotesRequest.swift */; };
+		EEA22BAA2B51794200674059 /* NotesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA22BA92B51794200674059 /* NotesService.swift */; };
 		EEADBBA12B31CEAB00EEA9C3 /* UserDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEADBBA02B31CEAB00EEA9C3 /* UserDetail.swift */; };
 		EEAF57E82B442A32008A94D7 /* FilterPlacesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEAF57E72B442A32008A94D7 /* FilterPlacesViewModel.swift */; };
 		EEAF57EA2B442A85008A94D7 /* RadiusFrequency.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEAF57E92B442A85008A94D7 /* RadiusFrequency.swift */; };
@@ -146,7 +157,7 @@
 		EEF6EDAC2B21E57300077DB5 /* FindUsersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF6EDAB2B21E57300077DB5 /* FindUsersViewModel.swift */; };
 		EEF6EDB02B21EEA800077DB5 /* FindUsersRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF6EDAF2B21EEA800077DB5 /* FindUsersRequest.swift */; };
 		EEF842242B28617A00A3E36B /* BookmarkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF842232B28617A00A3E36B /* BookmarkRequest.swift */; };
-		EEF842262B28623300A3E36B /* AddBookmarkResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF842252B28623300A3E36B /* AddBookmarkResponse.swift */; };
+		EEF842262B28623300A3E36B /* BookmarkResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF842252B28623300A3E36B /* BookmarkResponse.swift */; };
 		EEF8B0FA2B11F23400EE75CB /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF8B0F92B11F23400EE75CB /* LoginViewModel.swift */; };
 		EEF8B0FC2B11F24600EE75CB /* SignupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF8B0FB2B11F24600EE75CB /* SignupViewModel.swift */; };
 		EEF8B0FE2B11F25300EE75CB /* ResetPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF8B0FD2B11F25300EE75CB /* ResetPasswordViewModel.swift */; };
@@ -231,9 +242,9 @@
 		EE1A79E82B232C3100589A74 /* Color+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
 		EE25A35F2B4AA86400235A0C /* PlaceDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceDetailViewController.swift; sourceTree = "<group>"; };
 		EE25A3642B4AAA6D00235A0C /* ComposeTipViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComposeTipViewController.swift; sourceTree = "<group>"; };
-		EE25A3682B4AB19F00235A0C /* PlaceTipsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceTipsViewController.swift; sourceTree = "<group>"; };
+		EE25A3682B4AB19F00235A0C /* NotesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotesViewController.swift; sourceTree = "<group>"; };
 		EE25A36A2B4AB21A00235A0C /* TipsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TipsCell.swift; sourceTree = "<group>"; };
-		EE25A36C2B4AB27A00235A0C /* TipRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipRecord.swift; sourceTree = "<group>"; };
+		EE25A36C2B4AB27A00235A0C /* Note.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
 		EE25A36E2B4ABBBA00235A0C /* PlacePhotoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlacePhotoViewController.swift; sourceTree = "<group>"; };
 		EE25A3712B4ABBF900235A0C /* VenuePhotoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VenuePhotoCell.xib; sourceTree = "<group>"; };
 		EE25A3722B4ABBF900235A0C /* VenuePhotoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VenuePhotoCell.swift; sourceTree = "<group>"; };
@@ -252,12 +263,23 @@
 		EE4719E72B1CBD12008C1342 /* PlacesViewController+Factory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PlacesViewController+Factory.swift"; sourceTree = "<group>"; };
 		EE4719E82B1CBD12008C1342 /* FavoritSegmentedControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritSegmentedControl.swift; sourceTree = "<group>"; };
 		EE4719EE2B1CBD37008C1342 /* SignupViewController+Factory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SignupViewController+Factory.swift"; sourceTree = "<group>"; };
+		EE4DD3D82B55594100DC3CDE /* ComposeNoteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeNoteViewModel.swift; sourceTree = "<group>"; };
+		EE4DD3DA2B555BBA00DC3CDE /* ComposeNoteService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeNoteService.swift; sourceTree = "<group>"; };
+		EE4DD3DC2B55663600DC3CDE /* SaveNoteResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveNoteResponse.swift; sourceTree = "<group>"; };
+		EE4DD3DE2B55667300DC3CDE /* SaveNoteRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveNoteRequest.swift; sourceTree = "<group>"; };
+		EE63B6BA2B5021D900D54897 /* FavouriteRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteRequest.swift; sourceTree = "<group>"; };
+		EE63B6BC2B50229B00D54897 /* FavouriteResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteResponse.swift; sourceTree = "<group>"; };
+		EE63B6BE2B503BEC00D54897 /* PlacePhotoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacePhotoViewModel.swift; sourceTree = "<group>"; };
 		EE7F8C9E2B29BD2100E767F7 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		EE7F8CA02B29E4ED00E767F7 /* VenueMapPin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VenueMapPin.swift; sourceTree = "<group>"; };
 		EE7F8CA22B29E53E00E767F7 /* PlaceState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceState.swift; sourceTree = "<group>"; };
 		EE7F8CA42B29E6B900E767F7 /* Geocodes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Geocodes.swift; sourceTree = "<group>"; };
 		EEA0AD4F2B2C8E4900807F4B /* FeedActivityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedActivityViewModel.swift; sourceTree = "<group>"; };
 		EEA0AD522B2C914200807F4B /* ActivityModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityModel.swift; sourceTree = "<group>"; };
+		EEA22BA32B51772200674059 /* NotesResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesResponse.swift; sourceTree = "<group>"; };
+		EEA22BA52B51778A00674059 /* NotesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesViewModel.swift; sourceTree = "<group>"; };
+		EEA22BA72B5178D900674059 /* NotesRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesRequest.swift; sourceTree = "<group>"; };
+		EEA22BA92B51794200674059 /* NotesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesService.swift; sourceTree = "<group>"; };
 		EEADBBA02B31CEAB00EEA9C3 /* UserDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetail.swift; sourceTree = "<group>"; };
 		EEAF57E72B442A32008A94D7 /* FilterPlacesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterPlacesViewModel.swift; sourceTree = "<group>"; };
 		EEAF57E92B442A85008A94D7 /* RadiusFrequency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadiusFrequency.swift; sourceTree = "<group>"; };
@@ -295,7 +317,7 @@
 		EEF6EDAB2B21E57300077DB5 /* FindUsersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindUsersViewModel.swift; sourceTree = "<group>"; };
 		EEF6EDAF2B21EEA800077DB5 /* FindUsersRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindUsersRequest.swift; sourceTree = "<group>"; };
 		EEF842232B28617A00A3E36B /* BookmarkRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkRequest.swift; sourceTree = "<group>"; };
-		EEF842252B28623300A3E36B /* AddBookmarkResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBookmarkResponse.swift; sourceTree = "<group>"; };
+		EEF842252B28623300A3E36B /* BookmarkResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkResponse.swift; sourceTree = "<group>"; };
 		EEF8B0F92B11F23400EE75CB /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		EEF8B0FB2B11F24600EE75CB /* SignupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewModel.swift; sourceTree = "<group>"; };
 		EEF8B0FD2B11F25300EE75CB /* ResetPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewModel.swift; sourceTree = "<group>"; };
@@ -750,12 +772,12 @@
 		EE27F6E32B2485600099934C /* PlaceDetail */ = {
 			isa = PBXGroup;
 			children = (
-				EE2EB8DB2B4DA3A000DDF306 /* ViewModel */,
 				EEDD04482B25F80E000BE18E /* Model */,
+				EE2EB8DB2B4DA3A000DDF306 /* ViewModel */,
 				EEDD04422B25F7AB000BE18E /* PlaceDetailViewControllerOld.swift */,
 				EE25A35F2B4AA86400235A0C /* PlaceDetailViewController.swift */,
 				EE25A3642B4AAA6D00235A0C /* ComposeTipViewController.swift */,
-				EE25A3682B4AB19F00235A0C /* PlaceTipsViewController.swift */,
+				EE25A3682B4AB19F00235A0C /* NotesViewController.swift */,
 				EE25A36E2B4ABBBA00235A0C /* PlacePhotoViewController.swift */,
 			);
 			path = PlaceDetail;
@@ -765,6 +787,9 @@
 			isa = PBXGroup;
 			children = (
 				EEDD04442B25F7F7000BE18E /* PlaceDetailViewModel.swift */,
+				EE63B6BE2B503BEC00D54897 /* PlacePhotoViewModel.swift */,
+				EEA22BA52B51778A00674059 /* NotesViewModel.swift */,
+				EE4DD3D82B55594100DC3CDE /* ComposeNoteViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -891,11 +916,19 @@
 			isa = PBXGroup;
 			children = (
 				EEDD04492B25F819000BE18E /* PlaceDetailRequest.swift */,
-				EEF842252B28623300A3E36B /* AddBookmarkResponse.swift */,
+				EE63B6BC2B50229B00D54897 /* FavouriteResponse.swift */,
+				EEF842252B28623300A3E36B /* BookmarkResponse.swift */,
 				EEDD044B2B25F9BB000BE18E /* SinglePlace.swift */,
 				EEF842232B28617A00A3E36B /* BookmarkRequest.swift */,
 				EEDD04462B25F803000BE18E /* PlaceDetailService.swift */,
-				EE25A36C2B4AB27A00235A0C /* TipRecord.swift */,
+				EE25A36C2B4AB27A00235A0C /* Note.swift */,
+				EEA22BA72B5178D900674059 /* NotesRequest.swift */,
+				EEA22BA32B51772200674059 /* NotesResponse.swift */,
+				EE4DD3DE2B55667300DC3CDE /* SaveNoteRequest.swift */,
+				EE4DD3DC2B55663600DC3CDE /* SaveNoteResponse.swift */,
+				EE63B6BA2B5021D900D54897 /* FavouriteRequest.swift */,
+				EEA22BA92B51794200674059 /* NotesService.swift */,
+				EE4DD3DA2B555BBA00DC3CDE /* ComposeNoteService.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1141,27 +1174,31 @@
 				EEF6ED982B20BC4A00077DB5 /* Places.swift in Sources */,
 				2EA3DEC32B1C7E8E0063730A /* UnFollowUserRequest.swift in Sources */,
 				EE25A3652B4AAA6D00235A0C /* ComposeTipViewController.swift in Sources */,
+				EE4DD3DB2B555BBA00DC3CDE /* ComposeNoteService.swift in Sources */,
 				2EA3DEB92B1C75F80063730A /* UserDetailRequest.swift in Sources */,
 				2EEA6C3F2B165AA900AD55CB /* NetworkService.swift in Sources */,
 				EE4719EF2B1CBD37008C1342 /* SignupViewController+Factory.swift in Sources */,
 				EEF842242B28617A00A3E36B /* BookmarkRequest.swift in Sources */,
 				EE7F8CA12B29E4ED00E767F7 /* VenueMapPin.swift in Sources */,
+				EEA22BA82B5178D900674059 /* NotesRequest.swift in Sources */,
 				2EEA6C4E2B1664A700AD55CB /* LoginRequest.swift in Sources */,
 				2EEA6C3A2B164AB100AD55CB /* Login+Dependencies.swift in Sources */,
 				EE25A36F2B4ABBBA00235A0C /* PlacePhotoViewController.swift in Sources */,
 				2EEA6C8A2B192E8100AD55CB /* FollowViewController.swift in Sources */,
 				2EEA6C6C2B16848400AD55CB /* SignUpUserInput.swift in Sources */,
 				2EA3DE9B2B1B81B40063730A /* AppCoordinator.swift in Sources */,
+				EEA22BAA2B51794200674059 /* NotesService.swift in Sources */,
 				EEF6EDA72B20BCCA00077DB5 /* PlaceCategory.swift in Sources */,
 				EE25A3742B4ABBF900235A0C /* VenuePhotoCell.swift in Sources */,
 				2EA3DED02B1C86C40063730A /* ShowOnMapViewController.swift in Sources */,
 				EE7F8CA32B29E53E00E767F7 /* PlaceState.swift in Sources */,
-				EE25A36D2B4AB27A00235A0C /* TipRecord.swift in Sources */,
+				EE25A36D2B4AB27A00235A0C /* Note.swift in Sources */,
 				EEF8B10A2B1224CB00EE75CB /* UIViewController+Extension.swift in Sources */,
 				2EA3DE8A2B1A26790063730A /* FollowingViewController+Factory.swift in Sources */,
 				EEDD04502B2604D3000BE18E /* FoodImageViewCell.swift in Sources */,
 				2EA3DE952B1B6E100063730A /* FollowRequest.swift in Sources */,
 				EEBCFE382B4969B700722FD8 /* FilterAccessoryType.swift in Sources */,
+				EE4DD3DD2B55663600DC3CDE /* SaveNoteResponse.swift in Sources */,
 				EEF6ED8A2B20B82100077DB5 /* FindPlacesViewController.swift in Sources */,
 				EEF6EDB02B21EEA800077DB5 /* FindUsersRequest.swift in Sources */,
 				2EEA6C692B16842C00AD55CB /* SignUpRequest.swift in Sources */,
@@ -1171,14 +1208,17 @@
 				2EEA6C412B165AF700AD55CB /* APIResponse.swift in Sources */,
 				2EEA6C372B164A3E00AD55CB /* Resolver.swift in Sources */,
 				EEF6EDA82B20BCCA00077DB5 /* PlaceLocation.swift in Sources */,
+				EE4DD3D92B55594100DC3CDE /* ComposeNoteViewModel.swift in Sources */,
 				2EEA6C582B167C5100AD55CB /* Constants.swift in Sources */,
 				EE7F8C9F2B29BD2100E767F7 /* MapViewController.swift in Sources */,
 				2EEA6C6F2B16854B00AD55CB /* SignUp+Dependencies.swift in Sources */,
 				2EEA6C992B19C4F500AD55CB /* HomeTabBarItem.swift in Sources */,
 				EEF6ED902B20B9F400077DB5 /* VenueSearchResultCell.swift in Sources */,
+				EE63B6BD2B50229B00D54897 /* FavouriteResponse.swift in Sources */,
 				2EEA6C922B19311100AD55CB /* FollowViewModel.swift in Sources */,
 				EEADBBA12B31CEAB00EEA9C3 /* UserDetail.swift in Sources */,
 				EEE62CE92B3717E400BECC27 /* UserUpdateRequest.swift in Sources */,
+				EEA22BA42B51772200674059 /* NotesResponse.swift in Sources */,
 				EEC7849D2B28B1AF002E71F8 /* PlaceUser.swift in Sources */,
 				EEC784992B289F25002E71F8 /* RecommendedBookmarksRequest.swift in Sources */,
 				EE4719EC2B1CBD12008C1342 /* FavoritSegmentedControl.swift in Sources */,
@@ -1211,6 +1251,7 @@
 				EE7F8CA52B29E6B900E767F7 /* Geocodes.swift in Sources */,
 				2EEA6C802B191A6000AD55CB /* InviteFriendsCell.swift in Sources */,
 				EEDD04452B25F7F7000BE18E /* PlaceDetailViewModel.swift in Sources */,
+				EEA22BA62B51778A00674059 /* NotesViewModel.swift in Sources */,
 				EE4719EB2B1CBD12008C1342 /* PlacesViewController+Factory.swift in Sources */,
 				EEF6ED9A2B20BC9500077DB5 /* Place.swift in Sources */,
 				2EA3DEBD2B1C788F0063730A /* UIImageView+Kingfisher.swift in Sources */,
@@ -1221,11 +1262,12 @@
 				EE44157F2B09225F001515D6 /* AppDelegate.swift in Sources */,
 				EEC784A12B28B3FD002E71F8 /* BookmarkDetail.swift in Sources */,
 				EE4415812B09225F001515D6 /* SceneDelegate.swift in Sources */,
+				EE4DD3DF2B55667300DC3CDE /* SaveNoteRequest.swift in Sources */,
 				2EEA6C7F2B191A6000AD55CB /* FollowerCell.swift in Sources */,
 				EE1A79E72B23295700589A74 /* FindPlacesRequest.swift in Sources */,
-				EE25A3692B4AB19F00235A0C /* PlaceTipsViewController.swift in Sources */,
+				EE25A3692B4AB19F00235A0C /* NotesViewController.swift in Sources */,
 				2EA3DEB72B1C75C80063730A /* UserDetailsService.swift in Sources */,
-				EEF842262B28623300A3E36B /* AddBookmarkResponse.swift in Sources */,
+				EEF842262B28623300A3E36B /* BookmarkResponse.swift in Sources */,
 				EEAF57E82B442A32008A94D7 /* FilterPlacesViewModel.swift in Sources */,
 				2EEA6C432B165B0E00AD55CB /* AnyCodable.swift in Sources */,
 				2EEA6C562B167C0500AD55CB /* UserDefaults.swift in Sources */,
@@ -1245,7 +1287,9 @@
 				EEC784942B28991B002E71F8 /* PlaceListViewModel.swift in Sources */,
 				EE25A3602B4AA86400235A0C /* PlaceDetailViewController.swift in Sources */,
 				2EA3DE972B1B74F10063730A /* FollowResponse.swift in Sources */,
+				EE63B6BF2B503BEC00D54897 /* PlacePhotoViewModel.swift in Sources */,
 				EEDD044C2B25F9BB000BE18E /* SinglePlace.swift in Sources */,
+				EE63B6BB2B5021D900D54897 /* FavouriteRequest.swift in Sources */,
 				2EA3DE932B1B64C10063730A /* FollowService.swift in Sources */,
 				2EA3DEB12B1C4C080063730A /* UserDetailsViewController.swift in Sources */,
 				2EEA6C822B191CD600AD55CB /* ApplicationAppearance.swift in Sources */,
@@ -1404,7 +1448,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = YSEE5B447K;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1441,7 +1485,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = YSEE5B447K;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;

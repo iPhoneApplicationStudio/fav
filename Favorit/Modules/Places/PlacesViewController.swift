@@ -245,7 +245,7 @@ class PlacesViewController: UIViewController {
                 return
             }
             
-            let viewMode = FindPlacesViewModel(radius: .nearBy)
+            let viewMode = FindPlacesViewModel(radius: FavoritConstant.defaultFrequency)
             vc.viewModel = viewMode
         }
     }

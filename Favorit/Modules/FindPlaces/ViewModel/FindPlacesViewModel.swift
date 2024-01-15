@@ -14,6 +14,9 @@ protocol FindPlacesProtocol: AnyObject {
     var selectedSubCategories: [String] { get set }
     var errorMessage: String? { get }
     
+    func updateFavouriteState(state: Bool, placeID: String)
+    func updateBookmarkState(state: Bool, placeID: String)
+    
     func itemForIndex(_ index: Int) -> Place?
     func getAllPlacesFor(text: String?,
                          handler: @escaping (((Result<Bool, Error>)?) -> Void))
@@ -28,7 +31,7 @@ class FindPlacesViewModel: FindPlacesProtocol {
     private let networkService = FindPlacesService()
     private let locationService = LocationService.shared
     private var _errorMessage: String?
-    private var _radius: RadiusFrequency = .nearBy
+    private var _radius: RadiusFrequency = FavoritConstant.defaultFrequency
     
     init(radius: RadiusFrequency) {
         self._radius = radius
@@ -67,6 +70,46 @@ class FindPlacesViewModel: FindPlacesProtocol {
         }
         
         return allPlaces[index]
+    }
+    
+    func updateFavouriteState(state: Bool, placeID: String) {
+        var index: Int?
+        var place: Place?
+        for (i, venue) in allPlaces.enumerated() {
+            if venue.placeId == placeID {
+                place = venue
+                place?.isFavourite = state
+                index = i
+                break
+            }
+        }
+        
+        guard let index,
+              let place else {
+            return
+        }
+        
+        allPlaces[index] = place
+    }
+    
+    func updateBookmarkState(state: Bool, placeID: String) {
+        var index: Int?
+        var place: Place?
+        for (i, venue) in allPlaces.enumerated() {
+            if venue.placeId == placeID {
+                place = venue
+                place?.isBookmarked = state
+                index = i
+                break
+            }
+        }
+        
+        guard let index,
+              let place else {
+            return
+        }
+        
+        allPlaces[index] = place
     }
     
     func getAllPlacesFor(text: String?,

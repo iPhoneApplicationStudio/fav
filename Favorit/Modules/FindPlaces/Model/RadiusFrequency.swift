@@ -8,9 +8,8 @@
 import Foundation
 
 enum RadiusFrequency: String, CaseIterable {
-    case nearBy = "Any Distance"
     case point25Mile = ".25 miles"
-    case point5Mile = ".50 miles"
+    case point5Mile = "0.5 miles"
     case oneMile = "1 mile"
     case fiveMile = "5 miles"
     
@@ -20,8 +19,6 @@ enum RadiusFrequency: String, CaseIterable {
     
     var value: Int {
         switch self {
-        case .nearBy:
-            return 805
         case .point25Mile:
             return 402
         case .point5Mile:

@@ -10,6 +10,10 @@ import UIKit
 import XLPagerTabStrip
 import NVActivityIndicatorView
 
+protocol ComposeTipViewDelegate: AnyObject {
+    func bookmarkedStateChangedFor(state: Bool)
+}
+
 class ComposeTipViewController: UIViewController {
     //MARK: IBOutlets
     @IBOutlet weak var tipTextView: UITextView!
@@ -17,6 +21,9 @@ class ComposeTipViewController: UIViewController {
     @IBOutlet weak var activityIndicatorView: NVActivityIndicatorView!
     
     //MARK: Properties
+    var viewModel: ComposeNoteProtocol?
+    weak var composeTipViewDelegate: ComposeTipViewDelegate?
+    
     var place: Place? {
         didSet{
             setPlaceholderText()
@@ -32,30 +39,14 @@ class ComposeTipViewController: UIViewController {
     //MARK: View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupDoneButton()
-        setupTextView()
+        self.initialSetting()
     }
     
-    func isValidTip() -> Bool {
-        if isEditMode {
-            return true
-        }
-        if !didBeginEditing || tipTextView.text.isEmpty || tipTextView.text == placeholderText {
-            return false
-        }
-        return true
-    }
-    
-}
-
-private extension ComposeTipViewController {
-    //MARK: Setup UI
-    func setupDoneButton() {
+    //MARK: Private Methods
+    private func initialSetting() {
         tipDoneButton.layer.cornerRadius = tipDoneButton.frame.height / 2
         tipDoneButton.clipsToBounds = true
-    }
-    
-    func setupTextView() {
+        
         tipTextView.delegate = self
         tipTextView.layer.cornerRadius = 5.0
         tipTextView.layer.borderWidth = 1.0
@@ -69,6 +60,93 @@ private extension ComposeTipViewController {
         }
     }
     
+    private func isValidTip() -> Bool {
+        if isEditMode {
+            return true
+        }
+        
+        if !didBeginEditing || tipTextView.text.isEmpty || tipTextView.text == placeholderText {
+            return false
+        }
+        return true
+    }
+    
+    private func startActivityIndicator() {
+        DispatchQueue.main.async {[weak self] in
+            self?.activityIndicatorView.isHidden = false
+            self?.activityIndicatorView.startAnimating()
+        }
+    }
+    
+    private func stopActivityIndicator() {
+        DispatchQueue.main.async {[weak self] in
+            self?.activityIndicatorView.isHidden = true
+            self?.activityIndicatorView.stopAnimating()
+        }
+    }
+    
+    private func bookmarkedTheVenue() {
+        guard let viewModel else {
+            return
+        }
+        
+        viewModel.addToBookmark {[weak self] result in
+            self?.stopActivityIndicator()
+            guard let result else {
+                return
+            }
+            
+            switch result {
+            case .success(let flag):
+                if !flag {
+                    self?.showError(message: viewModel.errorMessage)
+                } else {
+                    self?.composeTipViewDelegate?.bookmarkedStateChangedFor(state: true)
+                }
+                
+            case.failure(let error):
+                self?.showError(message: (error.localizedDescription))
+            }
+        }
+    }
+    
+    private func saveTheNote() {
+        guard let viewModel,
+              let note = tipTextView.text else {
+            return
+        }
+        
+        self.showActivityIndicator()
+        viewModel.saveNote(note: note) {[weak self] result in
+            guard let result else {
+                self?.stopActivityIndicator()
+                return
+            }
+            
+            switch result {
+            case .success(let flag):
+                if !flag {
+                    self?.stopActivityIndicator()
+                    self?.showError(message: viewModel.errorMessage)
+                } else {
+                    self?.bookmarkedTheVenue()
+                }
+                
+            case.failure(let error):
+                self?.stopActivityIndicator()
+                self?.showError(message: (error.localizedDescription))
+            }
+        }
+    }
+    
+    //MARK: IBAction
+    @IBAction func doneButtonPressed(_ sender: Any) {
+        self.startActivityIndicator()
+        self.saveTheNote()
+    }
+}
+
+private extension ComposeTipViewController {
     func setPlaceholderText() {
         var venueNameString = "this venue"
         if let venueName = place?.name {
@@ -93,43 +171,6 @@ private extension ComposeTipViewController {
 //            }
 //        })*/
 //    }
-    
-    private func bookmarkedTheVenue() {
-        /*guard let venue = favoritVenue else {
-            self.showError(message: "Oops, something went wrong. Please try again")
-            return
-        }
-        var objectArray = [] as! [PFObject]
-        if isEditMode {
-            self.venueTip?.tip = tipTextView.text
-            objectArray = [self.venueTip] as! [PFObject]
-        } else {
-//             var tipString = "On my to-do list"
-            var tipString = ""
-
-            if isValidTip() {
-                tipString = tipTextView.text
-            }
-            let params: [String:String] = [
-                "venueTip"  : tipString,
-                "venueId"   : venue.venueId!,
-                "venueName" : venue.name!]
-            let newVenueTip = VenueTips(tip: params)
-            FavoritUser.current()?.incrementKey("bookmarksCount", byAmount: 1)
-            venue.incrementKey(Constants.VenueRelationType.bookmarkRelation, byAmount: 1)
-            let savedVenue = SavedVenue(favoritVenue: venue, venueTip: newVenueTip, isFavorit: false)
-            objectArray = [newVenueTip, savedVenue, venue]
-        }
-         
-        saveTip(objectArray: objectArray)*/
-    }
-    
-    //MARK: IBAction
-    @IBAction func doneButtonPressed(_ sender: Any) {
-        self.activityIndicatorView.isHidden = false
-        self.activityIndicatorView.startAnimating()
-        self.bookmarkedTheVenue()
-    }
 }
 
 //MARK: TextView Delegate
@@ -169,8 +210,10 @@ extension ComposeTipViewController: IndicatorInfoProvider {
 }
 
 extension ComposeTipViewController {
-    static func getViewController() -> ComposeTipViewController? {
-        return UIStoryboard(name: StoryboardName.main.value,
+    static func getViewController(viewModel: ComposeNoteProtocol) -> ComposeTipViewController? {
+        let composeTipViewController = UIStoryboard(name: StoryboardName.main.value,
                             bundle: nil).instantiateViewController(withIdentifier: "composeTipsVC") as? ComposeTipViewController
+        composeTipViewController?.viewModel = viewModel
+        return composeTipViewController
     }
 }

@@ -8,8 +8,8 @@
 import Foundation
 
 struct Place : Codable {
-    let isBookmarked: Bool
-    let isFavourite: Bool
+    var isBookmarked: Bool
+    var isFavourite: Bool
     let placeId: String
     let categories: [PlaceCategory]?
     let location : PlaceLocation?

@@ -9,9 +9,15 @@
 import UIKit
 import XLPagerTabStrip
 import MessageUI
+import NVActivityIndicatorView
 
 protocol SegueHandlerDelegate: AnyObject {
     func segueToProfile(identifier: String, sender: Any)
+}
+
+protocol PlaceDetailDelegate: AnyObject {
+    func favouriteStateChangedFor(placeID: String?, state: Bool)
+    func bookmarkedStateChangedFor(placeID: String?, state: Bool)
 }
 
 class PlaceDetailViewController: ButtonBarPagerTabStripViewController, SegueHandlerDelegate {
@@ -34,6 +40,7 @@ class PlaceDetailViewController: ButtonBarPagerTabStripViewController, SegueHand
     @IBOutlet weak var favoritStackView: UIStackView!
     @IBOutlet weak var bookmarkStackView: UIStackView!
     @IBOutlet weak var addressStackView: UIStackView!
+    @IBOutlet weak var activityIndicatorView: NVActivityIndicatorView!
     
     //MARK: Properties
     var composeTipsVC: ComposeTipViewController?
@@ -42,10 +49,13 @@ class PlaceDetailViewController: ButtonBarPagerTabStripViewController, SegueHand
     var placeState: PlaceState = .notSaved
     var isEditMode = false
     
+    weak var placeDetailDelegate: PlaceDetailDelegate?
+    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
     
+    //MARK: View Life Cycle
     override func viewDidLoad() {
         setupButtonBar()
         super.viewDidLoad()
@@ -110,15 +120,64 @@ class PlaceDetailViewController: ButtonBarPagerTabStripViewController, SegueHand
         self.venueDistanceLabel.text = viewModel.distance ?? ""
         self.bookmarkedLabel.text = "\(viewModel.bookmarkCount)"
         self.favoritLabel.text = "\(viewModel.favouriteCount)"
+        self.setFavouriteState()
     }
+    
+    private func startActivityIndicator() {
+        DispatchQueue.main.async {[weak self] in
+            self?.activityIndicatorView.isHidden = false
+            self?.activityIndicatorView.startAnimating()
+        }
+    }
+    
+    private func stopActivityIndicator() {
+        DispatchQueue.main.async {[weak self] in
+            if self?.activityIndicatorView.isAnimating ?? false {
+                self?.activityIndicatorView.isHidden = true
+                self?.activityIndicatorView.stopAnimating()
+            }
+        }
+    }
+    
+    private func setFavouriteState() {
+        let imageName = (viewModel?.isFavourite ?? false) ? "star1" : "star0"
+        DispatchQueue.main.async {[weak self] in
+            self?.favoritButton.setImage(UIImage(named: imageName),
+                                         for: .normal)
+        }
+    }
+    
+    //MARK: IBAction
+    @IBAction func favoritButtonPressed(_ sender: Any) {
+        guard let viewModel else {
+            return
+        }
+    
+        self.startActivityIndicator()
+        viewModel.toggleVenueFromFavouriteList {[weak self] result in
+            self?.stopActivityIndicator()
+            self?.setFavouriteState()
+            self?.placeDetailDelegate?.favouriteStateChangedFor(placeID: viewModel.placeID,
+                                                            state: viewModel.isFavourite)
+        }
+    }
+    
     
     //MARK: Pager Setup
     override func viewControllers(for pagerTabStripController: PagerTabStripViewController) -> [UIViewController] {
-        composeTipsVC = ComposeTipViewController.getViewController()
-        let tipsVC = PlaceTipsViewController.getViewController()
-        tipsVC?.delegate = self
+        if let viewModel {
+            if !viewModel.isBookmarked,
+               let placeID = viewModel.placeID {
+                composeTipsVC = ComposeTipViewController.getViewController(viewModel: ComposeNoteViewModel(placeID: placeID))
+                composeTipsVC?.composeTipViewDelegate = self
+            }
+        }
         
-        let photosVC = PlacePhotoViewController.getViewController()
+        
+        let notesVC = NotesViewController.getViewController(placeID: viewModel?.placeID)
+        notesVC?.delegate = self
+        
+        let photosVC = PlacePhotoViewController.getViewController(photoURLStrings: viewModel?.photoURLs)
         
         //        if savedVenue != nil && savedVenue?.venueTip?.tip != "" {
         //            tipsVC.primaryTip = savedVenue?.venueTip
@@ -141,7 +200,20 @@ class PlaceDetailViewController: ButtonBarPagerTabStripViewController, SegueHand
         //        }
         
         //        return vcArray
-        return [composeTipsVC!, tipsVC!, photosVC!]
+        
+        var viewControllers = [UIViewController]()
+        guard let photosVC, let notesVC else {
+            return viewControllers
+        }
+        
+        viewControllers.append(notesVC)
+        viewControllers.append(photosVC)
+        guard let composeTipsVC else {
+            return viewControllers
+        }
+        
+        viewControllers.insert(composeTipsVC, at: 0)
+        return viewControllers
     }
     
     //MARK: Navigation
@@ -283,15 +355,7 @@ private extension PlaceDetailViewController {
     
     func setupUI() {
         setScreenData()
-        setupButtons()
         setupVenueCountLabels()
-    }
-    
-    func setupButtons() {
-        let selectedFavorit = UIImage(named: "star1")
-        let unselectedFavorit = UIImage(named: "star0")
-        favoritButton.setImage(selectedFavorit, for: .selected)
-        favoritButton.setImage(unselectedFavorit, for: .normal)
     }
     
     func setButtonStates() {
@@ -378,15 +442,6 @@ private extension PlaceDetailViewController {
     //            }
     //        }
     //    }
-    
-    func handleFavoritButtonToggle() {
-        switch favoritButton.isSelected {
-        case false:
-            setVenueAsFavorit()
-        default:
-            removeVenueAsFavorit()
-        }
-    }
     
     func setVenueAsFavorit() {
         //        guard let user = FavoritUser.current(), user.favoritsCount < 10 else {
@@ -566,12 +621,6 @@ private extension PlaceDetailViewController {
         //        }
     }
     
-    //MARK: IBAction
-    @IBAction func favoritButtonPressed(_ sender: Any) {
-        handleFavoritButtonToggle()
-    }
-    
-    
     @IBAction func optionsButtonPressed(_ sender: Any) {
         let actionSheetController: UIAlertController = UIAlertController(title: "Options", message: nil, preferredStyle: .actionSheet)
         
@@ -719,6 +768,15 @@ extension PlaceDetailViewController: MFMailComposeViewControllerDelegate {
     }
     
 }
+
+extension PlaceDetailViewController: ComposeTipViewDelegate {
+    func bookmarkedStateChangedFor(state: Bool) {
+        self.placeDetailDelegate?.bookmarkedStateChangedFor(placeID: viewModel?.placeID,
+                                                            state: state)
+        self.navigationController?.popViewController(animated: true)
+    }
+}
+
 extension PlaceDetailViewController {
     static func getViewController(viewModel: PlaceDetailProtocol) -> PlaceDetailViewController? {
         let storyboard = UIStoryboard(name: StoryboardName.main.value,

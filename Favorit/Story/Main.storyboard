@@ -300,10 +300,10 @@
             </objects>
             <point key="canvasLocation" x="1535" y="-942"/>
         </scene>
-        <!--Place Tips View Controller-->
+        <!--Notes View Controller-->
         <scene sceneID="wNJ-Z0-WX4">
             <objects>
-                <viewController storyboardIdentifier="placesTipsVC" id="lZa-sD-HPy" customClass="PlaceTipsViewController" customModule="Favorit" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="placesTipsVC" id="lZa-sD-HPy" customClass="NotesViewController" customModule="Favorit" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="1mA-Cr-cIv">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -468,7 +468,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yWG-EO-NmF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="7245" y="906"/>
+            <point key="canvasLocation" x="4721" y="246"/>
         </scene>
         <!--Show On Map View Controller-->
         <scene sceneID="QAJ-sR-iIP">
@@ -544,7 +544,13 @@
                             <constraint firstItem="FfZ-Oe-clU" firstAttribute="trailing" secondItem="xSo-uW-RbH" secondAttribute="trailing" id="k7O-br-LfB"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Filter By" id="VzG-fw-IBJ"/>
+                    <navigationItem key="navigationItem" title="Filter By" id="VzG-fw-IBJ">
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="xmark" catalog="system" id="gNa-p9-rCm">
+                            <connections>
+                                <action selector="didClickOnclose" destination="X76-wg-A3R" id="wMN-gB-Cec"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="FfZ-Oe-clU" id="xFZ-ax-J6K"/>
                     </connections>
@@ -651,6 +657,10 @@
                                         </view>
                                     </collectionViewCell>
                                 </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="kge-dA-1qV" id="gHv-7h-Mii"/>
+                                    <outlet property="delegate" destination="kge-dA-1qV" id="xUD-L2-klD"/>
+                                </connections>
                             </collectionView>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3WR-Dt-gDF" customClass="NVActivityIndicatorView" customModule="NVActivityIndicatorView">
                                 <rect key="frame" x="171.66666666666666" y="413.66666666666669" width="50" height="50"/>
@@ -684,7 +694,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cWf-zl-kCX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="8033" y="906"/>
+            <point key="canvasLocation" x="3897" y="246"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="K1i-6I-dHw">
@@ -1833,6 +1843,20 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H9B-yG-KjH" userLabel="ScrollView">
                                 <rect key="frame" x="0.0" y="250" width="393" height="568"/>
                             </scrollView>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a8d-v3-R8w" customClass="NVActivityIndicatorView" customModule="NVActivityIndicatorView">
+                                <rect key="frame" x="171.66666666666666" y="401" width="50" height="50"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="VIe-00-yM7"/>
+                                    <constraint firstAttribute="height" constant="50" id="Yid-1P-BnE"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="typeName" value="ballScale"/>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="color">
+                                        <color key="value" red="0.70980392160000005" green="0.65098039220000004" blue="0.25882352939999997" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="wAc-wm-reU" customClass="ButtonBarView" customModule="XLPagerTabStrip">
                                 <rect key="frame" x="0.0" y="250" width="393" height="50"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1854,11 +1878,13 @@
                             <constraint firstItem="6DA-5B-fxJ" firstAttribute="leading" secondItem="SjX-xH-Fon" secondAttribute="leading" id="Dl2-uo-QOA"/>
                             <constraint firstItem="SjX-xH-Fon" firstAttribute="bottom" secondItem="H9B-yG-KjH" secondAttribute="bottom" id="VXz-dg-8v1"/>
                             <constraint firstItem="H9B-yG-KjH" firstAttribute="leading" secondItem="SjX-xH-Fon" secondAttribute="leading" id="WA1-72-nSi"/>
+                            <constraint firstItem="a8d-v3-R8w" firstAttribute="centerX" secondItem="6kC-fa-PYK" secondAttribute="centerX" id="YmU-0p-X71"/>
                             <constraint firstItem="wAc-wm-reU" firstAttribute="leading" secondItem="SjX-xH-Fon" secondAttribute="leading" id="k6x-UH-fLy"/>
                             <constraint firstItem="6DA-5B-fxJ" firstAttribute="top" secondItem="6kC-fa-PYK" secondAttribute="top" id="l52-Zl-QVr"/>
                             <constraint firstItem="H9B-yG-KjH" firstAttribute="trailing" secondItem="SjX-xH-Fon" secondAttribute="trailing" id="llE-YW-iQa"/>
                             <constraint firstItem="SjX-xH-Fon" firstAttribute="trailing" secondItem="wAc-wm-reU" secondAttribute="trailing" id="qjo-eq-dT8"/>
                             <constraint firstItem="fNZ-kl-x7D" firstAttribute="top" secondItem="SjX-xH-Fon" secondAttribute="top" id="tSd-Im-anT"/>
+                            <constraint firstItem="a8d-v3-R8w" firstAttribute="centerY" secondItem="6kC-fa-PYK" secondAttribute="centerY" id="tTu-uy-wgU"/>
                             <constraint firstItem="wAc-wm-reU" firstAttribute="top" secondItem="6DA-5B-fxJ" secondAttribute="bottom" id="thV-of-bHz"/>
                             <constraint firstItem="SjX-xH-Fon" firstAttribute="trailing" secondItem="6DA-5B-fxJ" secondAttribute="trailing" id="w20-YE-FdJ"/>
                             <constraint firstItem="fNZ-kl-x7D" firstAttribute="leading" secondItem="SjX-xH-Fon" secondAttribute="leading" constant="10" id="zfm-JH-QUL"/>
@@ -1867,6 +1893,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="oxd-bO-TcM"/>
                     <connections>
+                        <outlet property="activityIndicatorView" destination="a8d-v3-R8w" id="pno-od-TUk"/>
                         <outlet property="addressStackView" destination="E26-qF-fSC" id="jXu-Vi-nJB"/>
                         <outlet property="bookmarkStackView" destination="f5B-id-6iM" id="LvF-2x-8uS"/>
                         <outlet property="bookmarkedCountImageView" destination="qbf-e9-EPu" id="5iV-mT-tnA"/>
@@ -2106,7 +2133,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="vXL-BB-6Dw"/>
+        <segue reference="UfK-Jg-5G0"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="bookmark0" width="18" height="26"/>
@@ -2129,6 +2156,7 @@
         <image name="star1" width="85" height="81"/>
         <image name="star_grey_01" width="75" height="71"/>
         <image name="whiteBackIcon" width="12" height="21"/>
+        <image name="xmark" catalog="system" width="128" height="113"/>
         <namedColor name="Accent">
             <color red="0.90196078431372551" green="0.49411764705882355" blue="0.13333333333333333" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

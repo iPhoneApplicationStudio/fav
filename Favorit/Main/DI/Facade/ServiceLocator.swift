@@ -38,5 +38,7 @@ public final class ServiceLocator {
         register { FindPlacesService() }
         register { PlaceDetailService() }
         register { FollowService() }
+        register { NotesService() }
+        register { ComposeNoteService() }
     }
 }

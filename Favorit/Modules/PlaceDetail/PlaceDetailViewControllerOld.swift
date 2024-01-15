@@ -121,22 +121,13 @@ class PlaceDetailViewControllerOld: UIViewController {
         guard let viewModel else {
             return
         }
-        
-        viewModel.addToBookmark {[weak self] _ in
-            self?.stopActivityIndicator()
-            self?.setBookmarkState()
-        }
     }
     
     private func removePlaceFormbookmark() {
         guard let viewModel else {
             return
         }
-        
-        viewModel.removeToBookmark {[weak self] _ in
-            self?.stopActivityIndicator()
-            self?.setBookmarkState()
-        }
+    
     }
     
     //MARK: IBAction
@@ -191,25 +182,4 @@ extension PlaceDetailViewControllerOld: UICollectionViewDataSource, UICollection
         guard let indexPath = collectionView.indexPath(for: visible)?.row else { return }
         self.pageController.currentPage = indexPath
     }
-    
-    func collectionView(_ collectionView: UICollectionView, 
-                        didSelectItemAt indexPath: IndexPath) {
-        guard let viewModel,
-              let lightBoxImages = viewModel.getAllLightBoxImages() else {
-            return
-        }
-        
-        let controller = LightboxController(images: lightBoxImages,
-                                            startIndex: indexPath.item)
-        controller.dynamicBackground = true
-        self.present(controller, animated: true, completion: nil)
-    }
-}
-
-extension PlaceDetailViewControllerOld {
-//    static func createPlaceDetailViewController() -> PlaceDetailViewController? {
-//        let storyboard = UIStoryboard(name: StoryboardName.main.value,
-//                                      bundle: nil)
-//        return storyboard.instantiateViewController(withIdentifier: ViewControllerName.placeDetailVC.value) as? PlaceDetailViewController
-//    }
 }
