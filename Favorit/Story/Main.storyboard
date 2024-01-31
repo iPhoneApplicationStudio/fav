@@ -199,7 +199,6 @@
                             </label>
                             <tableView clipsSubviews="YES" alpha="0.0" contentMode="scaleToFill" alwaysBounceVertical="YES" contentInsetAdjustmentBehavior="never" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="180" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="d1H-nW-dIQ">
                                 <rect key="frame" x="0.0" y="159" width="393" height="659"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <button key="tableFooterView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="iXW-3n-gUe">
                                     <rect key="frame" x="0.0" y="0.0" width="393" height="44"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -590,7 +589,7 @@
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="doneButtonPressed:" destination="dny-Lr-aNt" eventType="touchUpInside" id="XjC-Ia-3BM"/>
+                                    <action selector="didClickOnSaveVenue" destination="dny-Lr-aNt" eventType="touchUpInside" id="iAA-xW-2Fj"/>
                                 </connections>
                             </button>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wna-70-pEz" customClass="NVActivityIndicatorView" customModule="NVActivityIndicatorView">
@@ -1810,6 +1809,18 @@
                                             <constraint firstAttribute="trailing" secondItem="DCJ-3T-ujq" secondAttribute="trailing" id="sFf-kO-Zrk"/>
                                         </constraints>
                                     </view>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="top" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bwh-pm-hhB">
+                                        <rect key="frame" x="327" y="103" width="50" height="50"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="hUc-wi-Wfc"/>
+                                            <constraint firstAttribute="width" constant="50" id="oUb-i4-6eB"/>
+                                        </constraints>
+                                        <state key="normal" image="dotsIcon"/>
+                                        <connections>
+                                            <action selector="optionsButtonPressed:" destination="bbE-bi-jF7" eventType="touchUpInside" id="Ji3-Kf-1Rt"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -1822,12 +1833,13 @@
                                     <constraint firstAttribute="trailing" secondItem="xxA-Uy-e8Y" secondAttribute="trailing" id="QL8-QT-zwP"/>
                                     <constraint firstItem="82r-PA-dcE" firstAttribute="leading" secondItem="6DA-5B-fxJ" secondAttribute="leading" id="RRx-2T-LTA"/>
                                     <constraint firstAttribute="height" constant="250" id="eUz-c5-vHW"/>
+                                    <constraint firstAttribute="trailing" secondItem="Bwh-pm-hhB" secondAttribute="trailing" constant="16" id="g8h-8H-L74"/>
                                     <constraint firstAttribute="bottom" secondItem="3MR-nJ-wzb" secondAttribute="bottom" id="hXs-nf-RwH"/>
                                     <constraint firstAttribute="bottom" secondItem="82r-PA-dcE" secondAttribute="bottom" id="iK4-vc-Wdb"/>
                                     <constraint firstItem="82r-PA-dcE" firstAttribute="top" secondItem="6DA-5B-fxJ" secondAttribute="top" id="t2F-VG-s16"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="top" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fNZ-kl-x7D">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="top" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fNZ-kl-x7D" userLabel="ButtonBack">
                                 <rect key="frame" x="10" y="103" width="50" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="50" id="k0t-U0-V0E"/>
@@ -1843,20 +1855,6 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H9B-yG-KjH" userLabel="ScrollView">
                                 <rect key="frame" x="0.0" y="250" width="393" height="568"/>
                             </scrollView>
-                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a8d-v3-R8w" customClass="NVActivityIndicatorView" customModule="NVActivityIndicatorView">
-                                <rect key="frame" x="171.66666666666666" y="401" width="50" height="50"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="50" id="VIe-00-yM7"/>
-                                    <constraint firstAttribute="height" constant="50" id="Yid-1P-BnE"/>
-                                </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="typeName" value="ballScale"/>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="color">
-                                        <color key="value" red="0.70980392160000005" green="0.65098039220000004" blue="0.25882352939999997" alpha="1" colorSpace="calibratedRGB"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="wAc-wm-reU" customClass="ButtonBarView" customModule="XLPagerTabStrip">
                                 <rect key="frame" x="0.0" y="250" width="393" height="50"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1871,14 +1869,45 @@
                                 </collectionViewFlowLayout>
                                 <cells/>
                             </collectionView>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a8d-v3-R8w" customClass="NVActivityIndicatorView" customModule="NVActivityIndicatorView">
+                                <rect key="frame" x="171.66666666666666" y="401" width="50" height="50"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="VIe-00-yM7"/>
+                                    <constraint firstAttribute="height" constant="50" id="Yid-1P-BnE"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="typeName" value="ballScale"/>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="color">
+                                        <color key="value" red="0.70980392160000005" green="0.65098039220000004" blue="0.25882352939999997" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2j8-8R-AR4" customClass="FloatingAddButton" customModule="Favorit" customModuleProvider="target">
+                                <rect key="frame" x="327" y="752" width="50" height="50"/>
+                                <color key="backgroundColor" name="Primary"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="5bZ-yh-82v"/>
+                                    <constraint firstAttribute="height" constant="50" id="plw-ak-jcJ"/>
+                                </constraints>
+                                <color key="tintColor" systemColor="secondarySystemBackgroundColor"/>
+                                <inset key="imageEdgeInsets" minX="15" minY="15" maxX="15" maxY="15"/>
+                                <state key="normal" image="suggestion"/>
+                                <connections>
+                                    <action selector="composePrivateReviewButtonPressed:" destination="bbE-bi-jF7" eventType="touchUpInside" id="4m7-Zp-uqy"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="SjX-xH-Fon"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="Bwh-pm-hhB" firstAttribute="top" secondItem="fNZ-kl-x7D" secondAttribute="top" id="AlT-ZM-MBT"/>
                             <constraint firstItem="6DA-5B-fxJ" firstAttribute="leading" secondItem="SjX-xH-Fon" secondAttribute="leading" id="Dl2-uo-QOA"/>
+                            <constraint firstItem="SjX-xH-Fon" firstAttribute="trailing" secondItem="2j8-8R-AR4" secondAttribute="trailing" constant="16" id="Ocd-QJ-3Dc"/>
                             <constraint firstItem="SjX-xH-Fon" firstAttribute="bottom" secondItem="H9B-yG-KjH" secondAttribute="bottom" id="VXz-dg-8v1"/>
                             <constraint firstItem="H9B-yG-KjH" firstAttribute="leading" secondItem="SjX-xH-Fon" secondAttribute="leading" id="WA1-72-nSi"/>
                             <constraint firstItem="a8d-v3-R8w" firstAttribute="centerX" secondItem="6kC-fa-PYK" secondAttribute="centerX" id="YmU-0p-X71"/>
+                            <constraint firstItem="SjX-xH-Fon" firstAttribute="bottom" secondItem="2j8-8R-AR4" secondAttribute="bottom" constant="16" id="h6h-NW-vEd"/>
                             <constraint firstItem="wAc-wm-reU" firstAttribute="leading" secondItem="SjX-xH-Fon" secondAttribute="leading" id="k6x-UH-fLy"/>
                             <constraint firstItem="6DA-5B-fxJ" firstAttribute="top" secondItem="6kC-fa-PYK" secondAttribute="top" id="l52-Zl-QVr"/>
                             <constraint firstItem="H9B-yG-KjH" firstAttribute="trailing" secondItem="SjX-xH-Fon" secondAttribute="trailing" id="llE-YW-iQa"/>
@@ -1906,6 +1935,7 @@
                         <outlet property="favoritStackView" destination="3Hm-zl-lZK" id="UWd-K2-59z"/>
                         <outlet property="headerImageView" destination="82r-PA-dcE" id="5dG-do-1BE"/>
                         <outlet property="nameLabel" destination="Zpz-Ka-XCW" id="CTi-4X-OnG"/>
+                        <outlet property="optionsButton" destination="Bwh-pm-hhB" id="nRy-0A-jIR"/>
                         <outlet property="titleDetailsView" destination="DCJ-3T-ujq" id="DW5-ee-9cd"/>
                         <outlet property="titleView" destination="3MR-nJ-wzb" id="JkR-EA-jOQ"/>
                         <outlet property="typeLabel" destination="qYc-gZ-iij" id="9VS-n9-yYJ"/>
@@ -2133,13 +2163,14 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="UfK-Jg-5G0"/>
+        <segue reference="vXL-BB-6Dw"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="bookmark0" width="18" height="26"/>
         <image name="bookmark1" width="16" height="24"/>
         <image name="bookmark_grey_01" width="16" height="24"/>
         <image name="bookmark_tab" width="16" height="24"/>
+        <image name="dotsIcon" width="25" height="16"/>
         <image name="feedIcon" width="22" height="26"/>
         <image name="filter" width="26" height="25"/>
         <image name="followers" width="30" height="24"/>
@@ -2155,6 +2186,7 @@
         <image name="star0" width="80" height="76"/>
         <image name="star1" width="85" height="81"/>
         <image name="star_grey_01" width="75" height="71"/>
+        <image name="suggestion" width="50" height="61"/>
         <image name="whiteBackIcon" width="12" height="21"/>
         <image name="xmark" catalog="system" width="128" height="113"/>
         <namedColor name="Accent">

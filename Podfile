@@ -8,6 +8,7 @@ target 'Favorit' do
   # Pods for Favorit
   pod 'Lightbox'
   pod "Resolver"
+#  pod 'PopupDialog'
 
 end
 

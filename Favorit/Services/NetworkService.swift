@@ -7,9 +7,9 @@
 
 import Foundation
 import Alamofire
+import UIKit
 
 final class NetworkService {
-    
     lazy private(set) var jsonDecoder = JSONDecoder()
     
     lazy private(set) var session: Session = {
@@ -36,7 +36,6 @@ final class NetworkService {
         model: T.Type,
         isCustom: Bool,
         completion: @escaping (Result<T, APIError>) -> Void) {
-            
             session.makeRequest(
                 apiEndPoint.urlString,
                 method: apiEndPoint.httpMethod,
@@ -44,6 +43,22 @@ final class NetworkService {
                 encoder: apiEndPoint.paramenterEncoding,
                 headers: apiEndPoint.headers)
             .response { response in
+                if response.response?.statusCode == 401 {
+                    if let vc = UIApplication.shared.connectedScenes.compactMap({ $0 as? UIWindowScene }).flatMap({ $0.windows }).first(where: { $0.isKeyWindow })?.rootViewController {
+                        vc.showMessage(title: "Sign out",
+                                       message: "Your session has timed out.") { _ in
+                            if let window = UIWindow.topWindow {
+                                UserDefaults.loggedInUserID = nil
+                                KeychainManager.remove(for: UserDefaults.accessTokenKey!)
+                                let flowCoordinator = AppCoordinator(with: window)
+                                flowCoordinator.start()
+                            }
+                        }
+                    }
+                    
+                    completion(.failure(APIError.accessTokenExpired))
+                    return
+                }
                 
                 switch response.result {
                 case .success(let data):
@@ -62,7 +77,6 @@ final class NetworkService {
     }
     
     func parse<T: Decodable>(isCustom: Bool, data: Data?) -> Result<T, APIError> {
-        
         guard let data = data else {
             return .failure(.noData)
         }

@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 
 class SavedCell: UITableViewCell {
+    //MARK: IBOutlet
     @IBOutlet weak var primaryTipLabel: UILabel!
     @IBOutlet weak var favoritCountLabel: UILabel!
     @IBOutlet weak var savedCountLabel: UILabel!
@@ -18,6 +19,7 @@ class SavedCell: UITableViewCell {
     @IBOutlet weak var starImageView: UIImageView!
     @IBOutlet weak var bookmarkImageView: UIImageView!
     
+    //MARK: Properties
     var place: Place? {
         didSet {
             guard let place else {
@@ -28,18 +30,17 @@ class SavedCell: UITableViewCell {
         }
     }
     
+    var section = 0 {
+        didSet {
+            self.starImageView.isHidden = section != 0
+        }
+    }
+            
+    //MARK: Life Cycle
     override func awakeFromNib() {
         super.awakeFromNib()
         bookmarkImageView.image = UIImage.getTemplateImage(imageName: "bookmark1")
         bookmarkImageView.tintColor = .lightGray
-    }
-    
-    override func prepareForReuse() {
-        if !starImageView.isHidden {
-            starImageView.isHidden = true
-        }
-        
-        primaryTipLabel.text = ""
     }
     
     override func layoutSubviews() {
@@ -48,23 +49,22 @@ class SavedCell: UITableViewCell {
         venueImageView.layer.cornerRadius = 5.0
         venueImageView.clipsToBounds = true
     }
+    
+    override func prepareForReuse() {
+        self.starImageView.isHidden = section != 0
+    }
 
+    //MARK: Private methods
     private func setUpData(place: Place) {
         self.venueTitleLabel.text = place.name
         self.venueCategoryLabel.text = place.categories?.first?.name ?? ""
+        if let photoUrl = URL(string: place.featurePhotoURL ?? place.categoryIconURL ?? "") {
+            self.venueImageView.kf.setImage(with: photoUrl,
+                                            options: [.transition(.fade(0.5)),
+                                                      .forceTransition])
+        }
         
-//        if let photoUrl = URL(string: place.categories?.first?.icon ?? "") {
-//            self.venueImageView.kf.setImage(with: photoUrl,
-//                                       options: [.transition(.fade(0.5)), .forceTransition])
-//        }
-        
-        
-//        if let venueTip = savedVenue?.venueTip {
-//            if venueTip.tip != StringConstants.TipStrings.defaultTip {
-//                primaryTipLabel.text = venueTip.tip
-//            }
-//        }
-    
+        self.primaryTipLabel.text = place.note?.note ?? ""
         self.savedCountLabel.text = "\(place.bookmarkCount ?? 0)"
         self.favoritCountLabel.text = "\(place.favouriteCount ?? 0)"
     }

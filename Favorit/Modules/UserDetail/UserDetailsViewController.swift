@@ -73,9 +73,9 @@ class UserDetailsViewController: UIViewController {
     //MARK: Private methods
     private func initialSetting() {
         self.userContainerView.isHidden = true
-        let nib = UINib(nibName: CellName.saved.value,
+        let nib = UINib(nibName: SavedCell.identifier,
                         bundle: nil)
-        self.tableView.register(nib, forCellReuseIdentifier: "savedCell")
+        self.tableView.register(nib, forCellReuseIdentifier: SavedCell.identifier)
         self.tableView.contentInset = .init(top: 0,
                                             left: 0,
                                             bottom: 66,
@@ -736,7 +736,7 @@ extension UserDetailsViewController:  UITableViewDelegate, UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "savedCell") as! SavedCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: SavedCell.identifier) as! SavedCell
         cell.selectionStyle = .none
         //        let venue: SavedVenue?
         
