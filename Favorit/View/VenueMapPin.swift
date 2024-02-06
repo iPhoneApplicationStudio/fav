@@ -15,14 +15,14 @@ class VenueMapPin: NSObject, MKAnnotation {
     var venueCategory: String?
     var coordinate: CLLocationCoordinate2D
     var subtitle: String?
-    var venueState: PlaceState = .favorit
+    var venueState: PlaceState = .bookmark
     
     var place: Place?
     
     init(place: Place?) {
         self.place = place
-        if place?.isBookmarked ?? false {
-            venueState = .bookmark
+        if place?.isFavourite ?? false {
+            venueState = .favorit
         }
         
         guard let place else {

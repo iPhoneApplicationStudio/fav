@@ -9,6 +9,8 @@ import Foundation
 import UIKit
 
 class SavedCell: UITableViewCell {
+    static let height: CGFloat = 180
+    
     //MARK: IBOutlet
     @IBOutlet weak var primaryTipLabel: UILabel!
     @IBOutlet weak var favoritCountLabel: UILabel!
@@ -29,12 +31,6 @@ class SavedCell: UITableViewCell {
             self.setUpData(place: place)
         }
     }
-    
-    var section = 0 {
-        didSet {
-            self.starImageView.isHidden = section != 0
-        }
-    }
             
     //MARK: Life Cycle
     override func awakeFromNib() {
@@ -51,7 +47,7 @@ class SavedCell: UITableViewCell {
     }
     
     override func prepareForReuse() {
-        self.starImageView.isHidden = section != 0
+        self.starImageView.isHidden = true
     }
 
     //MARK: Private methods
@@ -67,5 +63,13 @@ class SavedCell: UITableViewCell {
         self.primaryTipLabel.text = place.note?.note ?? ""
         self.savedCountLabel.text = "\(place.bookmarkCount ?? 0)"
         self.favoritCountLabel.text = "\(place.favouriteCount ?? 0)"
+    }
+    
+    func configureStarImage() {
+        guard let place else {
+            return
+        }
+        
+        self.starImageView.isHidden = !place.isFavourite
     }
 }

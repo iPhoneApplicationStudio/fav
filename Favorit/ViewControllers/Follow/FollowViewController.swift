@@ -15,9 +15,9 @@ final class FollowViewController: UIViewController {
     @IBOutlet weak var noUsersLabel: UILabel!
     @IBOutlet weak var activityIndicatorView: NVActivityIndicatorView!
     @IBOutlet weak var followButton: UIButton!
+    @IBOutlet weak var avatarButton: UIBarButtonItem!
     
     var viewModel: FollowProtocol?
-    private var filterMode: FollowType = .following
     private var shouldRefresh = false
     @Dependency private var userSessionService: UserSessionService
     
@@ -46,6 +46,16 @@ final class FollowViewController: UIViewController {
         self.title = viewModel?.title ?? ""
         self.followButton.rounded()
         self.tableView.addSubview(refreshControl)
+        guard let viewModel else {
+            return
+        }
+        
+        if viewModel.isMyProfile {
+            let barButton = UIBarButtonItem(image: UIImage(named: "my_profile"), 
+                                            style: .plain,
+                                            target: self, action: #selector(didClickOnProfile))
+            self.navigationItem.leftBarButtonItem = barButton
+        }
     }
     
     private func setupBindings() {
@@ -117,12 +127,10 @@ final class FollowViewController: UIViewController {
     
     private func openUserDetailScreen(for userID: String?) {
         guard let userID = userID,
-              let vc = UserDetailsViewController.createViewController() else {
+              let vc = UserDetailsViewController.createViewController(viewModel: UserDetailViewModel(userID: userID)) else {
             return
         }
         
-        let userDetailViewModel = UserDetailViewModel(userID: userID)
-        vc.viewModel = userDetailViewModel
         self.navigationController?.pushViewController(vc,
                                                       animated: true)
     }
@@ -132,14 +140,7 @@ final class FollowViewController: UIViewController {
             return
         }
         
-        switch filterMode
-        {
-        case .following:
-            viewModel.getFollowingUsers(shouldRefresh: self.shouldRefresh)
-        case .follower:
-            self.filterMode = .follower
-            viewModel.getFollowerUsers(shouldRefresh: self.shouldRefresh)
-        }
+        viewModel.loadUsers(shouldRefresh: self.shouldRefresh)
     }
     
     @objc private func refreshList() {
@@ -157,7 +158,7 @@ final class FollowViewController: UIViewController {
                                                       animated: true)
     }
     
-    @IBAction func didClickOnProfile() {
+    @objc func didClickOnProfile() {
         self.openUserDetailScreen(for: userSessionService.loggedInUserID)
     }
 }
@@ -166,11 +167,7 @@ final class FollowViewController: UIViewController {
 extension FollowViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView,
                    numberOfRowsInSection section: Int) -> Int {
-        guard let viewModel else {
-            return 0
-        }
-        
-        return filterMode == .follower ? viewModel.numberOfFollowerUsers : viewModel.numberOfFollowingUsers
+        return viewModel?.numberOfUsers ?? 0
     }
     
     func tableView(_ tableView: UITableView, 
@@ -181,19 +178,25 @@ extension FollowViewController: UITableViewDataSource, UITableViewDelegate {
             return UITableViewCell()
         }
         
-        let user = filterMode == .follower ? viewModel.followerUserForIndex(indexPath.row) : viewModel.followingUserForIndex(indexPath.row)
+        let user = viewModel.userForIndex(indexPath.row)
         cell.configure(with: user)
         return cell
     }
     
     func tableView(_ tableView: UITableView,
                    didSelectRowAt indexPath: IndexPath) {
-        let _user = filterMode == .follower ? viewModel?.followerUserForIndex(indexPath.row) : viewModel?.followingUserForIndex(indexPath.row)
-        
-        guard let user = _user else {
+        guard let user = viewModel?.userForIndex(indexPath.row) else {
             return
         }
         
         self.openUserDetailScreen(for: user._id)
+    }
+}
+
+extension FollowViewController {
+    public static func createFollowViewController() -> FollowViewController? {
+        let storyboard = UIStoryboard(name: StoryboardName.main.value,
+                                      bundle: nil)
+        return storyboard.instantiateViewController(withIdentifier: ViewControllerName.followVC.value) as? FollowViewController
     }
 }

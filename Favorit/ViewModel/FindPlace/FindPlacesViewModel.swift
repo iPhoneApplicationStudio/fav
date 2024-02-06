@@ -33,6 +33,14 @@ class FindPlacesViewModel: FindPlacesProtocol {
     private let locationService = LocationService.shared
     private var _errorMessage: String?
     private var _radius: RadiusFrequency = FavoritConstant.defaultFrequency
+    private lazy var allCategories: String = {
+        var categories = [String]()
+        for item in FilterCategoryKeys.allCases {
+            categories.append(item.key)
+        }
+        
+        return categories.joined(separator: ",")
+    }()
     
     init(radius: RadiusFrequency) {
         self._radius = radius
@@ -140,13 +148,14 @@ class FindPlacesViewModel: FindPlacesProtocol {
             return
         }
         
-        let categories = selectedSubCategories.joined(separator: ",")
+        let categories = text == nil ? selectedSubCategories.joined(separator: ",") : allCategories
+        let radius = text == nil ? _radius.value : nil
         let latLongStr = "\(currentLocation.coordinate.latitude),\(currentLocation.coordinate.longitude)"
         let request = FindPlacesRequest(queryParams: FindPlacesRequest.RequestParams(query: text,
                                                                                      limit: limit,
                                                                                      latLong: latLongStr,
                                                                                      categories: categories,
-                                                                                     radius: _radius.value,
+                                                                                     radius: radius,
                                                                                      openNow: openNow,
                                                                                      sort: sort))
         networkService.getAllPlaces(request: request) {[weak self] result in

@@ -172,6 +172,7 @@ class PlaceDetailViewController: ButtonBarPagerTabStripViewController, SegueHand
         self.setButtonStates()
         self.reloadPagerTabStripView()
         NotificationHelper.Post.refreshMyPlaces.fire()
+        self.navigationController?.popToRootViewController(animated: true)
     }
     
     private func showMailComposeView() {
@@ -230,7 +231,7 @@ class PlaceDetailViewController: ButtonBarPagerTabStripViewController, SegueHand
     
     //MARK: IBAction
     @IBAction func favoritButtonPressed(_ sender: Any) {
-        guard let viewModel else {
+        guard let viewModel, viewModel.isBookmarked else {
             return
         }
         
@@ -333,7 +334,7 @@ class PlaceDetailViewController: ButtonBarPagerTabStripViewController, SegueHand
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showOnMap" {
             guard let showOnMapVC = segue.destination as? ShowOnMapViewController else {return}
-            showOnMapVC.place = viewModel?.venue
+            showOnMapVC.addressOnly = viewModel?.venue
         }
     }
     
@@ -345,12 +346,12 @@ private extension PlaceDetailViewController {
     }
     
     @objc func favoritLabelTapped(sender: UITapGestureRecognizer) {
-        performSegue(withIdentifier: "toUserFollower", sender: true)
+//        performSegue(withIdentifier: "toUserFollower", sender: true)
         
     }
     
     @objc func bookmarkLabelTapped(sender: UITapGestureRecognizer) {
-        performSegue(withIdentifier: "toUserFollower", sender: false)
+//        performSegue(withIdentifier: "toUserFollower", sender: false)
         
     }
 

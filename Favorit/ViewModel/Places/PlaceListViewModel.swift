@@ -21,24 +21,18 @@ enum PlaceViewType {
 
 protocol PlaceListProtocol: AnyObject {
     var allMyBookmarkedPlaces: [PlaceDetail]? { get }
-    var allMyFavouritePlaces: [PlaceDetail]? { get }
-    var allMyPlacesCount: Int { get }
-    var allMyPlaces: [PlaceDetail]? { get }
     var allRecommendedBookmarkedPlaces: [PlaceDetail]? { get }
     var allPlaces: [PlaceDetail]? { get }
     var errorMessage: String { get }
     
-    func getItemFor(index: Int, for: PlaceType, section: Int) -> PlaceDetail?
+    func getItemFor(index: Int, for: PlaceType) -> PlaceDetail?
     func getMyBookmarks(handler: @escaping (Result<Bool, Error>) -> Void)
-    func getMyFavourites(handler: @escaping (Result<Bool, Error>) -> Void)
     func getAllRecommendedBookmarks(handler: @escaping ((Result<Bool, Error>)) -> Void)
     func removeBookmarkFor(index: Int, handler: @escaping (Result<Bool, Error>) -> Void)
-    func removeFavouriteFor(index: Int, handler: @escaping (Result<Bool, Error>) -> Void)
 }
 
 class PlaceListViewModel: PlaceListProtocol {
     private var myBookmarkedPlaces = [PlaceDetail]()
-    private var myFavouritePlaces = [PlaceDetail]()
     private var recommendedBookmarkedPlaces = [PlaceDetail]()
     private var _allPlaces = [PlaceDetail]()
     private let networkService = PlaceListService()
@@ -54,20 +48,6 @@ class PlaceListViewModel: PlaceListProtocol {
         myBookmarkedPlaces
     }
     
-    var allMyFavouritePlaces: [PlaceDetail]? {
-        myFavouritePlaces
-    }
-    
-    var allMyPlacesCount: Int {
-        let count = myFavouritePlaces.count + myBookmarkedPlaces.count
-        return count
-    }
-    
-    var allMyPlaces: [PlaceDetail]? {
-        let places = myFavouritePlaces + myBookmarkedPlaces
-        return places
-    }
-    
     var allRecommendedBookmarkedPlaces: [PlaceDetail]? {
         recommendedBookmarkedPlaces
     }
@@ -81,8 +61,7 @@ class PlaceListViewModel: PlaceListProtocol {
     }
     
     func getItemFor(index: Int, 
-                    for type: PlaceType,
-                    section: Int = 0) -> PlaceDetail? {
+                    for type: PlaceType) -> PlaceDetail? {
         guard index >= 0 else {
             return nil
         }
@@ -90,11 +69,7 @@ class PlaceListViewModel: PlaceListProtocol {
         var places = [PlaceDetail]()
         switch type {
         case .myPlaces:
-            if section == 0 {
-                places = myFavouritePlaces
-            } else {
-                places = myBookmarkedPlaces
-            }
+            places = myBookmarkedPlaces
         case .recommendedPlaces:
             places = recommendedBookmarkedPlaces
         case .allPlaces:
@@ -117,34 +92,12 @@ class PlaceListViewModel: PlaceListProtocol {
             case .success(let myPlaces):
                 if myPlaces.success ?? false {
                     if let places = myPlaces.allPlaces {
-                        self?.myBookmarkedPlaces = places.sorted(by: { $0.place?.name ?? "" < $1.place?.name ?? "" })
-                        self?._errorMessage = nil
-                        handler(.success(true))
-                    } else {
-                        self?._errorMessage = Message.somethingWentWrong.value
-                        handler(.success(false))
-                    }
-                } else {
-                    self?._errorMessage = myPlaces.message
-                    handler(.success(false))
-                }
-                
-            case .failure(let error):
-                handler(.failure(error))
-            }
-        }
-    }
-    
-    //GET Favourites
-    func getMyFavourites(handler: @escaping (Result<Bool, Error>) -> Void) {
-        let request = AllFavouriteRequest(userID: userID)
-        networkService.getAllFavourites(request: request) {[weak self] result in
-            self?.myFavouritePlaces.removeAll()
-            switch result {
-            case .success(let myPlaces):
-                if myPlaces.success ?? false {
-                    if let places = myPlaces.allPlaces {
-                        self?.myFavouritePlaces = places.sorted(by: { $0.place?.name ?? "" < $1.place?.name ?? "" })
+                        self?.myBookmarkedPlaces = places.sorted(by: {
+                            let flag1 = $0.place?.isFavourite ?? false == true ? 1 : 0
+                            let flag2 = $1.place?.isFavourite ?? false == true ? 1 : 0
+                            return flag1 >= flag2
+                        })
+                        
                         self?._errorMessage = nil
                         handler(.success(true))
                     } else {
@@ -171,7 +124,7 @@ class PlaceListViewModel: PlaceListProtocol {
             case .success(let recommendedPlaces):
                 if recommendedPlaces.success ?? false {
                     if let places = recommendedPlaces.allPlaces {
-                        self?.recommendedBookmarkedPlaces = places
+                        self?.recommendedBookmarkedPlaces = places.sorted(by: { $0.place?.name ?? "" < $1.place?.name ?? "" })
                         self?._errorMessage = nil
                         handler(.success(true))
                     } else {
@@ -183,33 +136,6 @@ class PlaceListViewModel: PlaceListProtocol {
                     handler(.success(false))
                 }
                 
-            case .failure(let error):
-                handler(.failure(error))
-            }
-        }
-    }
-    
-    //Remove Favourite
-    func removeFavouriteFor(index: Int, handler: @escaping (Result<Bool, Error>) -> Void) {
-        guard index >= 0, index < myFavouritePlaces.count,
-              let placeID = myFavouritePlaces[index].place?.placeId else {
-            handler(.failure(NetworkError.somethingWentWrong))
-            return
-        }
-        
-        let request = RemoveFavouriteRequest(placeID: placeID)
-        placeService.removeFavouritePlace(request: request) {[weak self] result in
-            switch result {
-            case .success(let response):
-                let removeFavourite = response.success ?? false
-                if removeFavourite {
-                    self?._errorMessage = nil
-                    self?.myFavouritePlaces.remove(at: index)
-                } else {
-                    self?._errorMessage = response.message ?? Message.somethingWentWrong.value
-                }
-                
-                handler(.success(removeFavourite))
             case .failure(let error):
                 handler(.failure(error))
             }

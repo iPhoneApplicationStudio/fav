@@ -8,7 +8,6 @@
 import UIKit
 
 final class ApplicationAppearance {
-    
     static func initialAppearance() {
         guard let primaryColor = UIColor.primaryColor,
               let accentColor = UIColor.accentColor 

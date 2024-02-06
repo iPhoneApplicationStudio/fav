@@ -8,14 +8,6 @@
 import UIKit
 import NVActivityIndicatorView
 
-enum UserFollowerVCState {
-    case followers
-    case following
-    case myFollowers
-    case myFollowing
-    case venueFollowing
-}
-
 class UserDetailsViewController: UIViewController {
     //MARK: IBOutlets
     @IBOutlet weak var followButton: UIButton!
@@ -39,6 +31,11 @@ class UserDetailsViewController: UIViewController {
     
     //MARK: Properties
     var viewModel: UserDetailViewProtocol?
+    private let imagePicker = UIImagePickerController()
+    private var isUpdatingUserImage = false
+    private var isUpdatingCoverImage = false
+    private var isInEditMode: Bool = false
+    @Dependency private var userSessionService: UserSessionService
     
     var isMyProfile: Bool {
         return viewModel?.isMyProfile ?? false
@@ -50,15 +47,6 @@ class UserDetailsViewController: UIViewController {
         }
     }
     
-    var bookmarkedVenues = [String]()// [SavedVenue]()
-    var favoritVenues = [String]()// [SavedVenue]()
-        
-    private var isUpdatingUserImage = false
-    private var isUpdatingCoverImage = false
-    
-    private var isInEditMode: Bool = false
-    @Dependency private var userSessionService: UserSessionService
-    
     //MARK: View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -66,12 +54,9 @@ class UserDetailsViewController: UIViewController {
         self.fetchData()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-    }
-    
     //MARK: Private methods
     private func initialSetting() {
+        self.imagePicker.delegate = self
         self.userContainerView.isHidden = true
         let nib = UINib(nibName: SavedCell.identifier,
                         bundle: nil)
@@ -86,45 +71,127 @@ class UserDetailsViewController: UIViewController {
         self.locationTextView.delegate = self
     }
     
+    private func setUpUserInfoUI() {
+        setupRightBarButton()
+        setupFollowButton()
+        setupUpdateImageButton()
+        //        setupUpdateCoverPhotoButton()
+        userImageView.rounded()
+        imageContainerView.rounded()
+    }
+    
+    private func setupRightBarButton() {
+        if isMyProfile {
+            self.setupDotsButton()
+        } else {
+            self.setupMapButton()
+        }
+    }
+    
     private func fetchData() {
         guard let viewModel else {
             return
         }
         
-        self.handleActivityIndicatorAnimations()
+        self.activityIndicatorView.start()
         viewModel.getUserDetail {[weak self] result in
-            self?.handleActivityIndicatorAnimations()
+            self?.activityIndicatorView.stop()
             switch result {
             case .success(let user):
                 guard let user else {
-                    let message = viewModel.errorMessage ?? Message.somethingWentWrong.value
-                    self?.showError(message: message)
+                    self?.showError(message: viewModel.errorMessage)
                     self?.handleResultsUI()
                     return
                 }
                 
                 self?.setupUser(user: user)
-                self?.checkIfFollowingUser()
-                self?.getVenues()
                 self?.handleResultsUI()
                 self?.userContainerView.isHidden = false
+                self?.fetchBookmarkedVenues()
             case .failure(let error):
                 self?.userContainerView.isHidden = true
                 self?.showError(message: error.localizedDescription)
-            case .none:
-                break
             }
         }
     }
     
-    private func handleActivityIndicatorAnimations() {
-        DispatchQueue.main.async {
-            if self.activityIndicatorView.isAnimating {
-                self.activityIndicatorView.isHidden = true
-                self.activityIndicatorView.stopAnimating()
-            } else {
-                self.activityIndicatorView.isHidden = false
-                self.activityIndicatorView.startAnimating()
+    private func handleFollowButtonToggle() {
+        guard let viewModel else {
+            return
+        }
+        
+        if followButton.isSelected == true {
+            if let followerCount = Int(followersCountLabel.text!) {
+                let newCount = followerCount - 1
+                followersCountLabel.text = "\(newCount)"
+            }
+            
+            followButton.isSelected = false
+            unfollowUser(viewModel: viewModel)
+        } else {
+            if let followerCount = Int(followersCountLabel.text!) {
+                let newCount = followerCount + 1
+                followersCountLabel.text = "\(newCount)"
+            }
+            
+            followButton.isSelected = true
+            followeUser(viewModel: viewModel)
+        }
+    }
+    
+    private func followeUser(viewModel: UserDetailViewProtocol) {
+        viewModel.followTheUser {[weak self] result in
+            switch result {
+            case .success(let status):
+                if status {
+                    self?.followButton.isSelected = true
+                    //self.checkIfFollowingUser()
+                } else {
+                    self?.showError(message: viewModel.errorMessage)
+                }
+                
+            case .failure(let error):
+                self?.showError(message: "There was an error \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    private func unfollowUser(viewModel: UserDetailViewProtocol) {
+        viewModel.unFollowTheUser {[weak self] result in
+            switch result {
+            case .success(let status):
+                if status {
+                    self?.followButton.isSelected = false
+                } else {
+                    self?.showError(message: viewModel.errorMessage)
+                }
+            case .failure(let error):
+                self?.showError(message: "There was an error \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    private func fetchBookmarkedVenues() {
+        guard let viewModel else {
+            return
+        }
+        
+        self.activityIndicatorView.start()
+        viewModel.getBookmarks {[weak self] result in
+            self?.activityIndicatorView.stop()
+            switch result {
+            case .success(let flag):
+                if !flag {
+                    self?.showError(message: (viewModel.errorMessage))
+                } else {
+                    if let allBookmarkedPlaces = viewModel.allBookmarkedPlaces {
+                        NotificationHelper.Post.refreshUserRecommendedPlaces(allBookmarkedPlaces) .fire()
+                    }
+                    
+                    self?.handleResultsUI()
+                }
+            case .failure(let error):
+                self?.showError(message: (error.localizedDescription))
             }
         }
     }
@@ -172,14 +239,13 @@ class UserDetailsViewController: UIViewController {
             return
         }
         
-        self.handleActivityIndicatorAnimations()
+        self.activityIndicatorView.start()
         viewModel.updateTheUser(tagLine: tagLine) {[weak self] result in
-            self?.handleActivityIndicatorAnimations()
+            self?.activityIndicatorView.stop()
             switch result {
             case .success(let status):
                 guard status else {
-                    let message = viewModel.errorMessage ?? Message.somethingWentWrong.value
-                    self?.showError(message: message)
+                    self?.showError(message: viewModel.errorMessage)
                     return
                 }
                 
@@ -190,27 +256,38 @@ class UserDetailsViewController: UIViewController {
             }
         }
         
-//        var changesMade = false
-//        if !(tagLineTextField.text?.isEmpty)! {
-//            let user = FavoritUser.current()
-//            user?.tagLine = tagLineTextField.text
-//            changesMade = true
-//        }
-//
-//        if !(locationTextView.text?.isEmpty)! {
-//            let user = FavoritUser.current()
-//            user?.userLocationName = locationTextView.text
-//            changesMade = true
-//        }
-//
+        //        var changesMade = false
+        //        if !(tagLineTextField.text?.isEmpty)! {
+        //            let user = FavoritUser.current()
+        //            user?.tagLine = tagLineTextField.text
+        //            changesMade = true
+        //        }
+        //
+        //        if !(locationTextView.text?.isEmpty)! {
+        //            let user = FavoritUser.current()
+        //            user?.userLocationName = locationTextView.text
+        //            changesMade = true
+        //        }
+        //
     }
+    
+    private func openFollowVC(filterMode: FollowType) {
+        guard let userID = user?._id,
+              let vc = FollowViewController.createFollowViewController() else {
+            return
+        }
         
+        vc.viewModel = FollowViewModel(userID: userID,
+                                       filterMode: filterMode)
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
     private func signOut() {
         guard let viewModel else {
             return
         }
         
-        self.showAlertWithYesAndNo(title: "Sign Out Confirmation", 
+        self.showAlertWithYesAndNo(title: "Sign Out Confirmation",
                                    message: "You are about to sign out of your account. This will end your current session, and any unsaved changes may be lost.",
                                    ok: "Sign Out",
                                    cancel: "Cancel") { status in
@@ -225,58 +302,8 @@ class UserDetailsViewController: UIViewController {
     }
 }
 
-// MARK: - Navigation
-extension UserDetailsViewController {
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        //        if segue.identifier == "toPlaceDetails" {
-        //            guard let detailController = segue.destination as? PlaceDetailViewController else {return}
-        //            let indexPath = sender as! IndexPath
-        //            switch indexPath.section {
-        //            case 0:
-        //                let favVenue = favoritVenues[indexPath.row]
-        //                if !isMyProfile {
-        //                    favVenue.venueTip = nil
-        //                    favVenue.isFavorit = false
-        //                }
-        //                detailController.savedVenue = favVenue
-        //            default:
-        //                let bookmarkVenue = bookmarkedVenues[indexPath.row]
-        //                if !isMyProfile {
-        //                    bookmarkVenue.venueTip = nil
-        //                }
-        //                detailController.savedVenue = bookmarkVenue
-        //            }
-        //        }
-        //
-        //        if segue.identifier == "toUserFollow" {
-        //            guard let userFollowVC = segue.destination as? UserFollowerViewController else {return}
-        //            if let userFollowerVCState = sender as? UserFollowerVCState {
-        //                userFollowVC.userFollowerVCState = userFollowerVCState
-        //            }
-        //            userFollowVC.viewdUser = user
-        //        }
-    }
-}
-
 // MARK: Setup
 private extension UserDetailsViewController {
-    private func setUpUserInfoUI() {
-        setupRightBarButton()
-        setupFollowButton()
-        setupUpdateImageButton()
-        //        setupUpdateCoverPhotoButton()
-        userImageView.rounded()
-        imageContainerView.rounded()
-    }
-    
-    private func setupRightBarButton() {
-        if isMyProfile {
-            self.setupDotsButton()
-        } else {
-            self.setupMapButton()
-        }
-    }
-    
     private func setupDotsButton() {
         let dotsButton = UIBarButtonItem(image: UIImage(named: "dotsIcon"),
                                          style: .plain,
@@ -287,7 +314,10 @@ private extension UserDetailsViewController {
     
     private func setupMapButton() {
         let image = UIImage(named: "map")?.withRenderingMode(.alwaysOriginal)
-        let mapButton = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(mapButtonPressed))
+        let mapButton = UIBarButtonItem(image: image,
+                                        style: .plain,
+                                        target: self,
+                                        action: #selector(mapButtonPressed))
         self.navigationItem.rightBarButtonItem  = mapButton
     }
     
@@ -325,12 +355,11 @@ private extension UserDetailsViewController {
             self.userContainerView.alpha = 1.0
         })
     }
-
+    
     
     func handleResultsUI() {
         DispatchQueue.main.async {
-            if self.favoritVenues.count == 0
-                && self.bookmarkedVenues.count == 0 {
+            if self.viewModel?.allBookmarkedPlaces?.count ?? 0 == 0 {
                 self.setNoVenuesLabel()
                 self.noVenuesLabel.isHidden = false
                 self.tableView.isHidden = true
@@ -389,9 +418,9 @@ private extension UserDetailsViewController {
     
     //MARK: Edit Mode
     
-    func saveImage(image: UIImage, 
+    func saveImage(image: UIImage,
                    isCover: Bool) {
-        self.handleActivityIndicatorAnimations()
+        self.activityIndicatorView.start()
         navigationItem.rightBarButtonItem?.isEnabled = false
         //        updateCoverPhotoButton.isEnabled = false
         updateUserImageButton.isEnabled = false
@@ -424,23 +453,6 @@ private extension UserDetailsViewController {
         //            }
         //        }
     }
-    
-    func setFollowerVCState() ->  UserFollowerVCState {
-        if isMyProfile {
-            return UserFollowerVCState.myFollowers
-        } else {
-            return UserFollowerVCState.followers
-        }
-    }
-    
-    func setFollowintVCState() ->  UserFollowerVCState {
-        if isMyProfile {
-            return UserFollowerVCState.myFollowing
-        } else {
-            return UserFollowerVCState.following
-        }
-    }
-    
 }
 
 // MARK: - Actions
@@ -488,38 +500,12 @@ extension UserDetailsViewController {
         self.handleFollowButtonToggle()
     }
     
-    private func handleFollowButtonToggle() {
-        guard let viewModel else {
-            return
-        }
-        
-        if followButton.isSelected == true {
-            if let followerCount = Int(followersCountLabel.text!) {
-                let newCount = followerCount - 1
-                followersCountLabel.text = "\(newCount)"
-            }
-            
-            followButton.isSelected = false
-            unfollowUser(viewModel: viewModel)
-        } else {
-            if let followerCount = Int(followersCountLabel.text!) {
-                let newCount = followerCount + 1
-                followersCountLabel.text = "\(newCount)"
-            }
-            
-            followButton.isSelected = true
-            followeUser(viewModel: viewModel)
-        }
-    }
-    
     @IBAction func followingButtonTapped(_ sender: Any) {
-        let followingState = setFollowintVCState()
-        performSegue(withIdentifier: "toUserFollow", sender: followingState)
+        openFollowVC(filterMode: .following)
     }
     
     @IBAction func followersButtonTapped(_ sender: Any) {
-        let followerState = setFollowerVCState()
-        performSegue(withIdentifier: "toUserFollow", sender: followerState)
+        openFollowVC(filterMode: .follower)
     }
     
     @IBAction func updateUserButtonTapped(_ sender: Any) {
@@ -533,14 +519,18 @@ extension UserDetailsViewController {
     }
     
     @objc func mapButtonPressed() {
-        let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let showOnMapVC = mainStoryboard.instantiateViewController(withIdentifier: "ShowOnMapViewController") as! ShowOnMapViewController
-        UIView.transition(with: self.navigationController!.view, duration: 1.0, options: .transitionFlipFromLeft, animations: {
+        guard let viewModel,
+              let bookmarkedVenues = viewModel.allBookmarkedPlaces,
+              let navigationController = self.navigationController,
+              let showOnMapVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ShowOnMapViewController") as? ShowOnMapViewController else {
+            return
+        }
+        
+        UIView.transition(with: navigationController.view,
+                          duration: 1.0,
+                          options: .transitionFlipFromLeft, animations: {
             showOnMapVC.isfromProfile = true
-            var combinedVenues = self.bookmarkedVenues
-            combinedVenues.append(contentsOf: self.favoritVenues)
-            
-            //            showOnMapVC.userVenues = combinedVenues
+            showOnMapVC.bookmarkedVenues = bookmarkedVenues
             self.navigationController?.pushViewController(showOnMapVC, animated: false)
         }, completion: nil)
     }
@@ -590,118 +580,25 @@ extension UserDetailsViewController {
         //            self.locationTextView.isHidden = false
         //        }
     }
-    
-    //    func handleCompletedSignOut() {
-    //        UserDefaults.standard.set(false, forKey: "isLoggedIn")
-    //        NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.NotificationKeys.userSignOutNotification), object: nil)
-    //    }
-    
-    func getVenues() {
-        //        let params: [String:String] = [
-        //            "userObjectId" : userId]
-        //        let services = VenueServices()
-        //        services.getUserVenues(params: params) { (favorits, bookmarked, error) in
-        //            if error == nil {
-        //                if self.favoritVenues.count > 0 {
-        //                    self.favoritVenues.removeAll()
-        //                }
-        //                if let favoritsVenues = favorits, favoritsVenues.count > 0 {
-        //                    self.favoritVenues = DistanceHelper.addDistanceFromUserAndSort(venueArray: favoritsVenues)
-        //                }
-        //
-        //                if self.bookmarkedVenues.count > 0 {
-        //                    self.bookmarkedVenues.removeAll()
-        //                }
-        //
-        //                if let bookmarkedVenues = bookmarked, bookmarkedVenues.count > 0 {
-        //                    self.bookmarkedVenues = DistanceHelper.addDistanceFromUserAndSort(venueArray: bookmarkedVenues)
-        //                }
-        //
-        //            } else {
-        //
-        //                self.showError(message: (error?.localizedDescription)!)
-        //                print(error!)
-        //            }
-        //
-        //            self.handleActivityIndicatorAnimations()
-        //            self.handleResultsUI()
-        //        }
-    }
-    
-    func checkIfFollowingUser() {
-        //        userService.checkIfUserIsFollowed(toUser: self.user!) { (follow, isFollowed, error) in
-        //            if error == nil {
-        //                self.followButton.isSelected = isFollowed
-        //                if !self.followButton.isEnabled {
-        //                    self.followButton.isEnabled = true
-        //                }
-        //                if let follow = follow {
-        //                    self.follow = follow
-        //                }
-        //            } else {
-        //                self.showError(message: "There was an error \(error?.localizedDescription)")
-        //            }
-        //        }
-    }
-    
-    func followeUser(viewModel: UserDetailViewProtocol) {
-        viewModel.followTheUser {[weak self] result in
-            switch result {
-            case .success(let status):
-                if status {
-                    self?.followButton.isSelected = true
-                    //self.checkIfFollowingUser()
-                } else {
-                    self?.showError(message: viewModel.errorMessage ?? "")
-                }
-                
-            case .failure(let error):
-                self?.showError(message: "There was an error \(error.localizedDescription)")
-            case .none:
-                return
-            }
-        }
-    }
-    
-    func unfollowUser(viewModel: UserDetailViewProtocol) {
-        viewModel.unFollowTheUser {[weak self] result in
-            switch result {
-            case .success(let status):
-                if status {
-                    self?.followButton.isSelected = false
-                } else {
-                    self?.showError(message: viewModel.errorMessage ?? "")
-                }
-            case .failure(let error):
-                self?.showError(message: "There was an error \(error.localizedDescription)")
-            case .none:
-                return
-            }
-        }
-    }
 }
 
-//MARK: ImagePickerDelegate
 extension UserDetailsViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func presentCameraPickerController() {
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera) {
-            let imagePicker = UIImagePickerController()
             imagePicker.sourceType = .camera
-            imagePicker.delegate = self
-            present(imagePicker, animated: true, completion: nil)
+            self.present(imagePicker, animated: true, completion: nil)
         }
     }
     
     func presentPhotoPickerController() {
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.photoLibrary) {
-            let imagePicker = UIImagePickerController()
             imagePicker.sourceType = .photoLibrary
-            imagePicker.delegate = self
-            present(imagePicker, animated: true, completion: nil)
+            self.present(imagePicker, animated: true, completion: nil)
         }
     }
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+    func imagePickerController(_ picker: UIImagePickerController,
+                               didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let pickedImage = info[.originalImage] as? UIImage {
             if isUpdatingUserImage {
                 userImageView.image = pickedImage
@@ -716,49 +613,43 @@ extension UserDetailsViewController: UIImagePickerControllerDelegate, UINavigati
     }
 }
 
-//MARK: UITableView Delegate & DataSource
 extension UserDetailsViewController:  UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch section {
-        case 0:
-            return favoritVenues.count
-        default:
-            return bookmarkedVenues.count
+    func tableView(_ tableView: UITableView,
+                   numberOfRowsInSection section: Int) -> Int {
+        return viewModel?.allBookmarkedPlaces?.count ?? 0
+    }
+    
+    func tableView(_ tableView: UITableView,
+                   estimatedHeightForHeaderInSection section: Int) -> CGFloat {
+        return SavedCell.height
+    }
+    
+    func tableView(_ tableView: UITableView,
+                   cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let viewModel,
+              let cell = tableView.dequeueReusableCell(withIdentifier: SavedCell.identifier) as? SavedCell else {
+            return UITableViewCell()
         }
-    }
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
-    }
-    
-    func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
-        return 180
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: SavedCell.identifier) as! SavedCell
-        cell.selectionStyle = .none
-        //        let venue: SavedVenue?
         
-        switch indexPath.section {
-        case 0:
-            //            venue = favoritVenues[indexPath.row]
-            //            cell.savedVenue = venue
-            cell.starImageView.isHidden = false
-        default:
-            break
-            //            venue = bookmarkedVenues[indexPath.row]
-            //            cell.savedVenue = venue
-        }
+        cell.selectionStyle = .none
+        cell.place = viewModel.getBookmarkPlaceFor(index: indexPath.row)?.place
         return cell
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        performSegue(withIdentifier: "toPlaceDetails", sender: indexPath)
+    func tableView(_ tableView: UITableView,
+                   didSelectRowAt indexPath: IndexPath) {
+        guard let viewModel,
+              let placeDetail = viewModel.getBookmarkPlaceFor(index: indexPath.row),
+              let place = placeDetail.place,
+              let detailController = PlaceDetailViewController.getViewController(viewModel: PlaceDetailViewModel(place: place, placeID: place.placeId))else {
+            return
+        }
+        
+        self.navigationController?.pushViewController(detailController,
+                                                      animated: true)
     }
 }
 
-// MARK: UITextFieldDelegate
 extension UserDetailsViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
@@ -767,12 +658,13 @@ extension UserDetailsViewController: UITextFieldDelegate {
 }
 
 extension UserDetailsViewController {
-    static func createViewController() -> UserDetailsViewController? {
+    static func createViewController(viewModel: UserDetailViewProtocol) -> UserDetailsViewController? {
         guard let vc = UIStoryboard(name: StoryboardName.main.value,
                                     bundle: nil).instantiateViewController(withIdentifier: ViewControllerName.userDetail.value) as? UserDetailsViewController else {
             return nil
         }
         
+        vc.viewModel = viewModel
         return vc
     }
 }

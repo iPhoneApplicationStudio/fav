@@ -33,36 +33,54 @@ enum FollowError: Error {
 
 enum FollowType: Int {
     case following, follower
+    
+    var query: String {
+        switch self {
+        case .follower:
+            return "followers"
+        case .following:
+            return "followedBy"
+        }
+    }
 }
 
 protocol FollowProtocol: AnyObject {
     var title: String { get }
-    var numberOfFollowingUsers: Int { get }
-    var numberOfFollowerUsers: Int { get }
+    var numberOfUsers: Int { get }
+    var isMyProfile: Bool { get }
     
     var viewState: FollowViewState { get set }
     var didUpdateState: ((FollowViewState) -> Void)? { get set }
     var handleLoadingState: ((Bool) -> Void)? { get set }
     
-    func followingUserForIndex(_ index: Int) -> User?
-    func followerUserForIndex(_ index: Int) -> User?
-    func getFollowingUsers(shouldRefresh: Bool)
-    func getFollowerUsers(shouldRefresh: Bool)
+    func userForIndex(_ index: Int) -> User?
+    func loadUsers(shouldRefresh: Bool)
 }
 
 final class FollowViewModel: FollowProtocol {
     private var _viewState: FollowViewState = .loading
-    private var followingUsers = [User]()
-    private var followerUsers = [User]()
+    private var users = [User]()
     private let networkService = FollowService()
+    private let userID: String
+    private let filterMode: FollowType
 
     var didUpdateState: ((FollowViewState) -> Void)?
     var handleLoadingState: ((Bool) -> Void)?
     
-    @Dependency private(set) var userSessionService: UserSessionService
+    @Dependency var userSessionService: UserSessionService
+        
+    init(userID: String,
+         filterMode: FollowType) {
+        self.userID = userID
+        self.filterMode = filterMode
+    }
+    
+    var isMyProfile: Bool {
+        userSessionService.loggedInUserID == userID
+    }
     
     var title: String {
-        return "Following"
+        return filterMode == .following ? "Following" : "Follower"
     }
     
     var viewState: FollowViewState {
@@ -73,61 +91,36 @@ final class FollowViewModel: FollowProtocol {
         }
     }
 
-    var numberOfFollowingUsers: Int {
-        return followingUsers.count
+    var numberOfUsers: Int {
+        return users.count
     }
     
-    var numberOfFollowerUsers: Int {
-        return followerUsers.count
-    }
-    
-    func followingUserForIndex(_ index: Int) -> User? {
-        guard index >= 0 || index < numberOfFollowingUsers else {
+    func userForIndex(_ index: Int) -> User? {
+        guard index >= 0 || index < numberOfUsers else {
             return nil
         }
         
-        return followingUsers[index]
+        return users[index]
     }
     
-    func followerUserForIndex(_ index: Int) -> User? {
-        guard index >= 0 || index < numberOfFollowerUsers else {
-            return nil
-        }
-        
-        return followerUsers[index]
-    }
-    
-    func getFollowingUsers(shouldRefresh: Bool = false) {
-        self.getAllFollowing(shouldRefresh: shouldRefresh)
-    }
-    
-    func getFollowerUsers(shouldRefresh: Bool = false) {
-        self.getAllFollowers(shouldRefresh: shouldRefresh)
-    }
-    
-    private func getAllFollowers(shouldRefresh: Bool = false) {
-        guard
-            userSessionService.isLoggedIn,
-            let userID = userSessionService.loggedInUserID
-        else {
-            self.didUpdateState?(.error(.notLoggedIn))
-            return
-        }
-        
-        if !shouldRefresh && self.followerUsers.count > 0 {
+    func loadUsers(shouldRefresh: Bool = false) {
+        if !shouldRefresh && self.users.count > 0 {
             self.didUpdateState?(.loaded)
             return
         }
         
         self.didUpdateState?(.loading)
         self.handleLoadingState?(true)
+        filterMode == .following ? self.loadFollowingUsers() : self.loadFollowerUsers()
+    }
+    
+    private func loadFollowingUsers() {
         let request = FollowRequest(userID: userID,
-                                    type: "followers")
-        
-        networkService.allUsers(request: request) { [weak self] result in
+                                    type: filterMode.query)
+        let handler: (Result<FollowingResponse, APIError>) -> Void = { [weak self] result in
             switch result {
             case .success(let response):
-                self?.followerUsers.removeAll()
+                self?.users.removeAll()
                 guard let allUsersData = response.allUsersData else {
                     self?.didUpdateState?(.noUsers)
                     return
@@ -135,7 +128,7 @@ final class FollowViewModel: FollowProtocol {
                 
                 for data in allUsersData {
                     if let user = data.user {
-                        self?.followerUsers.append(user)
+                        self?.users.append(user)
                     }
                 }
                 
@@ -146,31 +139,17 @@ final class FollowViewModel: FollowProtocol {
             
             self?.handleLoadingState?(false)
         }
+        
+        networkService.allFollowingUsers(request: request, completion: handler)
     }
     
-    private func getAllFollowing(shouldRefresh: Bool = false) {
-        guard
-            userSessionService.isLoggedIn,
-            let userID = userSessionService.loggedInUserID
-        else {
-            self.didUpdateState?(.error(.notLoggedIn))
-            return
-        }
-        
-        if !shouldRefresh &&  self.followingUsers.count > 0 {
-            self.didUpdateState?(.loaded)
-            return
-        }
-        
-        self.didUpdateState?(.loading)
-        self.handleLoadingState?(true)
+    private func loadFollowerUsers() {
         let request = FollowRequest(userID: userID,
-                                    type: "followedBy")
-        
-        networkService.allFollowingUsers(request: request) { [weak self] result in
+                                    type: filterMode.query)
+        let handler: (Result<FollowResponse, APIError>) -> Void = { [weak self] result in
             switch result {
             case .success(let response):
-                self?.followingUsers.removeAll()
+                self?.users.removeAll()
                 guard let allUsersData = response.allUsersData else {
                     self?.didUpdateState?(.noUsers)
                     return
@@ -178,7 +157,7 @@ final class FollowViewModel: FollowProtocol {
                 
                 for data in allUsersData {
                     if let user = data.user {
-                        self?.followingUsers.append(user)
+                        self?.users.append(user)
                     }
                 }
                 
@@ -189,5 +168,7 @@ final class FollowViewModel: FollowProtocol {
             
             self?.handleLoadingState?(false)
         }
+        
+        networkService.allUsers(request: request, completion: handler)
     }
 }

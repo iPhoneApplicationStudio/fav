@@ -7,6 +7,10 @@ import UIKit
 import MapKit
 import NVActivityIndicatorView
 
+protocol MapViewControllerDelegate: AnyObject {
+    func filterModeChanged(mode: PlaceType)
+}
+
 class MapViewController: UIViewController {    
     //MARK: IBOutlet
     @IBOutlet weak var mapView: MKMapView!
@@ -20,6 +24,7 @@ class MapViewController: UIViewController {
     private let regionRadius: CLLocationDistance = 2000
     private var mapViewRegion: MKCoordinateRegion?
     
+    weak var mapDelegate: MapViewControllerDelegate?
     weak var viewModel: PlaceListProtocol?
     var filterMode: PlaceType = .myPlaces
     
@@ -31,12 +36,26 @@ class MapViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        locationService.delegate = self
         self.reloadScreen()//TODO add closure to refresh screen
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-//        self.mapDelegate?.passFilterState(filterMode: filterMode)
+        self.mapDelegate?.filterModeChanged(mode: filterMode)
+        locationService.delegate = nil
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toFindPlaces" {
+            guard let vc = segue.destination as? FindPlacesViewController else {
+                return
+            }
+            
+            let viewMode = FindPlacesViewModel(radius: FavoritConstant.defaultFrequency)
+            vc.viewModel = viewMode
+        }
     }
     
     deinit {
@@ -46,7 +65,6 @@ class MapViewController: UIViewController {
     
     //MARK: Private Methods
     private func initialSetting() {
-        LocationService.shared.startUpdatingLocation()
         self.mapView.delegate = self
         self.mapView.showsUserLocation = true
         self.mapView.layer.cornerRadius = 5.0
@@ -60,43 +78,26 @@ class MapViewController: UIViewController {
                                          action: #selector(backToList))
         self.navigationItem.leftBarButtonItem  = listButton
         self.addNotificationObserver()
+        
+        if locationService.currentLocation == nil {
+            self.locationService.startUpdatingLocation()
+        } 
     }
     
     private func addNotificationObserver() {
         NotificationCenter.default.addObserver(self,
-                                               selector: #selector(refreshMyPlaces),
-                                               name: .refreshMyPlaces, object: nil)
+                                               selector: #selector(refreshPlacesOnMap),
+                                               name: .refreshPlacesOnMap, object: nil)
         
     }
-    
-    private func checkLocationService() {
-        guard let _ = viewModel else {
-            return
-        }
-        
-        self.locationService.locationServicesCheck {[unowned self] flag, message in
-            guard let flag else {
-                self.locationService.requestAuthorization()
-                return
-            }
-            
-            if flag == false,
-               let _ = message {
-                self.openSettingApplication()
-            } else if flag == true {
-                self.locationService.requestOneTimeLocation()
-            }
-        }
-    }
-    
     
     private func getMyBookmarks() {
         guard let viewModel else {
             return
         }
         
-        guard viewModel.allMyPlaces?.count ?? 0 <= 0 else {
-            self.reloadScreen(details: viewModel.allMyPlaces)
+        guard viewModel.allMyBookmarkedPlaces?.count ?? 0 <= 0 else {
+            self.reloadScreen(details: viewModel.allMyBookmarkedPlaces)
             return
         }
         
@@ -106,7 +107,7 @@ class MapViewController: UIViewController {
             switch result {
             case .success(let flag):
                 if flag {
-                    self?.reloadScreen(details: viewModel.allMyPlaces)
+                    self?.reloadScreen(details: viewModel.allMyBookmarkedPlaces)
                 } else {
                     self?.showError(message: viewModel.errorMessage)
                 }
@@ -122,7 +123,7 @@ class MapViewController: UIViewController {
             return
         }
         
-        guard viewModel.allRecommendedBookmarkedPlaces?.count ?? 0 > 0 else {
+        guard viewModel.allRecommendedBookmarkedPlaces?.count ?? 0 <= 0 else {
             self.reloadScreen(details: viewModel.allRecommendedBookmarkedPlaces)
             return
         }
@@ -149,7 +150,7 @@ class MapViewController: UIViewController {
             return
         }
         
-        guard viewModel.allPlaces?.count ?? 0 > 0 else {
+        guard viewModel.allPlaces?.count ?? 0 <= 0 else {
             self.reloadScreen(details: viewModel.allPlaces)
             return
         }
@@ -158,7 +159,7 @@ class MapViewController: UIViewController {
     private func reloadScreen() {
         switch filterMode {
         case .myPlaces:
-            self.reloadScreen(details: viewModel?.allMyPlaces)
+            self.reloadScreen(details: viewModel?.allMyBookmarkedPlaces)
         case .recommendedPlaces:
             self.reloadScreen(details: viewModel?.allRecommendedBookmarkedPlaces)
         case .allPlaces:
@@ -216,8 +217,7 @@ class MapViewController: UIViewController {
     
     //MARK: IBAction
     @IBAction func fetchData() {
-        switch segmentedFilterControl.selectedSegmentIndex
-        {
+        switch segmentedFilterControl.selectedSegmentIndex {
         case 0:
             filterMode = .myPlaces
             self.getMyBookmarks()
@@ -245,8 +245,8 @@ class MapViewController: UIViewController {
         }, completion: nil)
     }
     
-    @objc private func refreshMyPlaces() {
-       // self.reloadScreen()
+    @objc private func refreshPlacesOnMap() {
+        self.reloadScreen()
     }
 }
 
@@ -306,22 +306,18 @@ extension MapViewController: MKMapViewDelegate {
 }
 
 //MARK: Custom Delegates
-//extension PlacesBaseViewController: MapViewControllerDelegate, LocationServiceDelegate {
+//extension PlacesBaseViewController: MapViewControllerDelegate {
 //    // MARK: MapViewControllerDelegate
 //    func passFilterState(passedFilterMode: FilterMode) {
 //        filterMode = passedFilterMode
 //        handleFilterData()
 //    }
-//    // MARK: LocationService Delegate
-//    func tracingLocation(currentLocation: CLLocation) {
-//        LocationService.shared.stopUpdatingLocation()
-//        LocationService.shared.centerMapLocation = currentLocation
-//        handleFilterData()
-//    }
-//    
-//    func tracingLocationDidFailWithError(error: Error) {
-//        print("tracing Location Error : \(error)")
-//        handleFilterData()
-//    }
-//    
 //}*/
+
+extension MapViewController: LocationServiceDelegate {
+    func tracingLocationDidFailWithError(error: Error) { }
+    
+    func tracingLocation(currentLocation: CLLocation) {
+        self.reloadScreen()
+    }
+}

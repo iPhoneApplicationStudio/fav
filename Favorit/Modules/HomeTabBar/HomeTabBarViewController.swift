@@ -8,12 +8,17 @@
 import UIKit
 
 final class HomeTabBarViewController: UITabBarController {
+    @Dependency private(set) var userSessionService: UserSessionService
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nil, bundle: nil)
         LocationService.shared.locationServicesCheck { flag, _ in
             if flag == nil {
                 LocationService.shared.requestAuthorization()
+            } else if flag == true {
+                LocationService.shared.startUpdatingLocation()
+            } else if flag == false {
+                self.openSettingApplication()
             }
         }
         
@@ -41,17 +46,20 @@ final class HomeTabBarViewController: UITabBarController {
                 return navVC
                 
             case .following:
-                guard let vc = FollowViewController.createFollowViewController() else {
+                guard let userID = userSessionService.loggedInUserID,
+                      let vc = FollowViewController.createFollowViewController() else {
                     return UIViewController()
                 }
                 
-                vc.viewModel = FollowViewModel()
+                vc.viewModel = FollowViewModel(userID: userID,
+                                               filterMode: .following)
                 let nc = UINavigationController(rootViewController: vc)
                 nc.tabBarItem = tabItem.tabBarItem
                 return nc
                 
             case .feed:
-                guard let vc = FeedViewController.createViewController() else {
+                guard let userID = userSessionService.loggedInUserID,
+                      let vc = FeedViewController.createViewController(viewModel: FeedActivityViewModel(userID: userID)) else {
                     return UIViewController()
                 }
                 

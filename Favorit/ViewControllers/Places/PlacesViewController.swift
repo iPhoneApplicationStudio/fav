@@ -22,8 +22,8 @@ class PlacesViewController: UIViewController {
     //MARK: Properties
     private var filterMode: PlaceType = .myPlaces
     private var shouldRefresh = false
-    private let locationService = LocationService.shared
     private let disptahcGroup = DispatchGroup()
+    private var shouldRefreshScreenOnAppear = false
     
     var viewModel: PlaceListProtocol?
     lazy var refreshControl: UIRefreshControl = {
@@ -38,8 +38,26 @@ class PlacesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.initialSetting()
-        //        self.checkLocationService()
         self.fetchData()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if shouldRefreshScreenOnAppear {
+            self.shouldRefreshScreenOnAppear = false
+            self.fetchData()
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toFindPlaces" {
+            guard let vc = segue.destination as? FindPlacesViewController else {
+                return
+            }
+            
+            let viewMode = FindPlacesViewModel(radius: FavoritConstant.defaultFrequency)
+            vc.viewModel = viewMode
+        }
     }
     
     deinit {
@@ -48,7 +66,6 @@ class PlacesViewController: UIViewController {
     
     //MARK: Private methods
     private func initialSetting() {
-        self.locationService.delegate = self
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.tableView.contentInset = UIEdgeInsets(top: 0,
@@ -73,91 +90,38 @@ class PlacesViewController: UIViewController {
         
     }
     
-    private func checkLocationService() {
-        guard let _ = viewModel else {
-            return
-        }
-        
-        self.locationService.locationServicesCheck {[unowned self] flag, message in
-            guard let flag else {
-                self.locationService.requestAuthorization()
-                return
-            }
-            
-            if flag == false,
-               let _ = message {
-                self.openSettingApplication()
-            } else if flag == true {
-                self.locationService.requestOneTimeLocation()
-            }
-        }
-    }
-    
-    private func getMyPlaces() {
+    private func getMyBookmarks(shouldRefresh: Bool) {
         guard let viewModel else {
             return
         }
         
-        disptahcGroup.enter()
-        disptahcGroup.enter()
+        guard (viewModel.allMyBookmarkedPlaces?.count ?? 0 <= 0) || shouldRefresh else {
+            self.reloadScreen(dataCount: viewModel.allMyBookmarkedPlaces?.count ?? 0)
+            return
+        }
+        
         self.activityIndicatorView.start()
-        self.getMyBookmarks()
-        self.getMyFavourites()
-        disptahcGroup.notify(queue: .main) {
-            self.stopActivityIndicator()
-            self.reloadScreen(dataCount: viewModel.allMyPlacesCount)
-        }
-    }
-    
-    private func getMyBookmarks() {
-        guard let viewModel else {
-            return
-        }
-        
         viewModel.getMyBookmarks {[weak self] result in
-            defer {
-                self?.disptahcGroup.leave()
-            }
-            
+            self?.stopActivityIndicator()
             switch result {
             case .success(let flag):
                 if !flag {
                     self?.showError(message: (viewModel.errorMessage))
+                } else {
+                    self?.reloadScreen(dataCount: viewModel.allMyBookmarkedPlaces?.count ?? 0)
                 }
             case .failure(let error):
                 self?.showError(message: (error.localizedDescription))
             }
         }
     }
-    
-    private func getMyFavourites() {
+        
+    private func getRecommendedBookmarks(shouldRefresh: Bool) {
         guard let viewModel else {
             return
         }
         
-        viewModel.getMyFavourites() {[weak self] result in
-            defer {
-                self?.disptahcGroup.leave()
-            }
-            
-            switch result {
-            case .success(let flag):
-                if !flag {
-                    self?.showError(message: (viewModel.errorMessage))
-                }
-                
-            case .failure(let error):
-                self?.showError(message: (error.localizedDescription))
-            }
-        }
-    }
-    
-    private func getRecommendedBookmarks() {
-        guard let viewModel else {
-            return
-        }
-        
-        guard viewModel.allRecommendedBookmarkedPlaces?.count ?? 0 <= 0 else {
+        guard (viewModel.allRecommendedBookmarkedPlaces?.count ?? 0 <= 0) || shouldRefresh else {
             self.reloadScreen(dataCount: viewModel.allRecommendedBookmarkedPlaces?.count ?? 0)
             return
         }
@@ -179,12 +143,12 @@ class PlacesViewController: UIViewController {
         }
     }
     
-    private func getAllBookmarks() {
+    private func getAllBookmarks(shouldRefresh: Bool) {
         guard let viewModel else {
             return
         }
         
-        guard viewModel.allPlaces?.count ?? 0 <= 0 else {
+        guard (viewModel.allPlaces?.count ?? 0 <= 0) || shouldRefresh else {
             self.reloadScreen(dataCount: viewModel.allPlaces?.count ?? 0)
             return
         }
@@ -202,6 +166,7 @@ class PlacesViewController: UIViewController {
             self?.tableView.isHidden = false
             self?.tableView.reloadData()
             self?.fadeInUI()
+            NotificationHelper.Post.refreshPlacesOnMap.fire()
         }
     }
     
@@ -232,13 +197,13 @@ class PlacesViewController: UIViewController {
         switch segmentedFilterControl.selectedSegmentIndex {
         case 0:
             filterMode = .myPlaces
-            self.getMyPlaces()
+            self.getMyBookmarks(shouldRefresh: shouldRefresh)
         case 1:
             filterMode = .recommendedPlaces
-            self.getRecommendedBookmarks()
+            self.getRecommendedBookmarks(shouldRefresh: shouldRefresh)
         case 2:
             filterMode = .allPlaces
-            self.getAllBookmarks()
+            self.getAllBookmarks(shouldRefresh: shouldRefresh)
         default:
             break
         }
@@ -252,6 +217,7 @@ class PlacesViewController: UIViewController {
             return
         }
         
+        mapViewController.mapDelegate = self
         UIView.transition(with: view,
                           duration: 1.0,
                           options: .transitionFlipFromLeft,
@@ -270,36 +236,12 @@ class PlacesViewController: UIViewController {
     }
     
     @objc private func refreshMyPlaces() {
-        self.getMyPlaces()
+        self.getMyBookmarks(shouldRefresh: true)
     }
-    
-    // MARK: - Navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "toFindPlaces" {
-            guard let vc = segue.destination as? FindPlacesViewController else {
-                return
-            }
-            
-            let viewMode = FindPlacesViewModel(radius: FavoritConstant.defaultFrequency)
-            vc.viewModel = viewMode
-        }
-    }
+
 }
 
 extension PlacesViewController:  UITableViewDelegate, UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        guard let viewModel else {
-            return 0
-        }
-        
-        switch filterMode {
-        case .myPlaces:
-            return 2
-        case .recommendedPlaces, .allPlaces:
-            return 1
-        }
-    }
-    
     func tableView(_ tableView: UITableView,
                    numberOfRowsInSection section: Int) -> Int {
         guard let viewModel else {
@@ -308,15 +250,7 @@ extension PlacesViewController:  UITableViewDelegate, UITableViewDataSource {
         
         switch filterMode {
         case .myPlaces:
-            switch section {
-            case 0:
-                return viewModel.allMyFavouritePlaces?.count ?? 0
-            case 1:
-                return viewModel.allMyBookmarkedPlaces?.count ?? 0
-            default:
-                return 0
-            }
-            
+            return viewModel.allMyBookmarkedPlaces?.count ?? 0
         case .recommendedPlaces:
             return viewModel.allRecommendedBookmarkedPlaces?.count ?? 0
         case .allPlaces:
@@ -326,7 +260,7 @@ extension PlacesViewController:  UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView,
                    estimatedHeightForHeaderInSection section: Int) -> CGFloat {
-        return 180
+        return SavedCell.height
     }
     
     func tableView(_ tableView: UITableView,
@@ -339,9 +273,11 @@ extension PlacesViewController:  UITableViewDelegate, UITableViewDataSource {
         cell.selectionStyle = .none
         cell.starImageView.isHidden = true
         cell.place = viewModel.getItemFor(index: indexPath.row,
-                                          for: filterMode,
-                                          section: indexPath.section)?.place
-        cell.section = indexPath.section
+                                          for: filterMode)?.place
+        if filterMode == .myPlaces {
+            cell.configureStarImage()
+        }
+        
         return cell
     }
     
@@ -370,7 +306,7 @@ extension PlacesViewController:  UITableViewDelegate, UITableViewDataSource {
                 case .success(let flag):
                     if flag {
                         self?.tableView.deleteRows(at: [indexPath], with: .top)
-                        if viewModel.allMyPlacesCount == 0 {
+                        if viewModel.allMyBookmarkedPlaces?.count == 0 {
                             self?.showEmptyView()
                         }
                     } else {
@@ -381,11 +317,7 @@ extension PlacesViewController:  UITableViewDelegate, UITableViewDataSource {
                 }
             }
             
-            if indexPath.section == 0 {
-                viewModel.removeFavouriteFor(index: index, handler: handler)
-            } else {
-                viewModel.removeBookmarkFor(index: index, handler: handler)
-            }
+            viewModel.removeBookmarkFor(index: index, handler: handler)
         }
     }
     
@@ -393,8 +325,7 @@ extension PlacesViewController:  UITableViewDelegate, UITableViewDataSource {
                    didSelectRowAt indexPath: IndexPath) {
         guard let viewModel,
               let placeDetail = viewModel.getItemFor(index: indexPath.row,
-                                                        for: filterMode,
-                                                     section: indexPath.section),
+                                                        for: filterMode),
               let place = placeDetail.place,
               let detailController = PlaceDetailViewController.getViewController(viewModel: PlaceDetailViewModel(place: place, placeID: place.placeId))else {
             return
@@ -402,27 +333,6 @@ extension PlacesViewController:  UITableViewDelegate, UITableViewDataSource {
         
         self.navigationController?.pushViewController(detailController,
                                                       animated: true)
-    }
-    
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        guard viewModel != nil else {
-            return nil
-        }
-        
-        switch filterMode {
-        case .myPlaces:
-            switch section {
-            case 0:
-                return "Favorites"
-            case 1:
-                return "Bookmarks"
-            default:
-                return nil
-            }
-            
-        case .recommendedPlaces, .allPlaces:
-            return nil
-        }
     }
 }
 
@@ -440,15 +350,11 @@ extension PlacesViewController {
     }
 }
 
-//MARK: LocationServiceDelegate
-extension PlacesViewController: LocationServiceDelegate {
-    func tracingLocation(currentLocation: CLLocation) {
-        self.locationService.stopUpdatingLocation()
-        //self.handleFilterData
-    }
-    
-    func tracingLocationDidFailWithError(error: Error) {
-        
+extension PlacesViewController: MapViewControllerDelegate {
+    func filterModeChanged(mode: PlaceType) {
+        self.filterMode = mode
+        self.segmentedFilterControl.selectedSegmentIndex = filterMode.rawValue
+        self.shouldRefreshScreenOnAppear = true
     }
 }
 

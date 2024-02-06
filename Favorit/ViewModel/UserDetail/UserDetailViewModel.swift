@@ -11,36 +11,40 @@ protocol UserDetailViewProtocol: AnyObject {
     var isEditMode: Bool { get }
     var isMyProfile: Bool { get }
     var isFollowedByMe: Bool { get }
-    var errorMessage: String? { get }
+    var errorMessage: String { get }
+    var allBookmarkedPlaces: [PlaceDetail]? { get }
     
-    func getUserDetail(hanlder: @escaping ((Result<User?, APIError>)?) -> Void)
-    func followTheUser(hanlder: @escaping ((Result<Bool, APIError>)?) -> Void)
-    func unFollowTheUser(hanlder: @escaping ((Result<Bool, APIError>)?) -> Void)
+    func getBookmarkPlaceFor(index: Int) -> PlaceDetail?
+    func getUserDetail(hanlder: @escaping (Result<User?, APIError>) -> Void)
+    func followTheUser(hanlder: @escaping (Result<Bool, APIError>) -> Void)
+    func unFollowTheUser(hanlder: @escaping (Result<Bool, APIError>) -> Void)
     
     func updateTheUser(tagLine: String?, hanlder: @escaping ((Result<Bool, APIError>)?) -> Void)
+    func getBookmarks(handler: @escaping (Result<Bool, Error>) -> Void)
     func signout() -> Bool
 }
 
 class UserDetailViewModel: UserDetailViewProtocol {
-    private var userID: String?
+    //MARK: Private Properties
+    private var bookmarkedPlaces = [PlaceDetail]()
+    private let userID: String
     private var _isEditEnable = false
     private var user: User?
     private var _errorMessage: String?
     
     private let userDetailService = UserDetailsService()
     private let userFollowService = UserFollowService()
+    private let listService = PlaceListService()
     
     @Dependency var userSessionService: UserSessionService
     
-    init?(userID: String?) {
-        guard let userID else {
-            return nil
-        }
-        
+    //MARK: Init
+    init(userID: String) {
         self.userID = userID
         self._isEditEnable = isMyProfile
     }
     
+    //MARK: Properties
     var isMyProfile: Bool {
         userSessionService.loggedInUserID == self.userID
     }
@@ -53,16 +57,24 @@ class UserDetailViewModel: UserDetailViewProtocol {
         return user?.followed ?? false
     }
     
-    var errorMessage: String? {
-        _errorMessage
+    var allBookmarkedPlaces: [PlaceDetail]? {
+        bookmarkedPlaces
     }
     
-    func getUserDetail(hanlder: @escaping ((Result<User?, APIError>)?) -> Void) {
-        guard let userID else {
-            hanlder(nil)
-            return
+    var errorMessage: String {
+        _errorMessage ?? Message.somethingWentWrong.value
+    }
+    
+    //MARK: Methods
+    func getBookmarkPlaceFor(index: Int) -> PlaceDetail? {
+        guard index >= 0, index < bookmarkedPlaces.count else {
+            return nil
         }
         
+        return bookmarkedPlaces[index]
+    }
+    
+    func getUserDetail(hanlder: @escaping (Result<User?, APIError>) -> Void) {
         self.userDetailService.getUserDetails(UserDetailRequest(userID: userID)) {[weak self] result in
             self?._errorMessage = nil
             switch result {
@@ -81,12 +93,7 @@ class UserDetailViewModel: UserDetailViewProtocol {
         }
     }
     
-    func followTheUser(hanlder: @escaping ((Result<Bool, APIError>)?) -> Void) {
-        guard let userID else {
-            hanlder(nil)
-            return
-        }
-        
+    func followTheUser(hanlder: @escaping (Result<Bool, APIError>) -> Void) {
         userFollowService.follow(userID: userID) {[weak self] result in
             self?._errorMessage = nil
             switch result {
@@ -102,12 +109,7 @@ class UserDetailViewModel: UserDetailViewProtocol {
         }
     }
     
-    func unFollowTheUser(hanlder: @escaping ((Result<Bool, APIError>)?) -> Void) {
-        guard let userID else {
-            hanlder(nil)
-            return
-        }
-        
+    func unFollowTheUser(hanlder: @escaping (Result<Bool, APIError>) -> Void) {
         userFollowService.unFollow(userID: userID) {[weak self] result in
             self?._errorMessage = nil
             switch result {
@@ -126,8 +128,7 @@ class UserDetailViewModel: UserDetailViewProtocol {
     func updateTheUser(tagLine: String?,
                        hanlder: @escaping ((Result<Bool, APIError>)?) -> Void) {
         guard isMyProfile,
-              let tagLine = tagLine,
-              let userID else {
+              let tagLine = tagLine else {
             hanlder(nil)
             return
         }
@@ -149,6 +150,37 @@ class UserDetailViewModel: UserDetailViewProtocol {
                 hanlder(.success(true))
             case .failure(let failure):
                 hanlder(.failure(failure))
+            }
+        }
+    }
+    
+    func getBookmarks(handler: @escaping (Result<Bool, Error>) -> Void) {
+        let request = MyBookmarksRequest(userID: userID)
+        listService.getAllMyBookmarks(request: request) {[weak self] result in
+            self?.bookmarkedPlaces.removeAll()
+            switch result {
+            case .success(let myPlaces):
+                if myPlaces.success ?? false {
+                    if let places = myPlaces.allPlaces {
+                        self?.bookmarkedPlaces = places.sorted(by: {
+                            let flag1 = $0.place?.isFavourite ?? false == true ? 1 : 0
+                            let flag2 = $1.place?.isFavourite ?? false == true ? 1 : 0
+                            return flag1 >= flag2
+                        })
+                        
+                        self?._errorMessage = nil
+                        handler(.success(true))
+                    } else {
+                        self?._errorMessage = Message.somethingWentWrong.value
+                        handler(.success(false))
+                    }
+                } else {
+                    self?._errorMessage = myPlaces.message
+                    handler(.success(false))
+                }
+                
+            case .failure(let error):
+                handler(.failure(error))
             }
         }
     }

@@ -50,17 +50,16 @@ class FilterPlacesViewModel: FilterPlacesProtocol {
         return frequencies
     }()
     
-    private var allCategories = [FilterCategory(title: "Restaurants",
-                                                accessoryType: .checkmark,
-                                                key: "restaurant"),
-                                 FilterCategory(title: "Bars",
-                                                key: "bars"),
-                                 FilterCategory(title: "Breakfast",
-                                                key: "breakfast"),
-                                 FilterCategory(title: "Coffee/Tea",
-                                                key: "coffee_tea"),
-                                 FilterCategory(title: "Dessert",
-                                                key: "dessert")]
+    private var allCategories: [FilterCategory] = {
+        var categories = [FilterCategory]()
+        for item in FilterCategoryKeys.allCases {
+            categories.append(FilterCategory(title: item.title,
+                                             key: item.key))
+        }
+        
+        categories[0].accessoryType = .checkmark
+        return categories
+    }()
     
     var totalSection: Int {
         return FilterSection.allCases.count
